@@ -1,12 +1,14 @@
 package main;
 
-import Kayttoliittyma.Kayttoliittyma;
+import Pelilogiikka.Peli;
+
+
 
 public class main {
 
     static public void main(String[] args) {
-        Kayttoliittyma liittyma = new Kayttoliittyma();
-        liittyma.run();
+        Peli peli = new Peli();
+        peli.pelaa();
         
     }
 }
