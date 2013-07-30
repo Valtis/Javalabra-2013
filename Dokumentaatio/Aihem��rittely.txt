@@ -1,0 +1,20 @@
+Aihe: Pong-peli
+
+Toteutetaan pong-peli jossa ruudulla liikkuu pallo jonka reittiä voi muuttaa mailoilla. Pallon osuessa mailojen takaiseen ruudun reunaan vastapuolella oleva pelaaja saa pisteen.
+
+Perusominaisuudet pelille:
+2 pelaajaa jotka voivat liikuttaa mailoja.
+Pallon kimpoaminen mailasta
+Yksi pallo
+Pelataan tiettyyn pistemäärään ennen voittajan julistamista
+Pistekirjanpito ruudulle
+
+
+-Lisäominaisuuksia ajan\motivaation puitteissa:
+AI-pelaaja
+Useampi kuin yksi pallo
+Tarkempi pallon kimpoaminen mailasta: Kimpoamiskulma riippuu miten lähelle reunaa pallo osuu; lähes keskelle, pallo kimpoaa ylös, reunoilla pallo kimpoaa lähes vaakatasossa
+
+Käyttäjät: 1 - 2 pelaajaa
+
+Käyttäjat voivat liikuttaa mailoja vasemmalle tai oikealle. Toinen pelaaja on ruudun yläreunalla, toinen alareunalla. Mailoja ei voi liikuttaa ruudulta ulos.
