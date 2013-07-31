@@ -4,5 +4,7 @@ package Pelilogiikka.Enumit;
 
 public enum EntiteettiTyyppi {
     PALLO,
-    MAILA;
+    PELAAJA_MAILA,
+    TEKOALY_MAILA
+    ;
 }

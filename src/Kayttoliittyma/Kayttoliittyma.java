@@ -1,8 +1,12 @@
 package Kayttoliittyma;
 
+import Pelilogiikka.Entiteetti.Entiteetti;
+import Pelilogiikka.Komponentti.Komponentti;
+import Pelilogiikka.Komponentti.PiirtoKomponentti;
 import Pelilogiikka.Peli;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -10,17 +14,14 @@ public class Kayttoliittyma implements Runnable {
 
     private JFrame frame;
     private Piirtoalusta piirtoalusta;
-    private Peli peli;
+
+    public boolean onNakyvilla() {
+        return frame.isVisible();
+    }
 
     @Override
     public void run() {
-        frame = new JFrame("Pong");
-        frame.setPreferredSize(new Dimension(800, 600));
 
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        luoKomponentit(frame.getContentPane());
-        AlustaPeli();
         frame.pack();
         frame.setVisible(true);
 
@@ -33,9 +34,35 @@ public class Kayttoliittyma implements Runnable {
         container.add(piirtoalusta);
 
     }
+    
+    public void piirra() {
+        frame.repaint();
+    }
 
-    private void AlustaPeli() {
-        peli = new Peli();
+    public void alusta() {
+        frame = new JFrame("Pong");
+        frame.setPreferredSize(new Dimension(800, 600));
+
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        luoKomponentit(frame.getContentPane());
+    }
+
+    public void lisaaNappainKuuntelija(Komponentti komponentti) throws ClassCastException, NullPointerException {
+        if (komponentti == null) {
+            throw new NullPointerException("Komponentin arvo null metodissa KayttoLiittyma.lisaaNappainKuuntelija()");
+        }
+        
+        KeyListener kuuntelija = (KeyListener) komponentti;
+        frame.addKeyListener(kuuntelija);
+    }
+
+    public void lisaaPiirrettava(Entiteetti entiteetti) throws ClassCastException, NullPointerException {
+        if (entiteetti == null) {
+            throw new NullPointerException("Entiteetin arvo null metodissa KayttoLiittyma.lisaaPiirrettava()");
+        }
+        
+        piirtoalusta.lisaaPiirrettava(entiteetti);
         
     }
 }

@@ -1,28 +1,39 @@
 package Pelilogiikka.Entiteetti;
 
-import Kayttoliittyma.Piirtoalusta;
 import Pelilogiikka.Enumit.EntiteettiTyyppi;
-import javax.swing.JFrame;
+import Pelilogiikka.Enumit.KomponenttiTyyppi;
+import Pelilogiikka.Komponentti.InputKomponentti;
+import Pelilogiikka.Komponentti.NopeusKomponentti;
+import Pelilogiikka.Komponentti.PaikkaKomponentti;
+import Pelilogiikka.Komponentti.SuoraKaidePiirtoKomponentti;
+
 
 public class EntiteettiTehdas {
 
-    public Entiteetti luoEntiteetti(EntiteettiTyyppi tyyppi, JFrame frame, Piirtoalusta alusta) {
+    public Entiteetti luoEntiteetti(EntiteettiTyyppi tyyppi, int x, int y) {
         switch (tyyppi) {
             case PALLO:
-                return luoPallo(frame, alusta);
-            case MAILA:
-                return luoMaila(frame, alusta);
+                return luoPallo();
+            case PELAAJA_MAILA:
+                return luoMaila(x, y);
+            case TEKOALY_MAILA:
+                throw new UnsupportedOperationException("Ei vielä implementoitu!");
         }
         return null;
     }
 
-    private Entiteetti luoPallo(JFrame frame, Piirtoalusta alusta) {
+    private Entiteetti luoPallo() {
         Entiteetti e = new Entiteetti();
         return e;
     }
     
-    private Entiteetti luoMaila(JFrame frame, Piirtoalusta alusta) {
+    private Entiteetti luoMaila(int x, int y) {
         Entiteetti e = new Entiteetti();
+        e.lisaaKomponentti(KomponenttiTyyppi.INPUT, new InputKomponentti());
+        e.lisaaKomponentti(KomponenttiTyyppi.NOPEUS, new NopeusKomponentti());
+        e.lisaaKomponentti(KomponenttiTyyppi.PAIKKA, new PaikkaKomponentti(x, y));
+        // kovakoodatut luvut, oikeasti varmaan parempi että luettaisiin tiedostosta\tulisi parametreina
+        e.lisaaKomponentti(KomponenttiTyyppi.PIIRTO, new SuoraKaidePiirtoKomponentti(150, 20)); 
         return e;
     }
     

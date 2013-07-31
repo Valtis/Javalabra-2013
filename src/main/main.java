@@ -7,8 +7,12 @@ import Pelilogiikka.Peli;
 public class main {
 
     static public void main(String[] args) {
-        Peli peli = new Peli();
-        peli.pelaa();
+        try {
+            Peli peli = new Peli();
+            peli.pelaa();
+        } catch (Exception ex) {
+            // todo: lisää loggaus tänne
+        }
         
     }
 }

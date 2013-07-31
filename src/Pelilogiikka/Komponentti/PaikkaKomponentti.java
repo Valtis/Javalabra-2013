@@ -10,13 +10,24 @@ public class PaikkaKomponentti extends Komponentti {
     private int y;
     
     public PaikkaKomponentti() {
-        x = 0;
-        y = 0;
+        asetaPaikka(0, 0);
     }
     
-    public void asetaPaikka(int x, int y) {
+    public PaikkaKomponentti(int x, int y) {
+        asetaPaikka(x, y);
+    }
+    
+    public final void asetaPaikka(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+    
+    public int getX() {
+        return x;
+    }
+    
+    public int getY() {
+        return y;
     }
     
     @Override
@@ -24,4 +35,5 @@ public class PaikkaKomponentti extends Komponentti {
         x += viesti.getNopeus();
     }
     
+
 }

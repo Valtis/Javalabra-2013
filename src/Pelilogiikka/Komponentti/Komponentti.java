@@ -2,6 +2,7 @@
 
 package Pelilogiikka.Komponentti;
 
+
 import Pelilogiikka.Komponentti.Viestit.LiikeViesti;
 import Pelilogiikka.Komponentti.Viestit.NopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.Viesti;
@@ -16,7 +17,7 @@ public abstract class Komponentti {
         this.viestit = viestit;
     }
     
-    public void paivita(long delta) {
+    public void paivita(double ticks) {
     
     }
     
@@ -27,4 +28,6 @@ public abstract class Komponentti {
     public void vieraile(NopeusViesti viesti) {
     
     }
+    
+
 }
