@@ -8,12 +8,12 @@ import java.util.EnumMap;
 import java.util.Map;
 
 
-public class NopeusKomponentti extends Komponentti {
+public class MailaNopeusKomponentti extends Komponentti {
 
     private int nopeus;
     private Map<Suunta, Integer> nopeusMuutos;
     
-    public NopeusKomponentti() {
+    public MailaNopeusKomponentti() {
         nopeus = 0;
         nopeusMuutos = new EnumMap<Suunta, Integer>(Suunta.class);
         

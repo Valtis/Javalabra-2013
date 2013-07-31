@@ -1,15 +1,15 @@
 30.7.2013: 
 
 21:20 - 21:50: Projektin aloittelu. Projektitiedostot, repon luonti, aihem‰‰rittely, tuntikirjanpidon aloittelu
-21:50 - 23:30: Koodailua
+21:50 - 23:30: Koodailua. Alustava entiteettisysteemi
 
 Yhteens‰ t‰n‰‰n: 2h 10min
 Yhteens‰ projektin aikana: 2h 10min
 
 31.7.2013
 
-10:40 - 12:15 Koodailua
-12:55 - Koodailua
+10:40 - 12:15 Koodailua. Ruudulle liikkuva maila
+12:55 - 13:50 Koodailua. Toinen maila + tˆrm‰ystarkistukset reunojen kanssa. Pilkottiin pelaajan paikkakomponentti erikseen (valmistelua palloa varten)
 
 
 Yhteens‰ t‰n‰‰n
