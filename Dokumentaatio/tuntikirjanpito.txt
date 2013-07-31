@@ -9,7 +9,7 @@ Yhteensä projektin aikana: 2h 10min
 31.7.2013
 
 10:40 - 12:15 Koodailua. Ruudulle liikkuva maila
-12:55 - 13:50 Koodailua. Toinen maila + törmäystarkistukset reunojen kanssa. Pilkottiin pelaajan paikkakomponentti erikseen (valmistelua palloa varten)
+12:55 - 13:50 Koodailua. Toinen maila + törmäystarkistukset reunojen kanssa. Pilkottiin pelaajan paikkakomponentti erikseen (valmistelua palloa varten). Palloon liittyvää koodausta.
 
 
 Yhteensä tänään

@@ -16,20 +16,18 @@ public class Peli {
     private TormaysManageri tormaysManageri;
     private List<Entiteetti> entiteetit;
     
-    private final int PELIALUEEN_LEVEYS = 800;
-    private final int PELIALUEEN_KORKEUS = 600;
     private final long TICK = 33*1000000; // 33 millisekuntia
     private long nykyinenAika;
 
     public Peli() {
         entiteetit = new ArrayList<Entiteetti>(); 
-        tormaysManageri = new TormaysManageri(PELIALUEEN_LEVEYS, PELIALUEEN_KORKEUS);
+        tormaysManageri = new TormaysManageri();
         nykyinenAika = System.nanoTime();    
     }
 
     private void alustaUI() {
         liittyma = new Kayttoliittyma();
-        liittyma.alusta(PELIALUEEN_LEVEYS, PELIALUEEN_KORKEUS);
+        liittyma.alusta();
      
     }
     
@@ -40,6 +38,7 @@ public class Peli {
     private void alustaEntiteetit() {
        entiteetit.add(luoPelaaja(Suunta.VASEN, KeyEvent.VK_A, Suunta.OIKEA, KeyEvent.VK_D, 250, 10));
        entiteetit.add(luoPelaaja(Suunta.VASEN, KeyEvent.VK_LEFT, Suunta.OIKEA, KeyEvent.VK_RIGHT, 250, 530));
+       entiteetit.add(luoPallo(800/2 - 10, 600/2 - 10));
        
       
     }
@@ -54,6 +53,15 @@ public class Peli {
         return pelaaja;
     }
     
+    private Entiteetti luoPallo(int x, int y) {
+        EntiteettiTehdas tehdas = new EntiteettiTehdas();
+        Entiteetti pallo = tehdas.luoEntiteetti(EntiteettiTyyppi.PALLO, x, y);
+    
+        liittyma.lisaaPiirrettava(pallo);
+        tormaysManageri.lisaaTormaaja(pallo);
+        return pallo;
+    }
+    
     private void alustaPelaajanInput(Entiteetti pelaaja, int ensimmaisenSuunnanNappain, Suunta ensimmainenSuunta, int toisenSuunnanNappain, Suunta toinenSuunta) throws NullPointerException, ClassCastException {
         InputKomponentti input = (InputKomponentti)pelaaja.getKomponentti(KomponenttiTyyppi.INPUT);
         input.asetaNappain(ensimmaisenSuunnanNappain, ensimmainenSuunta);
@@ -66,7 +74,11 @@ public class Peli {
         alustaEntiteetit();
         
         kaynnistaUI();
+        
+        
         while (liittyma.onNakyvilla()) {
+            // ikkunan koko mahdollisesti muuttunut
+            tormaysManageri.asetaAlueenKoko(liittyma.peliAlueenLeveys(), liittyma.peliAlueenKorkeus());
             paivitaPeliLogiikka();
             liittyma.piirra();
         }

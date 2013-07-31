@@ -4,7 +4,8 @@ package Pelilogiikka.Komponentti;
 
 
 import Pelilogiikka.Komponentti.Viestit.LiikeViesti;
-import Pelilogiikka.Komponentti.Viestit.NopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.PalloNopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.PelaajaNopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 import Pelilogiikka.Komponentti.Viestit.Viesti;
 import java.util.Queue;
@@ -26,13 +27,19 @@ public abstract class Komponentti {
     
     }
     
-    public void vieraile(NopeusViesti viesti) {
+    public void vieraile(PelaajaNopeusViesti viesti) {
     
     }
+    
+    public void vieraile(PalloNopeusViesti viesti) {
+    
+    }
+    
     
     public void vieraile(TormaysReunaanViesti viesti) {
     
     }
+    
     
 
 }

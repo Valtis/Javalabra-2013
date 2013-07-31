@@ -11,14 +11,17 @@ import java.util.List;
 
 public class TormaysManageri {
 
-    private final int PELIALUEEN_LEVEYS;
-    private final int PELIALUEEN_KORKEUS;
+    private int pelialueenLeveys;
+    private int pelialueenKorkeus;
     private List<Entiteetti> tormaajat;
 
-    public TormaysManageri(int leveys, int korkeus) {
-        tormaajat = new ArrayList<Entiteetti>();
-        PELIALUEEN_LEVEYS = leveys;
-        PELIALUEEN_KORKEUS = korkeus;
+    public TormaysManageri() {
+        tormaajat = new ArrayList<Entiteetti>();   
+    }
+    
+    public void asetaAlueenKoko(int leveys, int korkeus) {
+        pelialueenLeveys = leveys;
+        pelialueenKorkeus = korkeus;
     }
 
     public void lisaaTormaaja(Entiteetti tormaaja) {
@@ -30,6 +33,7 @@ public class TormaysManageri {
             // tarkistetaan ettei entiteetti kulje reunan yli
 
             tarkistaReunat(e);
+            tarkistaEntiteettienValisetTormaykset(e);
         }
     }
 
@@ -39,12 +43,21 @@ public class TormaysManageri {
 
         if (paikka.getX() < 0) {
             e.kasitteleValittomastiViesti(new TormaysReunaanViesti(Reuna.VASEN));
-        } else if (paikka.getX() + tormays.getLeveys() > PELIALUEEN_LEVEYS) {
+        } else if (paikka.getX() + tormays.getLeveys() > pelialueenLeveys) {
             e.kasitteleValittomastiViesti(new TormaysReunaanViesti(Reuna.OIKEA));
         } else if (paikka.getY() < 0) {
             e.kasitteleValittomastiViesti(new TormaysReunaanViesti(Reuna.YLA));
-        } else if (paikka.getY() + tormays.getKorkeus() > PELIALUEEN_KORKEUS) {
-            e.kasitteleValittomastiViesti(new TormaysReunaanViesti(Reuna.YLA));
+        } else if (paikka.getY() + tormays.getKorkeus() > pelialueenKorkeus) {
+            e.kasitteleValittomastiViesti(new TormaysReunaanViesti(Reuna.ALA));
+        }
+    }
+    
+    private void tarkistaEntiteettienValisetTormaykset(Entiteetti tormaaja) {
+        for (Entiteetti tormattava : tormaajat) {
+            if (false) {
+                tormaaja.kasitteleValittomastiViesti(new TormaysEntiteettiin(tormattava));
+            }
+            
         }
     }
 }

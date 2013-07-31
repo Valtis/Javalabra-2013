@@ -2,7 +2,7 @@
 
 package Pelilogiikka.Komponentti;
 
-import Pelilogiikka.Komponentti.Viestit.NopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.PelaajaNopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 
 

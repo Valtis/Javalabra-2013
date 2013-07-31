@@ -3,7 +3,7 @@ package Pelilogiikka.Komponentti;
 
 import Pelilogiikka.Enumit.Suunta;
 import Pelilogiikka.Komponentti.Viestit.LiikeViesti;
-import Pelilogiikka.Komponentti.Viestit.NopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.PelaajaNopeusViesti;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -38,7 +38,7 @@ public class MailaNopeusKomponentti extends Komponentti {
     @Override
     public void paivita(double ticks) {
         if (nopeus != 0) {
-            viestit.add(new NopeusViesti((int)((double)nopeus*ticks)));
+            viestit.add(new PelaajaNopeusViesti((int)((double)nopeus*ticks)));
         }
     }
 

@@ -2,7 +2,7 @@
 
 package Pelilogiikka.Komponentti;
 
-import Pelilogiikka.Komponentti.Viestit.NopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.PelaajaNopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 
 
@@ -19,7 +19,7 @@ public class MailaPaikkaKomponentti extends PaikkaKomponentti {
     }
     
     @Override
-    public void vieraile(NopeusViesti viesti) {
+    public void vieraile(PelaajaNopeusViesti viesti) {
         vanhaX = getX();
         asetaX(viesti.getNopeus() + getX());
     }
