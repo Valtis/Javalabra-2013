@@ -5,10 +5,10 @@ package Pelilogiikka.Komponentti.Viestit;
 import Pelilogiikka.Komponentti.Komponentti;
 
 
-public class PelaajaNopeusViesti implements Viesti {
+public class NopeusViesti implements Viesti {
     private int nopeus;
     
-    public PelaajaNopeusViesti(int nopeus) {
+    public NopeusViesti(int nopeus) {
         this.nopeus = nopeus;
     }
     

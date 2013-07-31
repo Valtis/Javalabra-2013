@@ -20,10 +20,7 @@ public class PalloNopeusKomponentti extends Komponentti {
     
     public PalloNopeusKomponentti(int maxNopeus) {
         MAX_NOPEUS = maxNopeus;
-        Random random = new Random();
-        // asetetaan satunnainen suunta
-        xNopeus = MAX_NOPEUS * (int)Math.pow(-1, random.nextInt() % 2);
-        yNopeus = MAX_NOPEUS * (int)Math.pow(-1, random.nextInt() % 2);
+        asetaSatunnainenNopeus();
     }
     
     @Override 
@@ -36,7 +33,7 @@ public class PalloNopeusKomponentti extends Komponentti {
         switch (viesti.getReuna()) {
             case YLA:
             case ALA:
-                yNopeus = -yNopeus;
+                asetaSatunnainenNopeus();
                 break;
             case VASEN:
             case OIKEA:
@@ -48,6 +45,13 @@ public class PalloNopeusKomponentti extends Komponentti {
     @Override
     public void vieraile(TormaysEntiteettiinViesti viesti) {
        yNopeus = -yNopeus;
+    }
+
+    private void asetaSatunnainenNopeus() {
+        Random random = new Random();
+        // asetetaan satunnainen suunta
+        xNopeus = MAX_NOPEUS * (int)Math.pow(-1, random.nextInt() % 2);
+        yNopeus = MAX_NOPEUS * (int)Math.pow(-1, random.nextInt() % 2);
     }
     
     

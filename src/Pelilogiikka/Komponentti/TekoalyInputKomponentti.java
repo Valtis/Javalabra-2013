@@ -4,9 +4,6 @@ package Pelilogiikka.Komponentti;
 
 import Pelilogiikka.Enumit.Suunta;
 import Pelilogiikka.Komponentti.Viestit.LiikeViesti;
-import Pelilogiikka.Komponentti.Viestit.PelaajaNopeusViesti;
-import java.util.EnumMap;
-import java.util.Map;
 
 
 public class TekoalyInputKomponentti extends Komponentti {
