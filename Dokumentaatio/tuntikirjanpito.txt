@@ -10,7 +10,8 @@ Yhteensä projektin aikana: 2h 10min
 
 10:40 - 12:15 Koodailua. Ruudulle liikkuva maila
 12:55 - 15:00 Koodailua. Toinen maila + törmäystarkistukset reunojen kanssa. Pilkottiin pelaajan paikkakomponentti erikseen (valmistelua palloa varten). Palloon liittyvää koodausta. Törmäystarkistuksia
-15:17 - 15:55 Koodailua. AI-maila, törmäystarkastuksen koodausta.
+15:20 - 15:55 Koodailua. AI-maila, törmäystarkastuksen koodausta.
+19:45 - 21:15 Koodailua, testailua mikä ei johtanut juuri mihinkään. 
 
-Yhteensä tänään 
-Yhteensä projektin aikana
+Yhteensä tänään 5h 45min
+Yhteensä projektin aikana 7h 55min
