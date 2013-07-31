@@ -13,20 +13,23 @@ import java.util.List;
 
 public class Peli {
     private Kayttoliittyma liittyma;
-    
+    private TormaysManageri tormaysManageri;
     private List<Entiteetti> entiteetit;
     
+    private final int PELIALUEEN_LEVEYS = 800;
+    private final int PELIALUEEN_KORKEUS = 600;
     private final long TICK = 33*1000000; // 33 millisekuntia
     private long nykyinenAika;
 
     public Peli() {
         entiteetit = new ArrayList<Entiteetti>(); 
-        nykyinenAika = System.nanoTime();
+        tormaysManageri = new TormaysManageri(PELIALUEEN_LEVEYS, PELIALUEEN_KORKEUS);
+        nykyinenAika = System.nanoTime();    
     }
 
     private void alustaUI() {
         liittyma = new Kayttoliittyma();
-        liittyma.alusta();
+        liittyma.alusta(PELIALUEEN_LEVEYS, PELIALUEEN_KORKEUS);
      
     }
     
@@ -36,23 +39,26 @@ public class Peli {
     
     private void alustaEntiteetit() {
        entiteetit.add(luoPelaaja(Suunta.VASEN, KeyEvent.VK_A, Suunta.OIKEA, KeyEvent.VK_D, 250, 10));
+       entiteetit.add(luoPelaaja(Suunta.VASEN, KeyEvent.VK_LEFT, Suunta.OIKEA, KeyEvent.VK_RIGHT, 250, 530));
        
       
     }
     
-    // todo - pilko pienemmäksi
     private Entiteetti luoPelaaja(Suunta ensimmainenSuunta, int ensimmaisenSuunnanNappain, Suunta toinenSuunta, int toisenSuunnanNappain, int x, int y) {
         EntiteettiTehdas tehdas = new EntiteettiTehdas();
         Entiteetti pelaaja = tehdas.luoEntiteetti(EntiteettiTyyppi.PELAAJA_MAILA, x, y);
-        
+    
+        alustaPelaajanInput(pelaaja, ensimmaisenSuunnanNappain, ensimmainenSuunta, toisenSuunnanNappain, toinenSuunta);
+        liittyma.lisaaPiirrettava(pelaaja);
+        tormaysManageri.lisaaTormaaja(pelaaja);
+        return pelaaja;
+    }
+    
+    private void alustaPelaajanInput(Entiteetti pelaaja, int ensimmaisenSuunnanNappain, Suunta ensimmainenSuunta, int toisenSuunnanNappain, Suunta toinenSuunta) throws NullPointerException, ClassCastException {
         InputKomponentti input = (InputKomponentti)pelaaja.getKomponentti(KomponenttiTyyppi.INPUT);
         input.asetaNappain(ensimmaisenSuunnanNappain, ensimmainenSuunta);
         input.asetaNappain(toisenSuunnanNappain, toinenSuunta);
-        
         liittyma.lisaaNappainKuuntelija(input);
-
-        liittyma.lisaaPiirrettava(pelaaja);
-        return pelaaja;
     }
 
     public void pelaa() {
@@ -73,7 +79,7 @@ public class Peli {
             nykyinenAika = uusiAika;
             
             paivitaEntiteetit((double)delta/(double)TICK);
-            
+            tormaysManageri.tarkistaTormaykset();
         }
     }
     
@@ -82,6 +88,8 @@ public class Peli {
             e.paivita(ticks);
         }
     }
+
+
 
  
 }

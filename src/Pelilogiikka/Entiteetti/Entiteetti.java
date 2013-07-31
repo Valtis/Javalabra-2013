@@ -31,6 +31,14 @@ public class Entiteetti {
 
         return komponentit.get(tyyppi);
     }
+    
+    public void lisaaViesti(Viesti v) {
+        viestit.add(v);
+    }
+    
+    public void kasitteleValittomastiViesti(Viesti v) {
+        kasitteleViesti(v);
+    }
 
     public void paivita(double ticks) {
 
@@ -47,14 +55,16 @@ public class Entiteetti {
     private void kasitteleViestit() {
         while (!viestit.isEmpty()) {
             Viesti v = viestit.poll();
-            
-            if (v == null) {
-                break;
-            }
-            
-            for (Komponentti k : komponentit.values()) {
-                v.otaVastaanVierailija(k);
-            }
+            kasitteleViesti(v);             
+        }
+    }
+
+    private void kasitteleViesti(Viesti v) {
+        if (v == null) {
+            return;
+        }
+        for (Komponentti k : komponentit.values()) {
+            v.otaVastaanVierailija(k);
         }
     }
 }

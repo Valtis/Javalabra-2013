@@ -23,6 +23,6 @@ public class SuoraKaidePiirtoKomponentti extends PiirtoKomponentti {
     
     @Override
     public void piirra(Graphics graphics, int x, int y) {
-       graphics.fillRect(x, y, leveys, korkeus); 
+       graphics.fillRect(x, y, leveys, korkeus);  
     }
 }

@@ -27,7 +27,6 @@ public class NopeusKomponentti extends Komponentti {
 
     @Override
     public void vieraile(LiikeViesti viesti) {
-        
         if (viesti.aloitaLiike()) {
             nopeus = nopeusMuutos.get(viesti.getSuunta());
         }

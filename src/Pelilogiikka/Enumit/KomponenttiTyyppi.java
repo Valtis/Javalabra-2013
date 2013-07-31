@@ -6,6 +6,7 @@ public enum KomponenttiTyyppi {
     INPUT,
     NOPEUS,
     PAIKKA,
-    PIIRTO
+    PIIRTO,
+    TORMAYS
     ;
 }

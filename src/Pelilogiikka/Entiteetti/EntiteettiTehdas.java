@@ -6,6 +6,7 @@ import Pelilogiikka.Komponentti.InputKomponentti;
 import Pelilogiikka.Komponentti.NopeusKomponentti;
 import Pelilogiikka.Komponentti.PaikkaKomponentti;
 import Pelilogiikka.Komponentti.SuoraKaidePiirtoKomponentti;
+import Pelilogiikka.Komponentti.TormaysKomponentti;
 
 
 public class EntiteettiTehdas {
@@ -34,6 +35,7 @@ public class EntiteettiTehdas {
         e.lisaaKomponentti(KomponenttiTyyppi.PAIKKA, new PaikkaKomponentti(x, y));
         // kovakoodatut luvut, oikeasti varmaan parempi että luettaisiin tiedostosta\tulisi parametreina
         e.lisaaKomponentti(KomponenttiTyyppi.PIIRTO, new SuoraKaidePiirtoKomponentti(150, 20)); 
+        e.lisaaKomponentti(KomponenttiTyyppi.TORMAYS, new TormaysKomponentti(150, 20));
         return e;
     }
     
