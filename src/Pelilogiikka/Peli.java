@@ -7,6 +7,8 @@ import Pelilogiikka.Enumit.EntiteettiTyyppi;
 import Pelilogiikka.Enumit.KomponenttiTyyppi;
 import Pelilogiikka.Enumit.Suunta;
 import Pelilogiikka.Komponentti.InputKomponentti;
+import Pelilogiikka.Komponentti.PaikkaKomponentti;
+import Pelilogiikka.Komponentti.TekoalyInputKomponentti;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +38,17 @@ public class Peli {
     }
     
     private void alustaEntiteetit() {
-       entiteetit.add(luoPelaaja(Suunta.VASEN, KeyEvent.VK_A, Suunta.OIKEA, KeyEvent.VK_D, 250, 10));
-       entiteetit.add(luoPelaaja(Suunta.VASEN, KeyEvent.VK_LEFT, Suunta.OIKEA, KeyEvent.VK_RIGHT, 250, 530));
-       entiteetit.add(luoPallo(800/2 - 10, 600/2 - 10));
+       Entiteetti pallo = luoPallo(800/2 - 10, 600/2 - 10);
+       entiteetit.add(pallo);
        
-      
+       Entiteetti ai = luoAI(250, 10, pallo);
+       
+       entiteetit.add(ai);
+       
+       //entiteetit.add(luoPelaaja(Suunta.VASEN, KeyEvent.VK_A, Suunta.OIKEA, KeyEvent.VK_D, 250, 10));
+       
+       entiteetit.add(luoPelaaja(Suunta.VASEN, KeyEvent.VK_LEFT, Suunta.OIKEA, KeyEvent.VK_RIGHT, 250, 530));
+       
     }
     
     private Entiteetti luoPelaaja(Suunta ensimmainenSuunta, int ensimmaisenSuunnanNappain, Suunta toinenSuunta, int toisenSuunnanNappain, int x, int y) {
@@ -51,6 +59,21 @@ public class Peli {
         liittyma.lisaaPiirrettava(pelaaja);
         tormaysManageri.lisaaTormaaja(pelaaja);
         return pelaaja;
+    }
+    
+    private Entiteetti luoAI(int x, int y, Entiteetti pallo) {
+        EntiteettiTehdas tehdas = new EntiteettiTehdas();
+        Entiteetti ai = tehdas.luoEntiteetti(EntiteettiTyyppi.TEKOALY_MAILA, x, y);
+    
+        liittyma.lisaaPiirrettava(ai);
+        tormaysManageri.lisaaTormaaja(ai);
+        
+        TekoalyInputKomponentti tekoalyInput = (TekoalyInputKomponentti)ai.getKomponentti(KomponenttiTyyppi.INPUT);
+        tekoalyInput.asetaPallonPaikka((PaikkaKomponentti)pallo.getKomponentti(KomponenttiTyyppi.PAIKKA));
+         
+        return ai;
+        
+
     }
     
     private Entiteetti luoPallo(int x, int y) {
@@ -76,9 +99,10 @@ public class Peli {
         kaynnistaUI();
         
         
+        tormaysManageri.asetaAlueenKoko(liittyma.peliAlueenLeveys(), liittyma.peliAlueenKorkeus());
+        
         while (liittyma.onNakyvilla()) {
-            // ikkunan koko mahdollisesti muuttunut
-            tormaysManageri.asetaAlueenKoko(liittyma.peliAlueenLeveys(), liittyma.peliAlueenKorkeus());
+            
             paivitaPeliLogiikka();
             liittyma.piirra();
         }

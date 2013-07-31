@@ -5,7 +5,9 @@ import Pelilogiikka.Enumit.KomponenttiTyyppi;
 import Pelilogiikka.Enumit.Reuna;
 import Pelilogiikka.Komponentti.PaikkaKomponentti;
 import Pelilogiikka.Komponentti.TormaysKomponentti;
+import Pelilogiikka.Komponentti.Viestit.TormaysEntiteettiinViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +18,9 @@ public class TormaysManageri {
     private List<Entiteetti> tormaajat;
 
     public TormaysManageri() {
-        tormaajat = new ArrayList<Entiteetti>();   
+        tormaajat = new ArrayList<Entiteetti>();
     }
-    
+
     public void asetaAlueenKoko(int leveys, int korkeus) {
         pelialueenLeveys = leveys;
         pelialueenKorkeus = korkeus;
@@ -51,13 +53,37 @@ public class TormaysManageri {
             e.kasitteleValittomastiViesti(new TormaysReunaanViesti(Reuna.ALA));
         }
     }
-    
+
     private void tarkistaEntiteettienValisetTormaykset(Entiteetti tormaaja) {
+
         for (Entiteetti tormattava : tormaajat) {
-            if (false) {
-                tormaaja.kasitteleValittomastiViesti(new TormaysEntiteettiin(tormattava));
+
+            if (tormaaja == tormattava) {
+                continue;
             }
             
+            boolean tormaavat = tarkistaTormays(tormaaja, tormattava);
+
+            if (tormaavat) {
+                tormaaja.kasitteleValittomastiViesti(new TormaysEntiteettiinViesti(tormattava));
+            }
+
         }
+    }
+
+    private boolean tarkistaTormays(Entiteetti tormaaja, Entiteetti tormattava) {
+
+        TormaysKomponentti tormaajanTormaysKomponentti = (TormaysKomponentti) tormaaja.getKomponentti(KomponenttiTyyppi.TORMAYS);
+        PaikkaKomponentti tormaajanPaikka = (PaikkaKomponentti) tormaaja.getKomponentti(KomponenttiTyyppi.PAIKKA);
+
+        TormaysKomponentti tormattavanTormaysKomponentti = (TormaysKomponentti) tormattava.getKomponentti(KomponenttiTyyppi.TORMAYS);
+        PaikkaKomponentti tormattavanPaikka = (PaikkaKomponentti) tormattava.getKomponentti(KomponenttiTyyppi.PAIKKA);
+
+        // luodaan nelikulmiot...
+        Rectangle tormaajanSuorakulmio = new Rectangle(tormaajanPaikka.getX(), tormaajanPaikka.getY(), tormaajanTormaysKomponentti.getLeveys(), tormaajanTormaysKomponentti.getKorkeus());
+        Rectangle tormattavanSuorakulmio = new Rectangle(tormattavanPaikka.getX(), tormattavanPaikka.getY(), tormattavanTormaysKomponentti.getLeveys(), tormattavanTormaysKomponentti.getKorkeus());
+
+        // ja käytetään valmista metodia tarkistamaan leikkaavatko nämä!
+        return tormaajanSuorakulmio.intersects(tormattavanSuorakulmio);
     }
 }

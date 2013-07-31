@@ -13,7 +13,7 @@ public class TormaysEntiteettiinViesti implements Viesti {
     }
     
     public Entiteetti getTormaaja() {
-    
+        return tormatty;
     }
     
     @Override

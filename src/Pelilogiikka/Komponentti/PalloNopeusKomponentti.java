@@ -3,12 +3,13 @@
 package Pelilogiikka.Komponentti;
 
 import Pelilogiikka.Komponentti.Viestit.PalloNopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.TormaysEntiteettiinViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 import java.util.Random;
 
 /*
  Mahdollisesti hienostuneempi mekanismi nopeudelle? maxnopeus vektoriksi -> xnopeus^2 + yNopeus^2 = maxNopeus^2 ?
- * Törmäystarkistus muokkaisi tätä
+ * Törmäystarkistus muokkaisi nopeuden kulmaa riippuen mihin kohtaan osutaan mailaa
  */
 
 public class PalloNopeusKomponentti extends Komponentti {
@@ -20,6 +21,7 @@ public class PalloNopeusKomponentti extends Komponentti {
     public PalloNopeusKomponentti(int maxNopeus) {
         MAX_NOPEUS = maxNopeus;
         Random random = new Random();
+        // asetetaan satunnainen suunta
         xNopeus = MAX_NOPEUS * (int)Math.pow(-1, random.nextInt() % 2);
         yNopeus = MAX_NOPEUS * (int)Math.pow(-1, random.nextInt() % 2);
     }
@@ -41,6 +43,11 @@ public class PalloNopeusKomponentti extends Komponentti {
                 xNopeus = -xNopeus;
 
         }
+    }
+    
+    @Override
+    public void vieraile(TormaysEntiteettiinViesti viesti) {
+       yNopeus = -yNopeus;
     }
     
     

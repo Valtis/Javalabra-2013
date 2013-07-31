@@ -5,10 +5,12 @@ import Pelilogiikka.Enumit.KomponenttiTyyppi;
 import Pelilogiikka.Komponentti.InputKomponentti;
 import Pelilogiikka.Komponentti.MailaNopeusKomponentti;
 import Pelilogiikka.Komponentti.MailaPaikkaKomponentti;
+import Pelilogiikka.Komponentti.PaikkaKomponentti;
 import Pelilogiikka.Komponentti.PalloNopeusKomponentti;
 import Pelilogiikka.Komponentti.PalloPaikkaKomponentti;
 import Pelilogiikka.Komponentti.PalloPiirtoKomponentti;
 import Pelilogiikka.Komponentti.SuoraKaidePiirtoKomponentti;
+import Pelilogiikka.Komponentti.TekoalyInputKomponentti;
 import Pelilogiikka.Komponentti.TormaysKomponentti;
 
 
@@ -19,9 +21,9 @@ public class EntiteettiTehdas {
             case PALLO:
                 return luoPallo(x, y);
             case PELAAJA_MAILA:
-                return luoMaila(x, y);
+                return luoPelaajanMaila(x, y);
             case TEKOALY_MAILA:
-                throw new UnsupportedOperationException("Ei vielä implementoitu!");
+                return luoTekoalyMaila(x, y);
         }
         return null;
     }
@@ -38,15 +40,32 @@ public class EntiteettiTehdas {
         return e;
     }
     
-    private Entiteetti luoMaila(int x, int y) {
+    private Entiteetti luoPelaajanMaila(int x, int y) {
+        
+        
         Entiteetti e = new Entiteetti();
+        luoYhteisetMailaKomponentit(e, x, y);
         e.lisaaKomponentti(KomponenttiTyyppi.INPUT, new InputKomponentti());
+        return e;
+    }
+
+    private Entiteetti luoTekoalyMaila(int x, int y) {
+        Entiteetti e = new Entiteetti();
+        luoYhteisetMailaKomponentit(e, x, y);
+        
+        TekoalyInputKomponentti k = new TekoalyInputKomponentti();
+        k.asetaOmaPaikka((PaikkaKomponentti)e.getKomponentti(KomponenttiTyyppi.PAIKKA));
+        e.lisaaKomponentti(KomponenttiTyyppi.INPUT, k);
+        return e;
+        
+    }
+
+    private void luoYhteisetMailaKomponentit(Entiteetti e, int x, int y) {
         e.lisaaKomponentti(KomponenttiTyyppi.NOPEUS, new MailaNopeusKomponentti());
         e.lisaaKomponentti(KomponenttiTyyppi.PAIKKA, new MailaPaikkaKomponentti(x, y));
         // kovakoodatut luvut, oikeasti varmaan parempi että luettaisiin tiedostosta\tulisi parametreina
         e.lisaaKomponentti(KomponenttiTyyppi.PIIRTO, new SuoraKaidePiirtoKomponentti(150, 20)); 
         e.lisaaKomponentti(KomponenttiTyyppi.TORMAYS, new TormaysKomponentti(150, 20));
-        return e;
     }
     
 }
