@@ -20,7 +20,6 @@ public class Entiteetti {
 
     public void lisaaKomponentti(KomponenttiTyyppi tyyppi, Komponentti k) {
         k.lisaaViestijono(viestit);
-
         komponentit.put(tyyppi, k);
     }
 
@@ -63,6 +62,7 @@ public class Entiteetti {
         if (v == null) {
             return;
         }
+        
         for (Komponentti k : komponentit.values()) {
             v.otaVastaanVierailija(k);
         }

@@ -4,5 +4,5 @@ package Pelilogiikka.Komponentti.Viestit;
 import Pelilogiikka.Komponentti.Komponentti;
 
 public interface  Viesti {
-    public void otaVastaanVierailija(Komponentti k);
+    public void otaVastaanVierailija(ViestiVierailija k);
 }

@@ -19,7 +19,7 @@ public class TormaysReunaanViesti implements Viesti {
     }
     
     @Override
-    public void otaVastaanVierailija(Komponentti k) {
+    public void otaVastaanVierailija(ViestiVierailija k) {
         k.vieraile(this);
     }
 

@@ -3,16 +3,17 @@
 package Pelilogiikka.Komponentti;
 
 
+import Pelilogiikka.Komponentti.Viestit.ViestiVierailija;
 import Pelilogiikka.Komponentti.Viestit.LiikeViesti;
-import Pelilogiikka.Komponentti.Viestit.PalloNopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.NopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.PalloNopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysEntiteettiinViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 import Pelilogiikka.Komponentti.Viestit.Viesti;
 import java.util.Queue;
 
 
-public abstract class Komponentti {
+public abstract class Komponentti implements ViestiVierailija {
     
     protected Queue<Viesti> viestit;
     
@@ -24,23 +25,28 @@ public abstract class Komponentti {
     
     }
     
+    @Override
     public void vieraile(LiikeViesti viesti) {
     
     }
     
+    @Override
     public void vieraile(NopeusViesti viesti) {
     
     }
     
+    @Override
     public void vieraile(PalloNopeusViesti viesti) {
     
     }
     
     
+    @Override
     public void vieraile(TormaysReunaanViesti viesti) {
     
     }
     
+    @Override
     public void vieraile(TormaysEntiteettiinViesti viesti) {
     
     }
