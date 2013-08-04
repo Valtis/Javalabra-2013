@@ -1,6 +1,7 @@
 package Pelilogiikka.Komponentti;
 
-import Pelilogiikka.Komponentti.Viestit.PalloNopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.AlustaNopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.NopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysEntiteettiinViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 import java.util.Random;
@@ -11,7 +12,7 @@ public class PalloNopeusKomponentti extends Komponentti {
     private int xNopeus;
     private int yNopeus;
     private final int MAX_NOPEUS;
-    private final int TORMAYS_HUOMIOIMATTAJATTAMIS_AIKA = 3;
+    private final int TORMAYS_HUOMIOIMATTAJATTAMIS_AIKA = 6;
     private int entiteettiTormaysLaskuri;
     private int seinaTormaysLaskuri;
 
@@ -25,7 +26,7 @@ public class PalloNopeusKomponentti extends Komponentti {
 
     @Override
     public void paivita(double ticks) {
-        viestit.add(new PalloNopeusViesti(xNopeus, yNopeus));
+        viestit.add(new NopeusViesti(xNopeus, yNopeus));
         if (entiteettiTormaysLaskuri > 0) {
             --entiteettiTormaysLaskuri;
         }
@@ -41,7 +42,7 @@ public class PalloNopeusKomponentti extends Komponentti {
         switch (viesti.getReuna()) {
             case YLA:
             case ALA:
-                asetaSatunnainenNopeus();
+                yNopeus = -yNopeus;
                 break;
             case VASEN:
             case OIKEA:
@@ -50,6 +51,7 @@ public class PalloNopeusKomponentti extends Komponentti {
                 }
                 xNopeus = -xNopeus;
                 seinaTormaysLaskuri = TORMAYS_HUOMIOIMATTAJATTAMIS_AIKA;
+                entiteettiTormaysLaskuri = TORMAYS_HUOMIOIMATTAJATTAMIS_AIKA;
         }
     }
 
@@ -60,22 +62,16 @@ public class PalloNopeusKomponentti extends Komponentti {
             return;
         }
 
-        double tormaysPiste = viesti.getTormaysPiste();
-        // 0.0: yNopeus = -MAX_NOPEUS*0.3; 1.0: yNopeus = -MAX_NOPEUS*0.7
-        double skaalaus = 0.4 + tormaysPiste * 0.4;
+        double tormaysPiste = 2*Math.abs(0.5 - viesti.getTormaysPiste());
+      
+        double skaalaus = 0.8 - tormaysPiste * 0.4;
 
         int yEtumerkki = -yNopeus / Math.abs(yNopeus);
-        int xEtumerkki = xNopeus /Math.abs(xNopeus); //(int) -((0.5 - tormaysPiste) / Math.abs(0.5 - tormaysPiste));
-
-
+        int xEtumerkki = xNopeus /Math.abs(xNopeus);
 
         yNopeus = yEtumerkki * (int) (skaalaus * MAX_NOPEUS);
-
-
-        System.out.println(yNopeus);
         xNopeus = xEtumerkki * (int) Math.sqrt(MAX_NOPEUS * MAX_NOPEUS - yNopeus * yNopeus);
 
-        System.out.println("Törmäyspiste: " + viesti.getTormaysPiste());
         entiteettiTormaysLaskuri = TORMAYS_HUOMIOIMATTAJATTAMIS_AIKA;
     }
 
@@ -88,5 +84,9 @@ public class PalloNopeusKomponentti extends Komponentti {
 
         xNopeus = xEtumerkki * MAX_NOPEUS / 3 + Math.abs(random.nextInt()) % MAX_NOPEUS / 3;
         yNopeus = yEtumerkki * (int) Math.sqrt(MAX_NOPEUS * MAX_NOPEUS - xNopeus * xNopeus);
+    }
+        
+    @Override public void vieraile(AlustaNopeusViesti viesti) {
+        asetaSatunnainenNopeus();
     }
 }

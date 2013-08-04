@@ -1,16 +1,22 @@
 package Pelilogiikka.Komponentti;
 
 import Pelilogiikka.Enumit.Reuna;
-import Pelilogiikka.Komponentti.Viestit.PalloNopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.AlustaNopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
+import Pelilogiikka.PisteKuuntelija;
 
 public class PalloPaikkaKomponentti extends PaikkaKomponentti {
 
     private int aloitusX;
     private int aloitusY;
+    private PisteKuuntelija kuuntelija;
 
     public PalloPaikkaKomponentti() {
         super();
+    }
+    
+    public void asetaPisteKuuntelija(PisteKuuntelija kuuntelija) {
+        this.kuuntelija = kuuntelija;
     }
 
     public PalloPaikkaKomponentti(int x, int y) {
@@ -19,16 +25,15 @@ public class PalloPaikkaKomponentti extends PaikkaKomponentti {
         aloitusY = y;
     }
 
-    @Override
-    public void vieraile(PalloNopeusViesti viesti) {
-        asetaX(getX() + viesti.getXNopeus());
-        asetaY(getY() + viesti.getYNopeus());
-    }
+ 
 
     @Override
     public void vieraile(TormaysReunaanViesti viesti) {
         if (viesti.getReuna() == Reuna.YLA || viesti.getReuna() == Reuna.ALA) {
             asetaPaikka(aloitusX, aloitusY);
+            kuuntelija.pisteyta(viesti.getReuna());
+            viestit.add(new AlustaNopeusViesti());
         }
     }
+
 }

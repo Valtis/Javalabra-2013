@@ -18,4 +18,5 @@ Yhteensä projektin aikana 7h 55min
 
 4.8.2013
 
-12:15 - ??:?? Koodailua.
+12:15 - 14:20 Koodailua. Törmäyksen parantelua, entiteettien välisten törmäyksen jälkeinen suunnan kulma riippuu törmäyspisteestä. 
+14:40 - ??:?? Koodailua. AsetusUI:n kasaamista

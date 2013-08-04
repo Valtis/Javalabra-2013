@@ -3,9 +3,9 @@
 package Pelilogiikka.Komponentti;
 
 
+import Pelilogiikka.Komponentti.Viestit.AlustaNopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.LiikeViesti;
-import Pelilogiikka.Komponentti.Viestit.MailaNopeusViesti;
-import Pelilogiikka.Komponentti.Viestit.PalloNopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.NopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysEntiteettiinViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 import Pelilogiikka.Komponentti.Viestit.Viesti;
@@ -31,12 +31,7 @@ public abstract class Komponentti implements ViestiVierailija {
     }
     
     @Override
-    public void vieraile(MailaNopeusViesti viesti) {
-    
-    }
-    
-    @Override
-    public void vieraile(PalloNopeusViesti viesti) {
+    public void vieraile(NopeusViesti viesti) {
     
     }
     
@@ -51,6 +46,11 @@ public abstract class Komponentti implements ViestiVierailija {
     
     }
     
+   
+    @Override
+    public void vieraile(AlustaNopeusViesti viesti) {
+    
+    }
 
 
 }

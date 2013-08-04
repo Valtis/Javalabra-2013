@@ -6,55 +6,52 @@ import Pelilogiikka.Komponentti.Komponentti;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-public class Peliruutu implements Runnable {
+public class PeliRuutu implements Runnable {
 
     private int RUUDUN_LEVEYS = 800;
     private int RUUDUN_KORKEUS = 600;
-
     private JFrame peliFrame;
+   
+    
+    private JFrame asetusRuutu;
     private Piirtoalusta piirtoalusta;
 
     public boolean onNakyvilla() {
         return peliFrame.isVisible();
     }
 
-   
     @Override
     public void run() {
- 
     }
 
-    public void piirra() {
+    public void piirra(int pelaajan1Pisteet, int pelaajan2Pisteet) {
+        piirtoalusta.asetaPisteet(pelaajan1Pisteet, pelaajan2Pisteet);
         if (peliFrame.isVisible()) {
             peliFrame.repaint();
         }
     }
 
-    public void alusta() {
-        
+    public void alusta(Asetukset asetukset) {
+        asetusRuutu = new AsetusRuutu("Pong - asetukset", asetukset);
         peliFrame = new JFrame("Pong");
+       
+        
         peliFrame.setPreferredSize(new Dimension(RUUDUN_LEVEYS, RUUDUN_KORKEUS));
         peliFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         luoPeliKomponentit(peliFrame.getContentPane());
         peliFrame.pack();
         peliFrame.setVisible(true);
-
     }
 
     private void luoPeliKomponentit(Container container) {
-        container.setLayout(new BorderLayout());
         piirtoalusta = new Piirtoalusta();
         container.add(piirtoalusta);
-        
-       // container.add(new AlaReunaNappulat(), BorderLayout.SOUTH);
-        
-    
     }
-    
 
     public int peliAlueenLeveys() {
         return piirtoalusta.getWidth();
