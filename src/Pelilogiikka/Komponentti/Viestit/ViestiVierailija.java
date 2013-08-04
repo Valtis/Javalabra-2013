@@ -8,7 +8,7 @@ public interface ViestiVierailija {
 
     void vieraile(LiikeViesti viesti);
 
-    void vieraile(NopeusViesti viesti);
+    void vieraile(MailaNopeusViesti viesti);
 
     void vieraile(PalloNopeusViesti viesti);
 
