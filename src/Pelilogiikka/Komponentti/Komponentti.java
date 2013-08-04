@@ -3,13 +3,13 @@
 package Pelilogiikka.Komponentti;
 
 
-import Pelilogiikka.Komponentti.Viestit.ViestiVierailija;
 import Pelilogiikka.Komponentti.Viestit.LiikeViesti;
 import Pelilogiikka.Komponentti.Viestit.NopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.PalloNopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysEntiteettiinViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 import Pelilogiikka.Komponentti.Viestit.Viesti;
+import Pelilogiikka.Komponentti.Viestit.ViestiVierailija;
 import java.util.Queue;
 
 

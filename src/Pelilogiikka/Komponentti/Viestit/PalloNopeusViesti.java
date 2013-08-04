@@ -6,20 +6,20 @@ import Pelilogiikka.Komponentti.Komponentti;
 
 
 public class PalloNopeusViesti implements Viesti {
-    private int xNopeus;
-    private int yNopeus;
+    private final int X_NOPEUS;
+    private final int Y_NOPEUS;
     
     public PalloNopeusViesti(int x, int y) {
-        this.xNopeus = x;
-        this.yNopeus = y;
+        this.X_NOPEUS = x;
+        this.Y_NOPEUS = y;
     }
     
     public int getXNopeus() {
-        return xNopeus;
+        return X_NOPEUS;
     }
     
     public int getYNopeus() {
-        return yNopeus;
+        return Y_NOPEUS;
     }
     
     @Override

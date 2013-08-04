@@ -61,17 +61,17 @@ public class TormaysManageri {
             if (tormaaja == tormattava) {
                 continue;
             }
-            
-            boolean tormaavat = tarkistaTormays(tormaaja, tormattava);
 
-            if (tormaavat) {
-                tormaaja.kasitteleValittomastiViesti(new TormaysEntiteettiinViesti(tormattava));
+            PaluuParametrit tormays = tarkistaTormays(tormaaja, tormattava);
+
+            if (tormays.tormasi) {
+                tormaaja.kasitteleValittomastiViesti(new TormaysEntiteettiinViesti(tormattava, tormays.osumaPiste));
             }
 
         }
     }
 
-    private boolean tarkistaTormays(Entiteetti tormaaja, Entiteetti tormattava) {
+    private PaluuParametrit tarkistaTormays(Entiteetti tormaaja, Entiteetti tormattava) {
 
         TormaysKomponentti tormaajanTormaysKomponentti = (TormaysKomponentti) tormaaja.getKomponentti(KomponenttiTyyppi.TORMAYS);
         PaikkaKomponentti tormaajanPaikka = (PaikkaKomponentti) tormaaja.getKomponentti(KomponenttiTyyppi.PAIKKA);
@@ -84,6 +84,24 @@ public class TormaysManageri {
         Rectangle tormattavanSuorakulmio = new Rectangle(tormattavanPaikka.getX(), tormattavanPaikka.getY(), tormattavanTormaysKomponentti.getLeveys(), tormattavanTormaysKomponentti.getKorkeus());
 
         // ja käytetään valmista metodia tarkistamaan leikkaavatko nämä!
-        return tormaajanSuorakulmio.intersects(tormattavanSuorakulmio);
+        PaluuParametrit parametrit = new PaluuParametrit();
+        if ((parametrit.tormasi = tormaajanSuorakulmio.intersects(tormattavanSuorakulmio)) == true) {
+            
+            
+            parametrit.osumaPiste = laskeTormaysPiste(tormaajanSuorakulmio, tormattavanSuorakulmio);
+        }
+        
+        return parametrit;
+    }
+
+    private double laskeTormaysPiste(Rectangle tormaajanSuorakulmio, Rectangle tormattavanSuorakulmio) {
+        return Math.min(1, Math.max(0, (double)(tormaajanSuorakulmio.x - tormattavanSuorakulmio.x)/tormattavanSuorakulmio.width)); 
+        
+    }
+
+    private class PaluuParametrit {
+
+        public boolean tormasi;
+        public double osumaPiste; // välillä 0 - 1; 0 = vasen laita, 0.5 on keskusta, 1 = oikea laita
     }
 }

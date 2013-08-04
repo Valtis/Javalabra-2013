@@ -7,24 +7,24 @@ import Pelilogiikka.Komponentti.Komponentti;
 
 
 public class LiikeViesti implements Viesti {
-    private boolean aloitaLiike;
-    private Suunta suunta;
+    private final boolean ALOITA_LIIKE;
+    private final Suunta SUUNTA;
     
     public LiikeViesti(Suunta s, boolean aloitaLiike) {
-        suunta = s;
-        this.aloitaLiike = aloitaLiike;
+        SUUNTA = s;
+        this.ALOITA_LIIKE = aloitaLiike;
     }
     
     public Suunta getSuunta() {
-        return suunta;
+        return SUUNTA;
     }
     
     public boolean aloitaLiike() {
-        return aloitaLiike;
+        return ALOITA_LIIKE;
     }
     
     public boolean pysaytaLiike() {
-        return !aloitaLiike;
+        return !ALOITA_LIIKE;
     }
             
     @Override

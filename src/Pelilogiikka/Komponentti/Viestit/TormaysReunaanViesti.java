@@ -8,14 +8,14 @@ import Pelilogiikka.Komponentti.Komponentti;
 
 public class TormaysReunaanViesti implements Viesti {
 
-    Reuna tormaysReuna;
+    private final Reuna TORMAYS_REUNA;
     
     public TormaysReunaanViesti(Reuna reuna) {
-        tormaysReuna = reuna;
+        TORMAYS_REUNA = reuna;
     }    
 
     public Reuna getReuna() {
-        return tormaysReuna;
+        return TORMAYS_REUNA;
     }
     
     @Override

@@ -6,14 +6,14 @@ import Pelilogiikka.Komponentti.Komponentti;
 
 
 public class NopeusViesti implements Viesti {
-    private int nopeus;
+    private final int NOPEUS;
     
     public NopeusViesti(int nopeus) {
-        this.nopeus = nopeus;
+        this.NOPEUS = nopeus;
     }
     
     public int getNopeus() {
-        return nopeus;
+        return NOPEUS;
     }
     
     @Override

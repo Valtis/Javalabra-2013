@@ -31,7 +31,7 @@ public class EntiteettiTehdas {
     private Entiteetti luoPallo(int x, int y) {
         Entiteetti e = new Entiteetti();
         // kovakoodaus nopeudelle testaukseksi nyt, pitäisi varmaan siirtää parametriksi tjsp
-        e.lisaaKomponentti(KomponenttiTyyppi.NOPEUS, new PalloNopeusKomponentti(10));
+        e.lisaaKomponentti(KomponenttiTyyppi.NOPEUS, new PalloNopeusKomponentti(12));
         e.lisaaKomponentti(KomponenttiTyyppi.PAIKKA, new PalloPaikkaKomponentti(x, y));
         e.lisaaKomponentti(KomponenttiTyyppi.PIIRTO, new PalloPiirtoKomponentti(30));
         // törmäyskomponentti hieman palloa pienempi jotta ei näyttäisi törmäävän tyhjään kun ottaa kulmista kiinni
