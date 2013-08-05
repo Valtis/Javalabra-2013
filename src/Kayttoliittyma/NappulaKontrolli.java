@@ -3,51 +3,42 @@ package Kayttoliittyma;
 import Pelilogiikka.Enumit.NappulaTyyppi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JButton;
 
+/**
+ * Luokka joka kuuntelee annettuja nappuloita ja välittää NappulaKuuntelija-rajapinnan toteuttavalle luokalle tiedon eteenpäin kun nappulaa on painettu
+ */
 public class NappulaKontrolli implements ActionListener {
-
-    private JButton vaihdaPelaajan1InputNappula;
-    private JButton vaihdaPelaajan2InputNappula;
-    private JButton luoKimpoilevaEste;
-    private JButton luoStaattinenEste;
-    NappulaKuuntelija kuuntelija;
-
+    
+    private Map<Object, NappulaTyyppi> nappulaViestit;
+    private NappulaKuuntelija kuuntelija;
+    /**
+     * Lisää kuuntelijan tälle kontrollille
+     * @param kuuntelija 
+     */
     public NappulaKontrolli(NappulaKuuntelija kuuntelija) {
         this.kuuntelija = kuuntelija;
+        nappulaViestit = new HashMap<Object, NappulaTyyppi>();
     }
-
-    public void asetaPelaaja1Vaihto(JButton nappula) {
+    /**
+     * Lisää nappulan ja viestin joka tulee välittää eteenpäin kun sitä on painettu
+     * @param nappula Nappula jota kuunnellaan
+     * @param tyyppi  Nappulaan liittyvä viesti
+     */
+    public void lisaaNappula(JButton nappula, NappulaTyyppi tyyppi) {
         nappula.addActionListener(this);
-        vaihdaPelaajan1InputNappula = nappula;
+        nappulaViestit.put(nappula, tyyppi);
     }
-
-    public void asetaPelaaja2Vaihto(JButton nappula) {
-        nappula.addActionListener(this);
-        vaihdaPelaajan2InputNappula = nappula;
-    }
-
-    public void asetaStaattinenEste(JButton nappula) {
-        nappula.addActionListener(this);
-        luoStaattinenEste = nappula;
-
-    }
-
-    public void asetaKimpoilevaEste(JButton nappula) {
-        nappula.addActionListener(this);
-        luoKimpoilevaEste = nappula;
-    }
-
+    /**
+     * Toteuttaa ActionListener-rajapinnan actionPerformed-metodin
+     * @param e ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == vaihdaPelaajan1InputNappula) {
-            kuuntelija.nappulaViesti(NappulaTyyppi.PELAAJA_1_INPUT_VAIHTO);
-        } else if (e.getSource() == vaihdaPelaajan2InputNappula) {
-            kuuntelija.nappulaViesti(NappulaTyyppi.PELAAJA_2_INPUT_VAIHTO);
-        } else if (e.getSource() == luoKimpoilevaEste) {
-            kuuntelija.nappulaViesti(NappulaTyyppi.KIMPOILEVA_ESTE);
-        } else if (e.getSource() == luoStaattinenEste) {
-            kuuntelija.nappulaViesti(NappulaTyyppi.STAATTINEN_ESTE);
+        if (nappulaViestit.containsKey(e.getSource())) {
+            kuuntelija.nappulaViesti(nappulaViestit.get(e.getSource()));
         }
     }
 }

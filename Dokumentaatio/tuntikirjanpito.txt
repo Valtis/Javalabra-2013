@@ -28,4 +28,8 @@ Yhteensä projektin aikana 13h 40min
 5.8.2013
 
 12:00 - 14:10 - Törmäyskoodin hiomista. 
-14:10 - ??:?? Javadocin kirjoittelua
+14:10 - 15:00 Javadocin kirjoittelua
+15:30 - 17:50 Javadocin kirjoittelua. Javadocit valmiit. TODO: testit, uml-kaaviot, sekvenssikaaviot.
+
+Yhteensä tänään: 4h 20min
+Yhteensä projektin aikana 18h

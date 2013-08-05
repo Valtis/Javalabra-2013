@@ -1,81 +1,73 @@
 package Kayttoliittyma;
 
-import Pelilogiikka.Asetukset;
 import Pelilogiikka.Entiteetti.Entiteetti;
-import Pelilogiikka.Komponentti.Komponentti;
-import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.HeadlessException;
-import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
-
-public class PeliRuutu implements Runnable {
+/**
+ * Peliruudun toteuttava ikkuna
+ * 
+ */
+public class PeliRuutu extends JFrame {
 
     private int RUUDUN_LEVEYS = 800;
     private int RUUDUN_KORKEUS = 600;
-    private JFrame peliFrame;
-   
-    
-    private JFrame asetusRuutu;
     private Piirtoalusta piirtoalusta;
+    /**
+     * Luo peliruudun annetulla nimellä ja 800x600-resoluutiolla
+     * @param title Ikkunan nimi
+     */
+    public PeliRuutu(String title) {
+        super(title);
 
-    public boolean onNakyvilla() {
-        return peliFrame.isVisible();
+        setPreferredSize(new Dimension(RUUDUN_LEVEYS, RUUDUN_KORKEUS));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        luoPiistoAlusta(getContentPane());
+        pack();
+        setVisible(true);
     }
-
-    @Override
-    public void run() {
-    }
-
-    public void piirra(int pelaajan1Pisteet, int pelaajan2Pisteet) {
+    /**
+     * Asettaa pelaajien pisteet piirtämistä varten
+     * @param pelaajan1Pisteet pelaajan 1 pisteet
+     * @param pelaajan2Pisteet pelaajan 2 pisteet
+     */
+    public void asetaPisteet(int pelaajan1Pisteet, int pelaajan2Pisteet) {
         piirtoalusta.asetaPisteet(pelaajan1Pisteet, pelaajan2Pisteet);
-        if (peliFrame.isVisible()) {
-            peliFrame.repaint();
-        }
     }
-
-    public void alusta(Asetukset asetukset) {
-        asetusRuutu = new AsetusRuutu("Pong - asetukset", asetukset);
-        peliFrame = new JFrame("Pong");
-       
-        
-        peliFrame.setPreferredSize(new Dimension(RUUDUN_LEVEYS, RUUDUN_KORKEUS));
-        peliFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        luoPeliKomponentit(peliFrame.getContentPane());
-        peliFrame.pack();
-        peliFrame.setVisible(true);
-    }
-
-    private void luoPeliKomponentit(Container container) {
+    /**
+     * luo piirtoalustan
+     * @param container Container johonka piirtoalusta tallennetaan
+     */
+    private void luoPiistoAlusta(Container container) {
         piirtoalusta = new Piirtoalusta();
         container.add(piirtoalusta);
     }
-
-    public int peliAlueenLeveys() {
+    /**
+     * Getteri. Palauttaa pelialueen leveyden
+     * @return pelialueen leveys
+     */
+    public int getPeliAlueenLeveys() {
         return piirtoalusta.getWidth();
     }
-
-    public int peliAlueenKorkeus() {
+    /**
+     * Getteri. Palauttaa pelialueen korkeuden
+     * @return Pelialueen korkeus
+     */    
+    public int getPeliAlueenKorkeus() {
         return piirtoalusta.getHeight();
     }
-
-    public void lisaaNappainKuuntelija(KeyListener komponentti) throws ClassCastException, NullPointerException {
-        if (komponentti == null) {
-            throw new NullPointerException("Komponentin arvo null metodissa KayttoLiittyma.lisaaNappainKuuntelija()");
-        }
-
-        KeyListener kuuntelija = (KeyListener) komponentti;
-        peliFrame.addKeyListener(kuuntelija);
-    }
-
+    /**
+     * Lisää piirrettävän piirtoalustaan
+     * @param entiteetti Entiteetti joka halutaan piirtää
+     * @throws ClassCastException Jos entiteetin piirto- tai paikkakomponettien luokat ovat väärät
+     * @throws NullPointerException Jos entiteetillä ei ole piirto- tai paikkakomponenttia
+     */
     public void lisaaPiirrettava(Entiteetti entiteetti) throws ClassCastException, NullPointerException {
         if (entiteetti == null) {
             throw new NullPointerException("Entiteetin arvo null metodissa KayttoLiittyma.lisaaPiirrettava()");
         }
 
         piirtoalusta.lisaaPiirrettava(entiteetti);
-
     }
 }

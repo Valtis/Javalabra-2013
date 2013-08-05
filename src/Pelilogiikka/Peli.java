@@ -1,6 +1,6 @@
 package Pelilogiikka;
 
-import Kayttoliittyma.PeliRuutu;
+import Kayttoliittyma.KayttoLiittyma;
 import Pelilogiikka.Entiteetti.Entiteetti;
 import Pelilogiikka.Enumit.KomponenttiTyyppi;
 import Pelilogiikka.Enumit.Reuna;
@@ -9,10 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingUtilities;
 
+/**
+ * Pääpeliluokka sisältää pääluupin, pitää viittauksia yllä entiteetteihin ja
+ * käyttöliittymään
+ *
+ */
 public class Peli implements PisteKuuntelija {
 
     private final Object LUKKO;
-    private PeliRuutu liittyma;
+    private KayttoLiittyma liittyma;
     private TormaysManageri tormaysManageri;
     private List<Entiteetti> entiteetit;
     private final long TICK = 16 * 1000000; // 16 millisekuntia
@@ -20,6 +25,9 @@ public class Peli implements PisteKuuntelija {
     private int pelaajan1Pisteet;
     private int pelaajan2Pisteet;
 
+    /**
+     * Alustaa pelin arvot
+     */
     public Peli() {
         pelaajan1Pisteet = 0;
         pelaajan2Pisteet = 0;
@@ -30,23 +38,49 @@ public class Peli implements PisteKuuntelija {
         nykyinenAika = System.nanoTime();
     }
 
+    /**
+     * Alustaa UI:n
+     *
+     * @param asetukset Asetusluokan ilmentymä, tarvitsee käyttöliittymältä
+     * tiedon milloin halutaan luoda uusia entiteettejä
+     */
     private void alustaUI(Asetukset asetukset) {
-        liittyma = new PeliRuutu();
+        liittyma = new KayttoLiittyma();
         liittyma.alusta(asetukset);
     }
 
-    private void asetaKuuntelija(Entiteetti e) throws NullPointerException, ClassCastException {
+    /**
+     * Asettaa halutun entiteetin InputKomponentin kuuntelemaan
+     * näppäimistösyötettä. Jos input-komponenttia ei ole, ei tee mitään <p>
+     * Heittää ClassCastExceptionin jos komponentti ei ole InputKomponentti
+     *
+     * @param e Entiteetti joka haluaa kuunnella syötettä
+     * @throws ClassCastException
+     */
+    private void asetaNappaimistoKuuntelija(Entiteetti e) throws ClassCastException {
+
         InputKomponentti input = (InputKomponentti) e.getKomponentti(KomponenttiTyyppi.INPUT);
+        if (input == null) {
+            return;
+        }
+
         liittyma.lisaaNappainKuuntelija(input);
     }
 
+    /**
+     * Lisää entiteetin peliin.
+     *
+     * @param e Lisättävä entiteetti
+     * @param tarvitseeNappaimistoSyotteen Tarvitseeko entiteetti
+     * näppäimistösyötettä
+     */
     public void lisaaEntiteetti(Entiteetti e, boolean tarvitseeNappaimistoSyotteen) {
 
         liittyma.lisaaPiirrettava(e);
         tormaysManageri.lisaaTormaaja(e);
 
         if (tarvitseeNappaimistoSyotteen) {
-            asetaKuuntelija(e);
+            asetaNappaimistoKuuntelija(e);
         }
 
         synchronized (LUKKO) {
@@ -54,6 +88,9 @@ public class Peli implements PisteKuuntelija {
         }
     }
 
+    /**
+     * Aloittaa pelin pelaamisen
+     */
     public void pelaa() {
         Asetukset asetukset = new Asetukset();
         alustaUI(asetukset);
@@ -64,23 +101,34 @@ public class Peli implements PisteKuuntelija {
 
         tormaysManageri.asetaAlueenKoko(liittyma.peliAlueenLeveys(), liittyma.peliAlueenKorkeus());
 
-        while (liittyma.onNakyvilla()) {
+        while (true) {
 
             paivitaPeliLogiikka();
             liittyma.piirra(pelaajan1Pisteet, pelaajan2Pisteet);
         }
     }
 
+    /**
+     * Päivittää pelilogiikan tilan. Päivittää entiteetit, päivittää törmäysten
+     * tilan
+     */
     private void paivitaPeliLogiikka() {
         long uusiAika = System.nanoTime();
         if (nykyinenAika + TICK < uusiAika) {
+
             long delta = uusiAika - nykyinenAika;
             nykyinenAika = uusiAika;
+
             paivitaEntiteetit((double) delta / (double) TICK);
             tormaysManageri.tarkistaTormaykset();
         }
     }
 
+    /**
+     * Päivittää entiteetit
+     *
+     * @param ticks Montako peliaskelta on kulunut viime päivityksestä
+     */
     private void paivitaEntiteetit(double ticks) {
         synchronized (LUKKO) {
             for (Entiteetti e : entiteetit) {
@@ -88,7 +136,10 @@ public class Peli implements PisteKuuntelija {
             }
         }
     }
-
+    /**
+     * Antaa pelaajille pisteitä riippuen mihin reunaan osuttiin
+     * @param reuna Reuna johonka pallo osui
+     */
     @Override
     public void pisteyta(Reuna reuna) {
         if (reuna == Reuna.YLA) {

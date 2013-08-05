@@ -1,46 +1,55 @@
 package Pelilogiikka.Komponentti;
 
-
 import Pelilogiikka.Enumit.Suunta;
 import Pelilogiikka.Komponentti.Viestit.LiikeViesti;
 import Pelilogiikka.Komponentti.Viestit.MuutaPaikkaViesti;
 import java.util.EnumMap;
 import java.util.Map;
 
+/**
+ * Nopeuskomponentti mailalle. Reagoi InputKomponentin viesteihin ja muuttaa
+ * nopeutta niiden perusteella <p> Lähettää mahdollisesti MuutaPaikkaViestin
+ *
+ * @see InputKomponentti
+ * @see LiikkuvaObjektiNopeusKomponentti
+ */
+public class MailaNopeusKomponentti extends NopeusKomponentti {
 
-public class MailaNopeusKomponentti extends Komponentti {
-
-    private int nykyinenNopeus;
     private Map<Suunta, Integer> nopeusMuutos;
-    
+
+    /**
+     * Konstruktori. Ottaa vastaan mailan maksiminopeuden
+     *
+     * @param mailanNopeus haluttu mailan nopeus
+     */
     public MailaNopeusKomponentti(int mailanNopeus) {
-        this.nykyinenNopeus = 0;
         nopeusMuutos = new EnumMap<Suunta, Integer>(Suunta.class);
-        
+
         nopeusMuutos.put(Suunta.VASEN, -mailanNopeus);
         nopeusMuutos.put(Suunta.OIKEA, mailanNopeus);
     }
-    
+    /**
+     * Asettaa suuntaan liityvän nopeuden.
+     * @param suunta Haluttu suunta
+     * @param nopeus Suuntaan liityvä nopeus
+     */
     public void asetaNopeus(Suunta suunta, Integer nopeus) {
         nopeusMuutos.put(suunta, nopeus);
     }
-
+    
+    /**
+     * Käsittelee LiikeViestin. 
+     * <p>
+     * Jos liike pitää aloittaa, asettaa nopeuden suuntaan liittyväksi nopeudeksi, muutoin asettaa nopeuden nollaksi
+     * @param viesti LiikeViesti
+     * @see LiikeViesti
+     */
     @Override
     public void vieraile(LiikeViesti viesti) {
         if (viesti.aloitaLiike()) {
-            nykyinenNopeus = nopeusMuutos.get(viesti.getSuunta());
-        }
-        
-        else {
-            nykyinenNopeus = 0;
+            asetaXNopeus(nopeusMuutos.get(viesti.getSuunta()));
+        } else {
+            asetaXNopeus(0);
         }
     }
-    
-    @Override
-    public void paivita(double ticks) {
-        if (nykyinenNopeus != 0) {
-            viestit.add(new MuutaPaikkaViesti((int)((double)nykyinenNopeus*ticks), 0));
-        }
-    }
-
 }

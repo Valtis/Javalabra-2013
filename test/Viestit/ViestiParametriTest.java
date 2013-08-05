@@ -69,10 +69,10 @@ public class ViestiParametriTest {
     @Test
     public void testaaTormaysEntiteettiinViesti() {
         Entiteetti e = new Entiteetti();
-        TormaysEntiteettiinViesti viesti = new TormaysEntiteettiinViesti(e, 0.3);
+        TormaysEntiteettiinViesti viesti = new TormaysEntiteettiinViesti(e, Reuna.OIKEA);
 
         assertEquals("Väärä parametrin arvo", viesti.getTormaaja(), e);
-        assertEquals("Väärä parametrin arvo", viesti.getTormaysReuna(), 0.3, 0.001);
+        assertEquals("Väärä parametrin arvo", viesti.getTormaysReuna(), Reuna.OIKEA);
     }
 
     @Test
