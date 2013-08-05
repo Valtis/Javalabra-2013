@@ -19,4 +19,13 @@ Yhteensä projektin aikana 7h 55min
 4.8.2013
 
 12:15 - 14:20 Koodailua. Törmäyksen parantelua, entiteettien välisten törmäyksen jälkeinen suunnan kulma riippuu törmäyspisteestä. 
-14:40 - ??:?? Koodailua. AsetusUI:n kasaamista
+14:40 - 16:20 Koodailua. AsetusUI:n kasaamista. Törmäilevät & staattiset komponentit
+21:00 - 23:00. Törmäyksen säätöä. JavaDocin ja yksikkötestien rakentelua.
+
+Yhteensä tänään: 5h 45 
+Yhteensä projektin aikana 13h 40min
+
+5.8.2013
+
+12:00 - 14:10 - Törmäyskoodin hiomista. 
+14:10 - ??:?? Javadocin kirjoittelua

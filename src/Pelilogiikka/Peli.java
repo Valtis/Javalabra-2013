@@ -11,10 +11,11 @@ import javax.swing.SwingUtilities;
 
 public class Peli implements PisteKuuntelija {
 
+    private final Object LUKKO;
     private PeliRuutu liittyma;
     private TormaysManageri tormaysManageri;
     private List<Entiteetti> entiteetit;
-    private final long TICK = 33 * 1000000; // 33 millisekuntia
+    private final long TICK = 16 * 1000000; // 16 millisekuntia
     private long nykyinenAika;
     private int pelaajan1Pisteet;
     private int pelaajan2Pisteet;
@@ -22,6 +23,7 @@ public class Peli implements PisteKuuntelija {
     public Peli() {
         pelaajan1Pisteet = 0;
         pelaajan2Pisteet = 0;
+        LUKKO = new Object();
 
         entiteetit = new ArrayList<Entiteetti>();
         tormaysManageri = new TormaysManageri();
@@ -47,7 +49,9 @@ public class Peli implements PisteKuuntelija {
             asetaKuuntelija(e);
         }
 
-        entiteetit.add(e);
+        synchronized (LUKKO) {
+            entiteetit.add(e);
+        }
     }
 
     public void pelaa() {
@@ -78,8 +82,10 @@ public class Peli implements PisteKuuntelija {
     }
 
     private void paivitaEntiteetit(double ticks) {
-        for (Entiteetti e : entiteetit) {
-            e.paivita(ticks);
+        synchronized (LUKKO) {
+            for (Entiteetti e : entiteetit) {
+                e.paivita(ticks);
+            }
         }
     }
 

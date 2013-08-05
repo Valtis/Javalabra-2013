@@ -1,6 +1,6 @@
 package Pelilogiikka.Komponentti;
 
-import Pelilogiikka.Komponentti.Viestit.NopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.MuutaPaikkaViesti;
 
 public class PaikkaKomponentti extends Komponentti {
 
@@ -38,8 +38,8 @@ public class PaikkaKomponentti extends Komponentti {
     }
 
     @Override
-    public void vieraile(NopeusViesti viesti) {
-        asetaX(getX() + viesti.getXNopeus());
-        asetaY(getY() + viesti.getYNopeus());
+    public void vieraile(MuutaPaikkaViesti viesti) {
+        asetaX(getX() + viesti.getXMuutos());
+        asetaY(getY() + viesti.getYMuutos());
     }
 }

@@ -2,16 +2,19 @@ package Pelilogiikka.Entiteetti;
 
 import Pelilogiikka.Enumit.EntiteettiTyyppi;
 import Pelilogiikka.Enumit.KomponenttiTyyppi;
+import Pelilogiikka.Komponentti.EntiteettiTormaysKasittelijaKomponentti;
 import Pelilogiikka.Komponentti.InputKomponentti;
+import Pelilogiikka.Komponentti.KimpoaSeinastaTormaysKasittelijaKomponentti;
 import Pelilogiikka.Komponentti.MailaNopeusKomponentti;
 import Pelilogiikka.Komponentti.MailaPaikkaKomponentti;
 import Pelilogiikka.Komponentti.PaikkaKomponentti;
-import Pelilogiikka.Komponentti.PalloNopeusKomponentti;
+import Pelilogiikka.Komponentti.LiikkuvaObjektiNopeusKomponentti;
 import Pelilogiikka.Komponentti.PalloPaikkaKomponentti;
 import Pelilogiikka.Komponentti.PalloPiirtoKomponentti;
+import Pelilogiikka.Komponentti.PalloSeinaTormaysKasittelijaKomponentti;
 import Pelilogiikka.Komponentti.SuoraKaidePiirtoKomponentti;
 import Pelilogiikka.Komponentti.TekoalyInputKomponentti;
-import Pelilogiikka.Komponentti.TormaysKomponentti;
+import Pelilogiikka.Komponentti.TormaysAlueKomponentti;
 
 public class EntiteettiTehdas {
 
@@ -34,29 +37,32 @@ public class EntiteettiTehdas {
     private Entiteetti luoPallo(int x, int y) {
         Entiteetti e = new Entiteetti();
         // kovakoodaus nopeudelle
-        e.lisaaKomponentti(KomponenttiTyyppi.NOPEUS, new PalloNopeusKomponentti(12));
+        e.lisaaKomponentti(KomponenttiTyyppi.NOPEUS, new LiikkuvaObjektiNopeusKomponentti(6));
         e.lisaaKomponentti(KomponenttiTyyppi.PAIKKA, new PalloPaikkaKomponentti(x, y));
-        e.lisaaKomponentti(KomponenttiTyyppi.PIIRTO, new PalloPiirtoKomponentti(30));
-        // törmäyskomponentti hieman palloa pienempi jotta ei näyttäisi törmäävän tyhjään kun ottaa kulmista kiinni
-        e.lisaaKomponentti(KomponenttiTyyppi.TORMAYS, new TormaysKomponentti(25, 25));
-
+        e.lisaaKomponentti(KomponenttiTyyppi.PIIRTO, new PalloPiirtoKomponentti(20));
+        e.lisaaKomponentti(KomponenttiTyyppi.TORMAYS_ALUE, new TormaysAlueKomponentti(17, 17));
+        e.lisaaKomponentti(KomponenttiTyyppi.SEINA_TORMAYS_KASITTELIJA, new PalloSeinaTormaysKasittelijaKomponentti());
+        e.lisaaKomponentti(KomponenttiTyyppi.ENTITEETTI_TORMAYS_KASITTELIJA, new EntiteettiTormaysKasittelijaKomponentti());
+       
         return e;
     }
 
     private Entiteetti luoStaattinenEste(int x, int y) {
         Entiteetti e = new Entiteetti();
         e.lisaaKomponentti(KomponenttiTyyppi.PAIKKA, new PaikkaKomponentti(x, y));
-        e.lisaaKomponentti(KomponenttiTyyppi.PIIRTO, new SuoraKaidePiirtoKomponentti(30, 30));
-        e.lisaaKomponentti(KomponenttiTyyppi.TORMAYS, new TormaysKomponentti(30, 30));
+        e.lisaaKomponentti(KomponenttiTyyppi.PIIRTO, new SuoraKaidePiirtoKomponentti(20, 20));
+        e.lisaaKomponentti(KomponenttiTyyppi.TORMAYS_ALUE, new TormaysAlueKomponentti(20, 20));
         return e;
     }
     
     private Entiteetti luoKimpoilevaEste(int x, int y) {
         Entiteetti e = new Entiteetti();
         e.lisaaKomponentti(KomponenttiTyyppi.PAIKKA, new PaikkaKomponentti(x, y));
-        e.lisaaKomponentti(KomponenttiTyyppi.PIIRTO, new SuoraKaidePiirtoKomponentti(30, 30));
-        e.lisaaKomponentti(KomponenttiTyyppi.TORMAYS, new TormaysKomponentti(30, 30));
-        e.lisaaKomponentti(KomponenttiTyyppi.NOPEUS, new PalloNopeusKomponentti(12));
+        e.lisaaKomponentti(KomponenttiTyyppi.PIIRTO, new SuoraKaidePiirtoKomponentti(20, 20));
+        e.lisaaKomponentti(KomponenttiTyyppi.TORMAYS_ALUE, new TormaysAlueKomponentti(20, 20));
+        e.lisaaKomponentti(KomponenttiTyyppi.NOPEUS, new LiikkuvaObjektiNopeusKomponentti(6));
+        e.lisaaKomponentti(KomponenttiTyyppi.SEINA_TORMAYS_KASITTELIJA, new KimpoaSeinastaTormaysKasittelijaKomponentti());
+        e.lisaaKomponentti(KomponenttiTyyppi.ENTITEETTI_TORMAYS_KASITTELIJA, new EntiteettiTormaysKasittelijaKomponentti());
         return e;
     }
 
@@ -81,10 +87,10 @@ public class EntiteettiTehdas {
     }
 
     private void luoYhteisetMailaKomponentit(Entiteetti e, int x, int y) {
-        e.lisaaKomponentti(KomponenttiTyyppi.NOPEUS, new MailaNopeusKomponentti());
+        e.lisaaKomponentti(KomponenttiTyyppi.NOPEUS, new MailaNopeusKomponentti(4));
         e.lisaaKomponentti(KomponenttiTyyppi.PAIKKA, new MailaPaikkaKomponentti(x, y));
         // kovakoodatut luvut, oikeasti varmaan parempi että luettaisiin tiedostosta\tulisi parametreina
         e.lisaaKomponentti(KomponenttiTyyppi.PIIRTO, new SuoraKaidePiirtoKomponentti(150, 20));
-        e.lisaaKomponentti(KomponenttiTyyppi.TORMAYS, new TormaysKomponentti(150, 20));
+        e.lisaaKomponentti(KomponenttiTyyppi.TORMAYS_ALUE, new TormaysAlueKomponentti(150, 20));
     }
 }

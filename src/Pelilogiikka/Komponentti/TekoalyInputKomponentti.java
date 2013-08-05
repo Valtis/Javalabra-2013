@@ -21,9 +21,6 @@ public class TekoalyInputKomponentti extends Komponentti {
    
     @Override
     public void paivita(double ticks) {
-       if (pallonPaikka == null || omaPaikka == null) {
-           throw new NullPointerException("Alustamattomia muuttujia TekoAlyInputKomponentissa");
-       }
        if (omaPaikka.getX() < pallonPaikka.getX() ) {
            viestit.add(new LiikeViesti(Suunta.OIKEA, true));
        }

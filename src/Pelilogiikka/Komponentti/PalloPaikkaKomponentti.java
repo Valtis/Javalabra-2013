@@ -1,7 +1,6 @@
 package Pelilogiikka.Komponentti;
 
 import Pelilogiikka.Enumit.Reuna;
-import Pelilogiikka.Komponentti.Viestit.AlustaNopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 import Pelilogiikka.PisteKuuntelija;
 
@@ -32,7 +31,6 @@ public class PalloPaikkaKomponentti extends PaikkaKomponentti {
         if (viesti.getReuna() == Reuna.YLA || viesti.getReuna() == Reuna.ALA) {
             asetaPaikka(aloitusX, aloitusY);
             kuuntelija.pisteyta(viesti.getReuna());
-            viestit.add(new AlustaNopeusViesti());
         }
     }
 

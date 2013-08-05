@@ -25,7 +25,6 @@ public class Asetukset implements NappulaKuuntelija {
     Komponentti pelaajan2PelaajaKontrolli;
     boolean pelaaja1OnAI;
     boolean pelaaja2OnAI;
-    
 
     void haeAsetukset(Peli peli) {
         this.peli = peli;
@@ -38,9 +37,6 @@ public class Asetukset implements NappulaKuuntelija {
         ((PalloPaikkaKomponentti) pallo.getKomponentti(KomponenttiTyyppi.PAIKKA)).asetaPisteKuuntelija(peli);
 
         peli.lisaaEntiteetti(pallo, false);
-
-        //  peli.lisaaEntiteetti(luoAI(250, 10, pallo), false);
-
 
         pelaaja1 = luoPelaaja(Suunta.VASEN, KeyEvent.VK_LEFT, Suunta.OIKEA, KeyEvent.VK_RIGHT, 250, 530);
         pelaaja2 = luoPelaaja(Suunta.VASEN, KeyEvent.VK_A, Suunta.OIKEA, KeyEvent.VK_D, 250, 10);
@@ -66,36 +62,25 @@ public class Asetukset implements NappulaKuuntelija {
         return pelaaja;
     }
 
-    private Entiteetti luoAI(int x, int y, Entiteetti pallo) {
-        EntiteettiTehdas tehdas = new EntiteettiTehdas();
-        Entiteetti ai = tehdas.luoEntiteetti(EntiteettiTyyppi.TEKOALY_MAILA, x, y);
-
-        TekoalyInputKomponentti tekoalyInput = (TekoalyInputKomponentti) ai.getKomponentti(KomponenttiTyyppi.INPUT);
-        tekoalyInput.asetaPallonPaikka((PaikkaKomponentti) pallo.getKomponentti(KomponenttiTyyppi.PAIKKA));
-
-        return ai;
-    }
-
     private Entiteetti luoPallo(int x, int y) {
         EntiteettiTehdas tehdas = new EntiteettiTehdas();
         Entiteetti e = tehdas.luoEntiteetti(EntiteettiTyyppi.PALLO, x, y);
-
         return e;
     }
 
     private Entiteetti luoKimpoilevaEste() {
         Random random = new Random();
-        int x = 100 + random.nextInt() % 400;
-        int y = 100 + random.nextInt() % 200;
-        
-        
+        int x = 100 + Math.abs(random.nextInt()) % 400;
+        int y = 100 + Math.abs(random.nextInt()) % 200;
+
+
         EntiteettiTehdas tehdas = new EntiteettiTehdas();
         Entiteetti e = tehdas.luoEntiteetti(EntiteettiTyyppi.KIMPOILEVA_ESTE, x, y);
 
         return e;
     }
-    
-     private Entiteetti luoStaattineEste() {
+
+    private Entiteetti luoStaattineEste() {
         Random random = new Random();
         int x = 100 + Math.abs(random.nextInt()) % 400;
         int y = 100 + Math.abs(random.nextInt()) % 200;
@@ -104,7 +89,7 @@ public class Asetukset implements NappulaKuuntelija {
 
         return e;
     }
-    
+
     @Override
     public void nappulaViesti(NappulaTyyppi nappula) {
         switch (nappula) {
@@ -115,23 +100,22 @@ public class Asetukset implements NappulaKuuntelija {
                 peli.lisaaEntiteetti(luoKimpoilevaEste(), false);
                 break;
             case PELAAJA_1_INPUT_VAIHTO:
-                if (pelaaja1OnAI) {
-                    pelaaja1.lisaaKomponentti(KomponenttiTyyppi.INPUT, pelaajan1PelaajaKontrolli);
-                } else {
-                    vaihdaAI(pelaaja1);
-                }
+                vaihdaPelaajanInput(pelaaja1OnAI, pelaaja1, pelaajan1PelaajaKontrolli);
                 pelaaja1OnAI = !pelaaja1OnAI;
                 break;
 
             case PELAAJA_2_INPUT_VAIHTO:
-                if (pelaaja2OnAI) {
-                    pelaaja2.lisaaKomponentti(KomponenttiTyyppi.INPUT, pelaajan2PelaajaKontrolli);
-                } else {
-                    vaihdaAI(pelaaja2);
-                }
-
+                vaihdaPelaajanInput(pelaaja2OnAI, pelaaja2, pelaajan2PelaajaKontrolli);
                 pelaaja2OnAI = !pelaaja2OnAI;
                 break;
+        }
+    }
+
+    private void vaihdaPelaajanInput(boolean onAI, Entiteetti pelaaja, Komponentti kontrolli) {
+        if (onAI) {
+            pelaaja.lisaaKomponentti(KomponenttiTyyppi.INPUT, kontrolli);
+        } else {
+            vaihdaAI(pelaaja);
         }
     }
 

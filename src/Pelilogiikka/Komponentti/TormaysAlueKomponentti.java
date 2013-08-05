@@ -5,16 +5,16 @@ package Pelilogiikka.Komponentti;
 // törmäyskomponentti on suorakaide
 // pallolle luodaan suorakaide joka on pienempi kuin itse pallo jotta pallo ei jäisi kulmista kiinni; hieman epätarkka mutta helppo toteuttaa
 
-public class TormaysKomponentti extends Komponentti {
+public class TormaysAlueKomponentti extends Komponentti {
     
     private int leveys;
     private int korkeus;
     
-    public TormaysKomponentti() {
+    public TormaysAlueKomponentti() {
         asetaUlottuvuudet(0, 0);
     }
     
-    public TormaysKomponentti(int leveys, int korkeus) {
+    public TormaysAlueKomponentti(int leveys, int korkeus) {
         asetaUlottuvuudet(leveys, korkeus);
     }
     

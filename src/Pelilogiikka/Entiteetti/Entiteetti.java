@@ -8,6 +8,11 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+
+/**
+ * Entiteettiluokka. Varastoi komponentit ja pitää yllä viestijonoa jonka avulla komponentit viestittävät toisilleen
+ * 
+ */
 public class Entiteetti {
 
     private Map<KomponenttiTyyppi, Komponentti> komponentit;

@@ -1,7 +1,10 @@
 
 package Pelilogiikka.Enumit;
 
-
+/**
+ * Enum joka luettelee entiteettityypit tehtaalle
+ * 
+ */
 public enum EntiteettiTyyppi {
     PALLO,
     PELAAJA_MAILA,

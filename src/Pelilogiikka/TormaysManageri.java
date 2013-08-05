@@ -4,7 +4,7 @@ import Pelilogiikka.Entiteetti.Entiteetti;
 import Pelilogiikka.Enumit.KomponenttiTyyppi;
 import Pelilogiikka.Enumit.Reuna;
 import Pelilogiikka.Komponentti.PaikkaKomponentti;
-import Pelilogiikka.Komponentti.TormaysKomponentti;
+import Pelilogiikka.Komponentti.TormaysAlueKomponentti;
 import Pelilogiikka.Komponentti.Viestit.TormaysEntiteettiinViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 import java.awt.Rectangle;
@@ -16,9 +16,11 @@ public class TormaysManageri {
     private int pelialueenLeveys;
     private int pelialueenKorkeus;
     private List<Entiteetti> tormaajat;
+    private final Object LUKKO;
 
     public TormaysManageri() {
         tormaajat = new ArrayList<Entiteetti>();
+        LUKKO = new Object();
     }
 
     public void asetaAlueenKoko(int leveys, int korkeus) {
@@ -27,20 +29,28 @@ public class TormaysManageri {
     }
 
     public void lisaaTormaaja(Entiteetti tormaaja) {
-        tormaajat.add(tormaaja);
+        if (tormaaja.getKomponentti(KomponenttiTyyppi.TORMAYS_ALUE) == null) {
+            return;
+        }
+
+        synchronized (LUKKO) {
+            tormaajat.add(tormaaja);
+        }
     }
 
     public void tarkistaTormaykset() {
-        for (Entiteetti e : tormaajat) {
-            // tarkistetaan ettei entiteetti kulje reunan yli
+        synchronized (LUKKO) {
+            for (Entiteetti e : tormaajat) {
+                // tarkistetaan ettei entiteetti kulje reunan yli
 
-            tarkistaReunat(e);
-            tarkistaEntiteettienValisetTormaykset(e);
+                tarkistaReunat(e);
+                tarkistaEntiteettienValisetTormaykset(e);
+            }
         }
     }
 
     private void tarkistaReunat(Entiteetti e) {
-        TormaysKomponentti tormays = (TormaysKomponentti) e.getKomponentti(KomponenttiTyyppi.TORMAYS);
+        TormaysAlueKomponentti tormays = (TormaysAlueKomponentti) e.getKomponentti(KomponenttiTyyppi.TORMAYS_ALUE);
         PaikkaKomponentti paikka = (PaikkaKomponentti) e.getKomponentti(KomponenttiTyyppi.PAIKKA);
 
         if (paikka.getX() < 0) {
@@ -56,6 +66,7 @@ public class TormaysManageri {
 
     private void tarkistaEntiteettienValisetTormaykset(Entiteetti tormaaja) {
 
+
         for (Entiteetti tormattava : tormaajat) {
 
             if (tormaaja == tormattava) {
@@ -65,18 +76,19 @@ public class TormaysManageri {
             PaluuParametrit tormays = tarkistaTormays(tormaaja, tormattava);
 
             if (tormays.tormasi) {
-                tormaaja.kasitteleValittomastiViesti(new TormaysEntiteettiinViesti(tormattava, tormays.osumaPiste));
+                tormaaja.kasitteleValittomastiViesti(new TormaysEntiteettiinViesti(tormattava, tormays.osumaReuna));
             }
 
         }
+
     }
 
     private PaluuParametrit tarkistaTormays(Entiteetti tormaaja, Entiteetti tormattava) {
 
-        TormaysKomponentti tormaajanTormaysKomponentti = (TormaysKomponentti) tormaaja.getKomponentti(KomponenttiTyyppi.TORMAYS);
+        TormaysAlueKomponentti tormaajanTormaysKomponentti = (TormaysAlueKomponentti) tormaaja.getKomponentti(KomponenttiTyyppi.TORMAYS_ALUE);
         PaikkaKomponentti tormaajanPaikka = (PaikkaKomponentti) tormaaja.getKomponentti(KomponenttiTyyppi.PAIKKA);
 
-        TormaysKomponentti tormattavanTormaysKomponentti = (TormaysKomponentti) tormattava.getKomponentti(KomponenttiTyyppi.TORMAYS);
+        TormaysAlueKomponentti tormattavanTormaysKomponentti = (TormaysAlueKomponentti) tormattava.getKomponentti(KomponenttiTyyppi.TORMAYS_ALUE);
         PaikkaKomponentti tormattavanPaikka = (PaikkaKomponentti) tormattava.getKomponentti(KomponenttiTyyppi.PAIKKA);
 
         // luodaan nelikulmiot...
@@ -86,22 +98,44 @@ public class TormaysManageri {
         // ja käytetään valmista metodia tarkistamaan leikkaavatko nämä!
         PaluuParametrit parametrit = new PaluuParametrit();
         if ((parametrit.tormasi = tormaajanSuorakulmio.intersects(tormattavanSuorakulmio)) == true) {
-            
-            
-            parametrit.osumaPiste = laskeTormaysPiste(tormaajanSuorakulmio, tormattavanSuorakulmio);
+            parametrit.osumaReuna = laskeTormaysReuna(tormaajanSuorakulmio, tormattavanSuorakulmio);
         }
-        
+
         return parametrit;
     }
 
-    private double laskeTormaysPiste(Rectangle tormaajanSuorakulmio, Rectangle tormattavanSuorakulmio) {
-        return Math.min(1, Math.max(0, (double)(tormaajanSuorakulmio.x - tormattavanSuorakulmio.x)/tormattavanSuorakulmio.width)); 
+    private Reuna laskeTormaysReuna(Rectangle tormaajanSuorakulmio, Rectangle tormattavanSuorakulmio) {
+        int toleranssi = 6;
+        int tormaajanKeskiPisteX = tormaajanSuorakulmio.x + tormaajanSuorakulmio.width / 2;
+        int tormaajanKeskiPisteY = tormaajanSuorakulmio.y + tormaajanSuorakulmio.height / 2;
         
+        
+        int tormattavanKeskiPisteX = tormattavanSuorakulmio.x + tormattavanSuorakulmio.width / 2;
+        int tormattavanKeskiPisteY = tormattavanSuorakulmio.y + tormattavanSuorakulmio.height / 2;
+
+        int xEro = tormaajanKeskiPisteX - tormattavanKeskiPisteX;
+        int yEro = tormaajanKeskiPisteY - tormattavanKeskiPisteY;
+        
+        
+        // törmätään ylhäätä nähden
+        if (yEro < 0 && Math.abs(xEro) + toleranssi < tormaajanSuorakulmio.width / 2 + tormattavanSuorakulmio.width / 2) {
+            return Reuna.YLA;
+        }
+
+        if (yEro > 0  && Math.abs(xEro) + toleranssi < tormaajanSuorakulmio.width / 2 + tormattavanSuorakulmio.width / 2) {
+            return Reuna.ALA;
+        }
+
+        if (xEro < 0 && Math.abs(yEro) + toleranssi < tormaajanSuorakulmio.height / 2 + tormattavanSuorakulmio.height / 2) {
+            return Reuna.VASEN;
+        } 
+        
+        return Reuna.OIKEA;
     }
 
     private class PaluuParametrit {
 
         public boolean tormasi;
-        public double osumaPiste; // välillä 0 - 1; 0 = vasen laita, 0.5 on keskusta, 1 = oikea laita
+        public Reuna osumaReuna; // välillä 0 - 1; 0 = vasen laita, 0.5 on keskusta, 1 = oikea laita
     }
 }
