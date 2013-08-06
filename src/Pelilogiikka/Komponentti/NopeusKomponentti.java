@@ -8,9 +8,18 @@ import Pelilogiikka.Komponentti.Viestit.MuutaPaikkaViesti;
  */
 public abstract class NopeusKomponentti extends Komponentti {
 
-    private int xNopeus = 0;
-    private int yNopeus = 0;
+    private int xNopeus;
+    private int yNopeus;
 
+    
+    /**
+     * Konstruktori. Alustaa arvot
+     */
+    public NopeusKomponentti() {
+        xNopeus = 0;
+        yNopeus = 0;
+    }
+    
     /**
      * Lähettää MuutaPaikkaViestin jos nopeus on einolla
      *

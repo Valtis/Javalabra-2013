@@ -17,6 +17,11 @@ public class KimpoaSeinastaTormaysKasittelijaKomponentti extends Komponentti {
     private Reuna viimeisinTormattyReuna;
     private int tormaysLaskuri = 0;
     
+    
+    public int getTormaysHuomioimattaJattamisAika() {
+        return TORMAYS_HUOMIOIMATTA_JATTAMIS_AIKA;
+    }
+    
     /**
      * Päivittää törmäyslaskurin
      * @param ticks Montako peliaskelta on kulunut viime päivityksestä.

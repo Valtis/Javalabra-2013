@@ -1,4 +1,4 @@
-package Viestit;
+package PeliLogiikka.Komponentti.Viestit;
 
 import Pelilogiikka.Entiteetti.Entiteetti;
 import Pelilogiikka.Enumit.Reuna;
@@ -45,16 +45,16 @@ public class ViestiParametriTest {
         LiikeViesti viesti = new LiikeViesti(Suunta.VASEN, true);
 
         assertEquals("Väärä parametrin arvo", viesti.getSuunta(), Suunta.VASEN);
-        assertEquals("Väärä parametrin arvo", viesti.aloitaLiike(), true);
-        assertEquals("Väärä parametrin arvo", viesti.pysaytaLiike(), false);
+        assertEquals("Väärä parametrin arvo", true, viesti.aloitaLiike());
+        assertEquals("Väärä parametrin arvo", false, viesti.pysaytaLiike());
     }
 
     @Test
     public void testaaMuutaNopeusViesti() {
         MuutaNopeusViesti viesti = new MuutaNopeusViesti(0.5, 0.7);
 
-        assertEquals("Väärä parametrin arvo", viesti.getXNopeudenMuutos(), 0.5, 0.001);
-        assertEquals("Väärä parametrin arvo", viesti.getYNopeudenMuutos(), 0.7, 0.001);
+        assertEquals("Väärä parametrin arvo", 0.5, viesti.getXNopeudenMuutos(), 0.00001);
+        assertEquals("Väärä parametrin arvo", 0.7, viesti.getYNopeudenMuutos(), 0.00001);
 
     }
 
@@ -62,8 +62,8 @@ public class ViestiParametriTest {
     public void testaaNopeusViesti() {
         MuutaPaikkaViesti viesti = new MuutaPaikkaViesti(5, 2);
 
-        assertEquals("Väärä parametrin arvo", viesti.getXMuutos(), 5);
-        assertEquals("Väärä parametrin arvo", viesti.getYMuutos(), 2);
+        assertEquals("Väärä parametrin arvo", 5, viesti.getXMuutos());
+        assertEquals("Väärä parametrin arvo", 2, viesti.getYMuutos());
     }
 
     @Test
@@ -71,14 +71,14 @@ public class ViestiParametriTest {
         Entiteetti e = new Entiteetti();
         TormaysEntiteettiinViesti viesti = new TormaysEntiteettiinViesti(e, Reuna.OIKEA);
 
-        assertEquals("Väärä parametrin arvo", viesti.getTormaaja(), e);
-        assertEquals("Väärä parametrin arvo", viesti.getTormaysReuna(), Reuna.OIKEA);
+        assertEquals("Väärä parametrin arvo", e, viesti.getTormaaja());
+        assertEquals("Väärä parametrin arvo", Reuna.OIKEA, viesti.getTormaysReuna());
     }
 
     @Test
     public void testaaTormaysReunaanViesti() {
 
         TormaysReunaanViesti viesti = new TormaysReunaanViesti(Reuna.ALA);
-        assertEquals("Väärä parametrin arvo", viesti.getReuna(), Reuna.ALA);
+        assertEquals("Väärä parametrin arvo", Reuna.ALA, viesti.getReuna());
     }
 }

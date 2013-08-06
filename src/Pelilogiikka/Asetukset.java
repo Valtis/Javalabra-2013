@@ -22,7 +22,7 @@ import java.util.Random;
  */
 public class Asetukset implements NappulaKuuntelija {
 
-    private Peli peli;
+    private PeliInterface peli;
     private Entiteetti pelaaja1;
     private Entiteetti pelaaja2;
     private Entiteetti pallo;
@@ -36,7 +36,7 @@ public class Asetukset implements NappulaKuuntelija {
      * @param peli Peli-olio
      * @see Peli
      */
-    public void haeAsetukset(Peli peli) {
+    public void haeAsetukset(PeliInterface peli) {
         this.peli = peli;
         alustaEntiteetit();
 

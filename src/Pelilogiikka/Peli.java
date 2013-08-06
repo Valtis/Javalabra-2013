@@ -14,7 +14,7 @@ import javax.swing.SwingUtilities;
  * käyttöliittymään
  *
  */
-public class Peli implements PisteKuuntelija {
+public class Peli implements  PeliInterface {
 
     private final Object LUKKO;
     private KayttoLiittyma liittyma;
@@ -36,6 +36,22 @@ public class Peli implements PisteKuuntelija {
         entiteetit = new ArrayList<Entiteetti>();
         tormaysManageri = new TormaysManageri();
         nykyinenAika = System.nanoTime();
+    }
+    
+    /**
+     * Palauttaa pelaajan 1 pisteet
+     * @return pelaajan 1 pisteet
+     */
+    public int getPelaajan1Pisteet() {
+        return pelaajan1Pisteet;
+    }
+    
+    /**
+     * Palauttaa pelaajan 2 pisteet
+     * @return pelaajan 2 pisteet
+     */
+    public int getPelaajan2Pisteet() {
+        return pelaajan2Pisteet;
     }
 
     /**
@@ -73,8 +89,11 @@ public class Peli implements PisteKuuntelija {
      * @param e Lisättävä entiteetti
      * @param tarvitseeNappaimistoSyotteen Tarvitseeko entiteetti
      * näppäimistösyötettä
+     * @throws NullPointerException jos entiteetti on null
+     * @throws ClassCastException jos jonkin komponentin tyyppi ei ole oikea
      */
-    public void lisaaEntiteetti(Entiteetti e, boolean tarvitseeNappaimistoSyotteen) {
+    @Override
+    public void lisaaEntiteetti(Entiteetti e, boolean tarvitseeNappaimistoSyotteen) throws NullPointerException, ClassCastException {
 
         liittyma.lisaaPiirrettava(e);
         tormaysManageri.lisaaTormaaja(e);
@@ -95,7 +114,6 @@ public class Peli implements PisteKuuntelija {
         Asetukset asetukset = new Asetukset();
         alustaUI(asetukset);
         asetukset.haeAsetukset(this);
-
 
         SwingUtilities.invokeLater(liittyma);
 

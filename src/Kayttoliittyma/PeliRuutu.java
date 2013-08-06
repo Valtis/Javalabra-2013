@@ -61,13 +61,14 @@ public class PeliRuutu extends JFrame {
      * Lisää piirrettävän piirtoalustaan
      * @param entiteetti Entiteetti joka halutaan piirtää
      * @throws ClassCastException Jos entiteetin piirto- tai paikkakomponettien luokat ovat väärät
-     * @throws NullPointerException Jos entiteetillä ei ole piirto- tai paikkakomponenttia
+     * @throws NullPointerException Jos entiteetti on null
+     * @return true jos entiteetti lisättiin piirrettäväksi, false 
      */
-    public void lisaaPiirrettava(Entiteetti entiteetti) throws ClassCastException, NullPointerException {
+    public boolean lisaaPiirrettava(Entiteetti entiteetti) throws ClassCastException, NullPointerException {
         if (entiteetti == null) {
             throw new NullPointerException("Entiteetin arvo null metodissa KayttoLiittyma.lisaaPiirrettava()");
         }
 
-        piirtoalusta.lisaaPiirrettava(entiteetti);
+        return piirtoalusta.lisaaPiirrettava(entiteetti);
     }
 }

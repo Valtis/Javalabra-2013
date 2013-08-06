@@ -17,10 +17,9 @@ public class Piirtoalusta extends JPanel {
 
     private final Object LUKKO;
     private List<Entiteetti> piirrettavat;
-
     private int pelaajan1Pisteet;
     private int pelaajan2Pisteet;
-    
+
     /**
      * Konstruktori. Alutaa piirtoalustan.
      */
@@ -29,8 +28,10 @@ public class Piirtoalusta extends JPanel {
         LUKKO = new Object();
         piirrettavat = new ArrayList<Entiteetti>();
     }
+
     /**
      * piirtää entiteetit ja pelaajien pisteet ruudulle
+     *
      * @param graphics Graphics-luokan toteuttava olio
      * @see Graphics
      */
@@ -40,29 +41,30 @@ public class Piirtoalusta extends JPanel {
         super.paintComponent(graphics);
         graphics.drawString("Pelaajan 1 pisteet: " + pelaajan1Pisteet, 10, 50);
         graphics.drawString("Pelaajan 2 pisteet: " + pelaajan2Pisteet, 650, 50);
-        
+
         synchronized (LUKKO) {
             for (Entiteetti e : piirrettavat) {
                 piirraEntiteetti(graphics, e);
             }
         }
-        
+
     }
+
     /**
      * Asettaa pelaajien pisteet piirtämistä varten
      *
      * @param piste1 Pelaajan 1 pisteet
      * @param piste2 Pelaajan 2 pisteet
      */
-     
     public void asetaPisteet(int piste1, int piste2) {
         pelaajan1Pisteet = piste1;
         pelaajan2Pisteet = piste2;
     }
+
     /**
-     * 
+     *
      * @param graphics
-     * @param e 
+     * @param e
      */
     private void piirraEntiteetti(Graphics graphics, Entiteetti e) {
         PaikkaKomponentti paikka = (PaikkaKomponentti) e.getKomponentti(KomponenttiTyyppi.PAIKKA);
@@ -70,23 +72,31 @@ public class Piirtoalusta extends JPanel {
 
         piirto.piirra(graphics, paikka.getX(), paikka.getY());
     }
+
     /**
-     * Lisätään piirrettävä entiteetti piirtoalustaan
+     * Lisätään piirrettävä entiteetti piirtoalustaan jos entiteetillä on piirto- ja paikkakomponentti
+     *
      * @param piirettavaEntiteetti Entiteetti joka halutaan piirtään
-     * @throws ClassCastException Jos piirtokomponentin tai paikkakomponentin luokat eivät ole oikein
-     * @throws NullPointerException Jos Piirtokomponentti tai paikkaKomponentti on null
+     * @throws ClassCastException Jos piirtokomponentin tai paikkakomponentin
+     * luokat eivät ole oikein
+     * @return true jos entiteetti lisättiin, false muutoin
      */
-    public void lisaaPiirrettava(Entiteetti piirettavaEntiteetti) throws ClassCastException, NullPointerException {
-        if ((PiirtoKomponentti) piirettavaEntiteetti.getKomponentti(KomponenttiTyyppi.PIIRTO) == null) {
-            throw new NullPointerException("Entiteetillä ei ole piirtokomponenttia metodissa Piirtoalusta.lisaaPiirrettava()!");
+    public boolean lisaaPiirrettava(Entiteetti piirettavaEntiteetti) throws ClassCastException {
+        if (piirettavaEntiteetti.getKomponentti(KomponenttiTyyppi.PIIRTO) == null || piirettavaEntiteetti.getKomponentti(KomponenttiTyyppi.PAIKKA) == null) {
+            return false;
         }
 
-        if ((PaikkaKomponentti) piirettavaEntiteetti.getKomponentti(KomponenttiTyyppi.PAIKKA) == null) {
-            throw new NullPointerException("Entiteetillä ei ole paikkakomponenttia metodissa Piirtoalusta.lisaaPiirrettava()!");
+        if (!(piirettavaEntiteetti.getKomponentti(KomponenttiTyyppi.PAIKKA) instanceof PaikkaKomponentti)) {
+            throw new ClassCastException("Paikkakomponentilla on väärä tyyppi");
+        }
+
+        if (!(piirettavaEntiteetti.getKomponentti(KomponenttiTyyppi.PIIRTO) instanceof PiirtoKomponentti)) {
+            throw new ClassCastException("Piirtokomponentilla on väärä tyyppi");
         }
 
         synchronized (LUKKO) {
             piirrettavat.add(piirettavaEntiteetti);
         }
+        return true;
     }
 }

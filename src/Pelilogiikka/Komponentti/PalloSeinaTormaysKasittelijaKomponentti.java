@@ -14,6 +14,15 @@ public class PalloSeinaTormaysKasittelijaKomponentti extends Komponentti {
     private final int TORMAYS_HUOMIOIMATTA_JATTAMIS_AIKA = 4;
     private int tormaysLaskuri = 0;
 
+    
+    /**
+     * Getteri. Palauttaa kuinka monta peliaskelta komponentti ei huomioi törmäyksiä kun on törmätty johonkin.
+     * @return 
+     */
+    public int getTormaysHuomioimattaJattamisAika() {
+        return TORMAYS_HUOMIOIMATTA_JATTAMIS_AIKA;
+    }
+    
     /**
      * Päivittää törmäyslaskurin
      *

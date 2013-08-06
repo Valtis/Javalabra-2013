@@ -17,6 +17,21 @@ public class EntiteettiTormaysKasittelijaKomponentti extends Komponentti {
     private Object entiteettiJohonTormattyViimeksi = null;
 
     /**
+     * Getteri. Palauttaa kuinka monta peliaskelta komponentti ei huomioi törmäyksiä kun on törmätty johonkin.
+     * @return 
+     */
+    public int getTormaysHuomioimattaJattamisAika() {
+        return TORMAYS_HUOMIOIMATTA_JATTAMIS_AIKA;
+    }
+    /**
+     * Getteri. Palauttaa kuinka monta peliaskelta komponentti ei huomioi törmäyksiä samaan entiteettiin kun on törmätty.
+     * @return 
+     */
+    public int getTormaysJataEdellinenEntiteettiHuomioimattaAika() {
+        return TORMAYS_JATA_EDELLINEN_ENTITEETTI_HUOMIOIMATTA;
+    }
+    
+    /**
      * Päivittää törmäyslaskurin
      *
      * @param ticks Montako peliaskelta on kulunut viime päivityksestä.

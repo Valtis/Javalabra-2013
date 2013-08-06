@@ -11,6 +11,7 @@ public class KayttoLiittyma implements Runnable {
 
     private AsetusRuutu asetusRuutu;
     private PeliRuutu peliRuutu;
+    private NappainKontrolli nappainKontrolli;
     /**
      * Toteuttaa Runnable-rajapinnan run-metodin
      */
@@ -33,9 +34,10 @@ public class KayttoLiittyma implements Runnable {
     public void alusta(Asetukset asetukset) {
         asetusRuutu = new AsetusRuutu("Pong - asetukset", asetukset);
         asetusRuutu.setLocation(800, 20);
-
         peliRuutu = new PeliRuutu("Pong");
 
+        nappainKontrolli = new NappainKontrolli();
+        peliRuutu.addKeyListener(nappainKontrolli);
     }
     /**
      * Palauttaa peliruudun leveyden
@@ -54,20 +56,22 @@ public class KayttoLiittyma implements Runnable {
     /**
      * Lisää komponentin joka kuuntelee näppäimistöä
      * @param komponentti Kuunteleva komponentti
-     * @throws ClassCastException Jos komponentti ei toteuta KeyListener-rajapintaa
      * @throws NullPointerException Jos komponentti on null
      */
-    public void lisaaNappainKuuntelija(KeyListener komponentti) throws ClassCastException, NullPointerException {
-        KeyListener kuuntelija = (KeyListener) komponentti;
-        peliRuutu.addKeyListener(kuuntelija);
+    public void lisaaNappainKuuntelija(NappainKuuntelija kuuntelija) throws NullPointerException {
+        if (kuuntelija == null) {
+            throw new NullPointerException("Kuuntelijan arvo null KayttoLiittyma.lisaaNappainKuuntelija()-metodissa");
+        }
+        nappainKontrolli.lisaaKuuntelija(kuuntelija);
     }
     /**
      * Lisää piirrettävän entiteetin
      * @param entiteetti Piirrettävä entiteetti
-     * @throws ClassCastException Jos entiteetin PiirtoKomponentti ja PaikkaKomponentti eivät toteuta oikeita luokkia
-     * @throws NullPointerException Jos Entiteetti, Piirtokomponentti tai paikkakomponetti on null
+     * @throws ClassCastException Jos entiteetin PiirtoKomponentti ja PaikkaKomponentti ovat väärän tyyppisiä
+     * @throws NullPointerException jos Entiteetti on null
+     * @return true jos entiteetti lisättiin, false jos ei
      */
-    public void lisaaPiirrettava(Entiteetti entiteetti) throws ClassCastException, NullPointerException {
-        peliRuutu.lisaaPiirrettava(entiteetti);
+    public boolean lisaaPiirrettava(Entiteetti entiteetti) throws ClassCastException, NullPointerException {
+        return peliRuutu.lisaaPiirrettava(entiteetti);
     }
 }

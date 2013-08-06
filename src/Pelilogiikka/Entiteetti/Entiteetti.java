@@ -24,6 +24,14 @@ public class Entiteetti {
         viestit = new LinkedBlockingQueue<Viesti>();
         komponentit = new EnumMap<KomponenttiTyyppi, Komponentti>(KomponenttiTyyppi.class);
     }
+    
+    /**
+     * Getteri. Palauttaa viestijonon
+     * @return Viestijono
+     */
+    public Queue<Viesti> getViestiJono() {
+        return viestit;
+    }
     /**
      * Lisää tyypin määrittämän komponentin entiteettin. Mahdollinen vanha komponentti jolla on sama tyyppi korvataan.
      * @param tyyppi Komponentin tyyppi

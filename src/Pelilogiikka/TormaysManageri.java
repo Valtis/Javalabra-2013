@@ -45,15 +45,17 @@ public class TormaysManageri {
      * TORMAYS_ALUE-tyypin komponenttia, komponenttia ei lisätä.
      *
      * @param tormaaja Lisättävä entiteetti
+     * @return Lisättiinkö törmääjä
      */
-    public void lisaaTormaaja(Entiteetti tormaaja) {
+    public boolean lisaaTormaaja(Entiteetti tormaaja) {
         if (tormaaja.getKomponentti(KomponenttiTyyppi.TORMAYS_ALUE) == null) {
-            return;
+            return false;
         }
 
         synchronized (LUKKO) {
             tormaajat.add(tormaaja);
         }
+        return true;
     }
 
     /**

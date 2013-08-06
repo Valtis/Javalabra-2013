@@ -27,9 +27,20 @@ Yhteensä projektin aikana 13h 40min
 
 5.8.2013
 
-12:00 - 14:10 - Törmäyskoodin hiomista. 
+12:00 - 14:10 - Törmäyskoodin hiomista. Poistettiin törmäyskulman laskeminen toteutuksen helpottamiseksi.
 14:10 - 15:00 Javadocin kirjoittelua
 15:30 - 17:50 Javadocin kirjoittelua. Javadocit valmiit. TODO: testit, uml-kaaviot, sekvenssikaaviot.
+18:00 - 18:40 Testien kirjoittelua.
 
-Yhteensä tänään: 4h 20min
-Yhteensä projektin aikana 18h
+Yhteensä tänään: 5h
+Yhteensä projektin aikana 18h 40min
+
+6.8.2013
+
+13:20 - 15:00 - Lisättiin luokka inputkomponentin ja näppäinkuuntelun väliin jotta inputkomponentti ei riippuisi keyeventeistä - helpottaa yksikkötestausta. Yksikkötestien rakentelua
+15:40 - 18:30 Yksikkötestejä. Kaikki valmiit poislukien mahdollinen pieni hienosäätö myöhemmin. TODO: UML, sekvenssikaaviot, käyttöohjeet.
+19:40:- 20:50 UML-kaavioita
+
+
+Yhteensä tänään 5h 40min
+Yhteensä projektin aikana 24h 20min

@@ -1,6 +1,7 @@
 package Pelilogiikka.Komponentti;
 
 
+import Kayttoliittyma.NappainKuuntelija;
 import Pelilogiikka.Enumit.Suunta;
 import Pelilogiikka.Komponentti.Viestit.LiikeViesti;
 import java.awt.event.KeyEvent;
@@ -11,7 +12,7 @@ import java.util.Map;
  * Komponentti joka vastaa näppäimistösyötteen käsittelystä. Lähettää LiikeViesti-viestin kun käsittelee syötettä
  * @see LiikeViesti
  */
-public class InputKomponentti extends Komponentti implements KeyListener {
+public class InputKomponentti extends Komponentti implements NappainKuuntelija {
 
     private Map<Integer, Suunta> nappaimet;
     /**
@@ -31,31 +32,23 @@ public class InputKomponentti extends Komponentti implements KeyListener {
     }
     
     /**
-     * Toteuttaa KeyListener-rajapinnan keyTyped-metodin. Ei tee mitään
-     * @param e KeyEvent
+     * Ottaa vastaan painetun näppäimen koodin
+     * @param nappain Painettu näppäin, KeyEventin getCode()-arvo
      */
     @Override
-    public void keyTyped(KeyEvent e) {
-    }
-    /**
-     * Käsittelee tapahtuman kun näppäin painetaan alas. Jos näppäinkoodi on aikaisemmin asetettu, lähettää LiikeViestin liikkeen alkamisesta
-     * @param e KeyEvent
-     */
-    @Override
-    public void keyPressed(KeyEvent e) {
-        int nappain = e.getKeyCode();
+    public void nappainPainettu(int nappain) {
         if (nappaimet.containsKey(nappain)) {
             lisaaViesti(new LiikeViesti(nappaimet.get(nappain), true));
         }
     }
 
     /**
-     * Käsittelee tapahtuman kun näppäin vapautetaan. Jos näppäinkoodi on aikaisemmin asetettu, lähettää LiikeViestin liikkeen loppumisesta.
-     * @param e KeyEvent
+     * Ottaa vastaan painetun näppäimen koodin
+     * @param nappain Vapautettu näppäin, KeyEventin getCode()-arvo
      */
     @Override
-    public void keyReleased(KeyEvent e) {
-        int nappain = e.getKeyCode();
+    public void nappainVapautettu(int nappain) {
+  
         if (nappaimet.containsKey(nappain)) {
            lisaaViesti(new LiikeViesti(nappaimet.get(nappain), false));
         }
