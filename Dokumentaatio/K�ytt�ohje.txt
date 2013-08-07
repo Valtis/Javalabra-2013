@@ -1,0 +1,4 @@
+Pelaaja 1: Vasen nuoli > vasemmalle, oikea nuoli > oikealle
+Pelaaja 2: A > Vasemmalle, D > oikealle
+
+Asetuspaneelista voi vaihtaa pelaajat tekoälyn kontrolliin tai lisätä kentälle staattisia\kimpoilevia esteitä.

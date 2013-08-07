@@ -6,7 +6,6 @@ Perusominaisuudet pelille:
 2 pelaajaa jotka voivat liikuttaa mailoja.
 Pallon kimpoaminen mailasta
 Yksi pallo
-Pelataan tiettyyn pistem‰‰r‰‰n ennen voittajan julistamista
 Pistekirjanpito ruudulle
 
 
