@@ -55,12 +55,7 @@ public class Asetukset implements NappulaKuuntelija {
 
         peli.lisaaEntiteetti(pelaaja1, true);
         peli.lisaaEntiteetti(pelaaja2, true);
-
-        // otetaan pelaajien kontrollit talteen sitä varten että voidaan vaihdella pelaajien ja AI-komponenttien välillä
-        pelaajan1PelaajaKontrolli = pelaaja1.getKomponentti(KomponenttiTyyppi.INPUT);
-        pelaajan2PelaajaKontrolli = pelaaja2.getKomponentti(KomponenttiTyyppi.INPUT);
-        pelaaja1OnAI = false;
-        pelaaja2OnAI = false;
+        otaTalteenPelaajaTiedot();
     }
     /**
      * Luo pelaajamailan
@@ -113,7 +108,7 @@ public class Asetukset implements NappulaKuuntelija {
      * Luo staattisen esteen satunnaiseen paikkaan
      * @return Staattinen este
      */
-    private Entiteetti luoStaattineEste() {
+    private Entiteetti luoStaattinenEste() {
         Random random = new Random();
         int x = 100 + Math.abs(random.nextInt()) % 400;
         int y = 100 + Math.abs(random.nextInt()) % 200;
@@ -130,7 +125,7 @@ public class Asetukset implements NappulaKuuntelija {
     public void nappulaViesti(NappulaTyyppi nappula) {
         switch (nappula) {
             case STAATTINEN_ESTE:
-                peli.lisaaEntiteetti(luoStaattineEste(), false);
+                peli.lisaaEntiteetti(luoStaattinenEste(), false);
                 break;
             case KIMPOILEVA_ESTE:
                 peli.lisaaEntiteetti(luoKimpoilevaEste(), false);
@@ -168,5 +163,13 @@ public class Asetukset implements NappulaKuuntelija {
         k.asetaOmaPaikka((PaikkaKomponentti) pelaaja.getKomponentti(KomponenttiTyyppi.PAIKKA));
         k.asetaPallonPaikka((PaikkaKomponentti) pallo.getKomponentti(KomponenttiTyyppi.PAIKKA));
         pelaaja.lisaaKomponentti(KomponenttiTyyppi.INPUT, k);
+    }
+
+    private void otaTalteenPelaajaTiedot() {
+        // otetaan pelaajien kontrollit talteen sitä varten että voidaan vaihdella pelaajien ja AI-komponenttien välillä
+        pelaajan1PelaajaKontrolli = pelaaja1.getKomponentti(KomponenttiTyyppi.INPUT);
+        pelaajan2PelaajaKontrolli = pelaaja2.getKomponentti(KomponenttiTyyppi.INPUT);
+        pelaaja1OnAI = false;
+        pelaaja2OnAI = false;
     }
 }

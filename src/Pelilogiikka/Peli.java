@@ -20,6 +20,7 @@ public class Peli implements  PeliInterface {
     private KayttoLiittyma liittyma;
     private TormaysManageri tormaysManageri;
     private List<Entiteetti> entiteetit;
+    private Asetukset asetukset;
     private final long TICK = 16 * 1000000; // 16 millisekuntia
     private long nykyinenAika;
     private int pelaajan1Pisteet;
@@ -35,7 +36,9 @@ public class Peli implements  PeliInterface {
 
         entiteetit = new ArrayList<Entiteetti>();
         tormaysManageri = new TormaysManageri();
-        nykyinenAika = System.nanoTime();
+        liittyma = new KayttoLiittyma();
+        asetukset = new Asetukset();
+   
     }
     
     /**
@@ -55,17 +58,6 @@ public class Peli implements  PeliInterface {
     }
 
     /**
-     * Alustaa UI:n
-     *
-     * @param asetukset Asetusluokan ilmentymä, tarvitsee käyttöliittymältä
-     * tiedon milloin halutaan luoda uusia entiteettejä
-     */
-    private void alustaUI(Asetukset asetukset) {
-        liittyma = new KayttoLiittyma();
-        liittyma.alusta(asetukset);
-    }
-
-    /**
      * Asettaa halutun entiteetin InputKomponentin kuuntelemaan
      * näppäimistösyötettä. Jos input-komponenttia ei ole, ei tee mitään <p>
      * Heittää ClassCastExceptionin jos komponentti ei ole InputKomponentti
@@ -76,6 +68,7 @@ public class Peli implements  PeliInterface {
     private void asetaNappaimistoKuuntelija(Entiteetti e) throws ClassCastException {
 
         InputKomponentti input = (InputKomponentti) e.getKomponentti(KomponenttiTyyppi.INPUT);
+        
         if (input == null) {
             return;
         }
@@ -94,7 +87,7 @@ public class Peli implements  PeliInterface {
      */
     @Override
     public void lisaaEntiteetti(Entiteetti e, boolean tarvitseeNappaimistoSyotteen) throws NullPointerException, ClassCastException {
-
+        
         liittyma.lisaaPiirrettava(e);
         tormaysManageri.lisaaTormaaja(e);
 
@@ -111,13 +104,8 @@ public class Peli implements  PeliInterface {
      * Aloittaa pelin pelaamisen
      */
     public void pelaa() {
-        Asetukset asetukset = new Asetukset();
-        alustaUI(asetukset);
-        asetukset.haeAsetukset(this);
 
-        SwingUtilities.invokeLater(liittyma);
-
-        tormaysManageri.asetaAlueenKoko(liittyma.peliAlueenLeveys(), liittyma.peliAlueenKorkeus());
+        alusta();
 
         while (true) {
 
@@ -165,5 +153,17 @@ public class Peli implements  PeliInterface {
         } else if (reuna == Reuna.ALA) {
             ++pelaajan2Pisteet;
         }
+    }
+    /**
+     * Alustaa tarvittavat arvot
+     */
+    private void alusta() {
+        nykyinenAika = System.nanoTime();
+        liittyma.alusta(asetukset);
+        
+        asetukset.haeAsetukset(this);
+        SwingUtilities.invokeLater(liittyma);
+
+        tormaysManageri.asetaAlueenKoko(liittyma.peliAlueenLeveys(), liittyma.peliAlueenKorkeus());
     }
 }
