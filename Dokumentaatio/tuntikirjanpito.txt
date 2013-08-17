@@ -50,7 +50,7 @@ Yhteensä projektin aikana 24h 20min
 12:30 - 13:00 Sekvenssikaaviot
 20:30 - 20:31 Käyttöohje
 
-Thteensä tänänän 31min
+Yhteensä tänänän 31min
 Yhteensä projektin aikana 24h 51min
 
 8.8.2013 - 16-8.2013
@@ -58,4 +58,8 @@ Keskitytty tiran harjoitustyöhön; tämä työ omasta mielestäni lähinnä pientä hiom
 
 17.8.2013
 
-14:00 - 15:00 - Poistettu koodista kovakoodattuja vakioita + päivitetty testit entiteettitehtaalle. Muutettu viestijonon antamista komponenteille.
+14:00 - 16:00 - Poistettu koodista kovakoodattuja vakioita + päivitetty testit entiteettitehtaalle. Muutettu viestijonon antamista komponenteille. Siirrettiin törmäyskoodi pois paikkakomponenteista. Päivitettiin uml-kaaviot
+
+
+Yhteensä tänänän 2h
+Yhteensä projektin aikana 26h 51min

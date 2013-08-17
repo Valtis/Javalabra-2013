@@ -1,6 +1,7 @@
 package Pelilogiikka.Komponentti;
 
 import Pelilogiikka.Komponentti.Viestit.AlustaNopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.AlustaPaikkaViesti;
 import Pelilogiikka.Komponentti.Viestit.MuutaNopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 
@@ -51,6 +52,7 @@ public class PalloSeinaTormaysKasittelijaKomponentti extends Komponentti {
             case YLA:
             case ALA:
                 viestit.kasitteleValittomastiViesti(new AlustaNopeusViesti());
+                viestit.kasitteleValittomastiViesti(new AlustaPaikkaViesti(viesti.getReuna()));
                 break;
             case VASEN:
             case OIKEA:

@@ -3,6 +3,7 @@ package PeliLogiikka.Komponentti;
 
 import Pelilogiikka.Enumit.Reuna;
 import Pelilogiikka.Komponentti.PalloPaikkaKomponentti;
+import Pelilogiikka.Komponentti.Viestit.AlustaPaikkaViesti;
 import Pelilogiikka.Komponentti.Viestit.MuutaPaikkaViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 import Pelilogiikka.Komponentti.Viestit.Viesti;
@@ -64,8 +65,8 @@ public class PalloPaikkaKomponenttiTest {
         MuutaPaikkaViesti muutos = new MuutaPaikkaViesti(10, -15);
         muutos.otaVastaanVierailija(komponentti);
 
-        TormaysReunaanViesti tormays = new TormaysReunaanViesti(Reuna.YLA);
-        tormays.otaVastaanVierailija(komponentti);
+        AlustaPaikkaViesti alustus = new AlustaPaikkaViesti(Reuna.YLA);
+        alustus.otaVastaanVierailija(komponentti);
 
         assertEquals("X-akselin paikka ei palannut oikeaksi", vanhaX, komponentti.getX());
         assertEquals("Y-akselin paikka ei palannut oikeaksi", vanhaY, komponentti.getY());
@@ -73,16 +74,16 @@ public class PalloPaikkaKomponenttiTest {
 
     @Test
     public void ilmoittaaKuuntelijalleOikeanReunanKunTormataanYlaReunaan() {
-        TormaysReunaanViesti tormays = new TormaysReunaanViesti(Reuna.YLA);
-        tormays.otaVastaanVierailija(komponentti);
+        AlustaPaikkaViesti alustus = new AlustaPaikkaViesti(Reuna.YLA);
+        alustus.otaVastaanVierailija(komponentti);
 
         assertEquals("Pistekuuntelijan reuna on väärä", Reuna.YLA, pisteKuuntelija.osumaReuna);
     }
 
     @Test
     public void ilmoittaaKuuntelijalleOikeanReunanKunTormataanAlaReunaan() {
-        TormaysReunaanViesti tormays = new TormaysReunaanViesti(Reuna.ALA);
-        tormays.otaVastaanVierailija(komponentti);
+        AlustaPaikkaViesti alustus = new AlustaPaikkaViesti(Reuna.ALA);
+        alustus.otaVastaanVierailija(komponentti);
 
         assertEquals("Pistekuuntelijan reuna on väärä", Reuna.ALA, pisteKuuntelija.osumaReuna);
     }
@@ -94,8 +95,8 @@ public class PalloPaikkaKomponenttiTest {
         MuutaPaikkaViesti muutos = new MuutaPaikkaViesti(10, -15);
         muutos.otaVastaanVierailija(komponentti);
 
-        TormaysReunaanViesti tormays = new TormaysReunaanViesti(Reuna.ALA);
-        tormays.otaVastaanVierailija(komponentti);
+        AlustaPaikkaViesti alustus = new AlustaPaikkaViesti(Reuna.ALA);
+        alustus.otaVastaanVierailija(komponentti);
 
         assertEquals("X-akselin paikka ei palannut oikeaksi", vanhaX, komponentti.getX());
         assertEquals("Y-akselin paikka ei palannut oikeaksi", vanhaY, komponentti.getY());
@@ -108,11 +109,11 @@ public class PalloPaikkaKomponenttiTest {
         MuutaPaikkaViesti muutos = new MuutaPaikkaViesti(10, -15);
         muutos.otaVastaanVierailija(komponentti);
 
-        TormaysReunaanViesti tormays = new TormaysReunaanViesti(Reuna.VASEN);
-        tormays.otaVastaanVierailija(komponentti);
+        AlustaPaikkaViesti alustus = new AlustaPaikkaViesti(Reuna.VASEN);
+        alustus.otaVastaanVierailija(komponentti);
 
-        assertFalse("X-akselin paikka muuttui vaikka ei pitänyt", komponentti.getX() == vanhaX);
-        assertFalse("Y-akselin paikka muuttui vaikka ei pitänyt ", komponentti.getY() == vanhaY);
+        assertFalse("X-akselin paikka muuttui alkuun vaikka ei pitänyt", komponentti.getX() == vanhaX);
+        assertFalse("Y-akselin paikka muuttui alkuun vaikka ei pitänyt ", komponentti.getY() == vanhaY);
     }
 
     @Test
@@ -122,8 +123,8 @@ public class PalloPaikkaKomponenttiTest {
         MuutaPaikkaViesti muutos = new MuutaPaikkaViesti(10, -15);
         muutos.otaVastaanVierailija(komponentti);
 
-        TormaysReunaanViesti tormays = new TormaysReunaanViesti(Reuna.OIKEA);
-        tormays.otaVastaanVierailija(komponentti);
+        AlustaPaikkaViesti alustus = new AlustaPaikkaViesti(Reuna.OIKEA);
+        alustus.otaVastaanVierailija(komponentti);
 
         assertFalse("X-akselin paikka muuttui vaikka ei pitänyt", komponentti.getX() == vanhaX);
         assertFalse("Y-akselin paikka muuttui vaikka ei pitänyt ", komponentti.getY() == vanhaY);

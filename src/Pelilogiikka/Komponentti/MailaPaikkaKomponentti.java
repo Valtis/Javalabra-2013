@@ -1,5 +1,6 @@
 package Pelilogiikka.Komponentti;
 
+import Pelilogiikka.Komponentti.Viestit.AlustaPaikkaViesti;
 import Pelilogiikka.Komponentti.Viestit.MuutaPaikkaViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 /**
@@ -43,7 +44,7 @@ public class MailaPaikkaKomponentti extends PaikkaKomponentti {
      * @see TormaysReunaanViesti
      */
     @Override
-    public void vieraile(TormaysReunaanViesti viesti) {
+    public void vieraile(AlustaPaikkaViesti viesti) {
         asetaX(vanhaX);
     }
 }

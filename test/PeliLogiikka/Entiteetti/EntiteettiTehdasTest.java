@@ -11,6 +11,7 @@ import Pelilogiikka.Komponentti.Komponentti;
 import Pelilogiikka.Komponentti.LiikkuvaObjektiNopeusKomponentti;
 import Pelilogiikka.Komponentti.MailaNopeusKomponentti;
 import Pelilogiikka.Komponentti.MailaPaikkaKomponentti;
+import Pelilogiikka.Komponentti.MailaSeinaTormaysKasittelijaKomponentti;
 import Pelilogiikka.Komponentti.NopeusKomponentti;
 import Pelilogiikka.Komponentti.PaikkaKomponentti;
 import Pelilogiikka.Komponentti.PalloPaikkaKomponentti;
@@ -163,7 +164,8 @@ public class EntiteettiTehdasTest {
         assertNotNull("Mailalta puuttuu törmäysaluekomponentti", maila.getKomponentti(KomponenttiTyyppi.TORMAYS_ALUE));
         assertEquals("Mailan törmäysaluekomponentilla on väärä tyyppi", TormaysAlueKomponentti.class, maila.getKomponentti(KomponenttiTyyppi.TORMAYS_ALUE).getClass());
 
-        assertNull("Mailalta on virheellisesti seinätörmäyskäsittelijä", maila.getKomponentti(KomponenttiTyyppi.SEINA_TORMAYS_KASITTELIJA));
+        assertNotNull("Mailalta puuttuu seinätörmäyskäsittelijäkomponentti", maila.getKomponentti(KomponenttiTyyppi.SEINA_TORMAYS_KASITTELIJA));
+        assertEquals("Mailan seinätörmäyskäsittelijäkomponentilla on väärä tyyppi", MailaSeinaTormaysKasittelijaKomponentti.class, maila.getKomponentti(KomponenttiTyyppi.SEINA_TORMAYS_KASITTELIJA).getClass());
 
         assertNull("Mailalta on virheellisesti entiteettiörmäyskäsittelijä", maila.getKomponentti(KomponenttiTyyppi.ENTITEETTI_TORMAYS_KASITTELIJA));
     }

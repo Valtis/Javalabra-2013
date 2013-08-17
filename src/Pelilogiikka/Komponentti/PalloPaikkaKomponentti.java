@@ -1,6 +1,7 @@
 package Pelilogiikka.Komponentti;
 
 import Pelilogiikka.Enumit.Reuna;
+import Pelilogiikka.Komponentti.Viestit.AlustaPaikkaViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 import Pelilogiikka.PisteKuuntelija;
 
@@ -23,9 +24,8 @@ public class PalloPaikkaKomponentti extends PaikkaKomponentti {
     }
 
     /**
-     * Konstruktori. 
-     * <p>
-     * Kutsuu PaikkaKomponentin konstruktoria ja alustaa aloituspaikan jota tarvitaan kun pallo osuu ylä- tai alareunaan
+     * Konstruktori. <p> Kutsuu PaikkaKomponentin konstruktoria ja alustaa
+     * aloituspaikan jota tarvitaan kun pallo osuu ylä- tai alareunaan
      *
      * @param x Aloituksen x-koordinaatti
      * @param y Aloituksen y-koordinaatti
@@ -44,17 +44,23 @@ public class PalloPaikkaKomponentti extends PaikkaKomponentti {
     public void asetaPisteKuuntelija(PisteKuuntelija kuuntelija) {
         this.kuuntelija = kuuntelija;
     }
-    
+
     /**
-     * Käsittelee TormaysReunaanViestin. Jos törmätään ylä- tai alareunaan, palautetaan alkupaikka
+     * Käsittelee TormaysReunaanViestin. Jos törmätään ylä- tai alareunaan,
+     * palautetaan alkupaikka
+     *
      * @param viesti TormaysReunaanViesti
      * @see TormaysReunaanViesti
      */
     @Override
-    public void vieraile(TormaysReunaanViesti viesti) {
-        if (viesti.getReuna() == Reuna.YLA || viesti.getReuna() == Reuna.ALA) {
-            asetaPaikka(aloitusX, aloitusY);
-            kuuntelija.pisteyta(viesti.getReuna());
+    public void vieraile(AlustaPaikkaViesti viesti) {
+        
+        if (viesti.getReuna() == Reuna.VASEN || viesti.getReuna() == Reuna.OIKEA) {
+            return;
         }
+        
+        asetaPaikka(aloitusX, aloitusY);
+        kuuntelija.pisteyta(viesti.getReuna());
+
     }
 }

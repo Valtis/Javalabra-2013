@@ -10,32 +10,38 @@ public interface ViestiVierailija {
      * LiikeViestin vierailija. 
      * @param viesti LiikeViesti
      */
-    void vieraile(LiikeViesti viesti);
+    public void vieraile(LiikeViesti viesti);
     /**
      * NopeusViestin vierailija. 
      * @param viesti NopeusViesti
      */
-    void vieraile(MuutaPaikkaViesti viesti);
+    public void vieraile(MuutaPaikkaViesti viesti);
     
     /**
      * TormaysReunaanViestin vierailija. 
      * @param viesti TormaysReunaanViesti
      */
-    void vieraile(TormaysReunaanViesti viesti);
+    public void vieraile(TormaysReunaanViesti viesti);
     /**
      * TormaysEntiteettiinViestin vierailija. 
      * @param viesti TormaysEntiteettiinViesti
      */
-    void vieraile(TormaysEntiteettiinViesti viesti);
+    public void vieraile(TormaysEntiteettiinViesti viesti);
     /**
      * MuutaNopeusViestin vierailija. 
      * @param viesti MuutaNopeusViesti
      */
-    void vieraile(MuutaNopeusViesti viesti);
+    public void vieraile(MuutaNopeusViesti viesti);
     /**
      * AlustaNopeusViestin vierailija. 
      * @param viesti AlustaNopeusViesti
      */
-    void vieraile(AlustaNopeusViesti viesti);
+    public void vieraile(AlustaNopeusViesti viesti);
+    
+    /**
+     * AlustaPaikkaViestin vierailija. 
+     * @param viesti AlustaNopeusViesti
+     */
+    public void vieraile(AlustaPaikkaViesti viesti);
     
 }

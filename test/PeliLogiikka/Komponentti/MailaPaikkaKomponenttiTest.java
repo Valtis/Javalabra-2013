@@ -3,6 +3,7 @@ package PeliLogiikka.Komponentti;
 
 import Pelilogiikka.Enumit.Reuna;
 import Pelilogiikka.Komponentti.MailaPaikkaKomponentti;
+import Pelilogiikka.Komponentti.Viestit.AlustaPaikkaViesti;
 import Pelilogiikka.Komponentti.Viestit.MuutaPaikkaViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 import Pelilogiikka.Komponentti.Viestit.Viesti;
@@ -50,8 +51,8 @@ public class MailaPaikkaKomponenttiTest {
         MuutaPaikkaViesti paikkaViesti = new MuutaPaikkaViesti(1, 0);    
         paikkaViesti.otaVastaanVierailija(komponentti);
         
-        TormaysReunaanViesti tormaysViesti = new TormaysReunaanViesti(Reuna.YLA);
-        tormaysViesti.otaVastaanVierailija(komponentti);
+        AlustaPaikkaViesti alustus = new AlustaPaikkaViesti(Reuna.YLA);
+        alustus.otaVastaanVierailija(komponentti);
         assertEquals("X-koordinaatin arvo on väärä", vanhaX, komponentti.getX());
     }
    

@@ -2,6 +2,7 @@ package Pelilogiikka.Komponentti;
 
 import Pelilogiikka.Entiteetti.ViestiJonoInterface;
 import Pelilogiikka.Komponentti.Viestit.AlustaNopeusViesti;
+import Pelilogiikka.Komponentti.Viestit.AlustaPaikkaViesti;
 import Pelilogiikka.Komponentti.Viestit.LiikeViesti;
 import Pelilogiikka.Komponentti.Viestit.MuutaNopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.MuutaPaikkaViesti;
@@ -105,5 +106,16 @@ public abstract class Komponentti implements ViestiVierailija {
      */
     @Override
     public void vieraile(AlustaNopeusViesti viesti) {
+    }
+    /**
+     * Oletusimplementaatio AlustaPaikkaViestin käsittelylle. Jättää viestin
+     * huomioimatta
+     *
+     * @param viesti AlustaNopeusViesti
+     * @see AlustaNopeusViesti
+     */
+    @Override 
+    public void vieraile(AlustaPaikkaViesti viesti) {
+    
     }
 }

@@ -8,6 +8,7 @@ import Pelilogiikka.Komponentti.KimpoaSeinastaTormaysKasittelijaKomponentti;
 import Pelilogiikka.Komponentti.LiikkuvaObjektiNopeusKomponentti;
 import Pelilogiikka.Komponentti.MailaNopeusKomponentti;
 import Pelilogiikka.Komponentti.MailaPaikkaKomponentti;
+import Pelilogiikka.Komponentti.MailaSeinaTormaysKasittelijaKomponentti;
 import Pelilogiikka.Komponentti.PaikkaKomponentti;
 import Pelilogiikka.Komponentti.PalloPaikkaKomponentti;
 import Pelilogiikka.Komponentti.PalloPiirtoKomponentti;
@@ -165,6 +166,7 @@ public class EntiteettiTehdas {
         e.lisaaKomponentti(KomponenttiTyyppi.PAIKKA, new MailaPaikkaKomponentti(x, y));
         e.lisaaKomponentti(KomponenttiTyyppi.PIIRTO, new SuoraKaidePiirtoKomponentti(mailanArvot[LEVEYS_INDEKSI], mailanArvot[KORKEUS_INDEKSI]));
         e.lisaaKomponentti(KomponenttiTyyppi.TORMAYS_ALUE, new TormaysAlueKomponentti(mailanArvot[TORMAYS_LEVEYS_INDEKSI], mailanArvot[TORMAYS_KORKEUS_INDEKSI]));
+        e.lisaaKomponentti(KomponenttiTyyppi.SEINA_TORMAYS_KASITTELIJA, new MailaSeinaTormaysKasittelijaKomponentti());
     }
 
     /**
