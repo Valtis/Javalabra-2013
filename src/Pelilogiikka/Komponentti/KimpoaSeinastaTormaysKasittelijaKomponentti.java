@@ -53,11 +53,11 @@ public class KimpoaSeinastaTormaysKasittelijaKomponentti extends Komponentti {
         switch (viimeisinTormattyReuna) {
             case YLA:
             case ALA:
-                lisaaViesti(new MuutaNopeusViesti(1, -1.0));
+                viestit.lisaaViesti(new MuutaNopeusViesti(1, -1.0));
                 break;
             case VASEN:
             case OIKEA:
-                lisaaViesti(new MuutaNopeusViesti(-1.0, 1));
+                viestit.lisaaViesti(new MuutaNopeusViesti(-1.0, 1));
         }
         tormaysLaskuri = TORMAYS_HUOMIOIMATTA_JATTAMIS_AIKA;
     }

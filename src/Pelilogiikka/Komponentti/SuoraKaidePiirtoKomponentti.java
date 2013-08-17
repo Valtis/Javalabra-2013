@@ -8,6 +8,20 @@ import java.awt.Graphics;
 public final class SuoraKaidePiirtoKomponentti extends PiirtoKomponentti {
     private int leveys;
     private int korkeus;
+    /**
+     * Getteri. Palauttaa piirrettävän alueen leveyden
+     * @return Piirrettävän alueen leveys
+     */
+    public int getLeveys() {
+        return leveys;
+    }
+    /**
+     * Getteri. Palauttaa piirrettävän alueen korkeuden
+     * @return Piirrettävän alueen korkeus
+     */
+    public int getKorkeus() {
+        return korkeus;
+    }
     
     /**
      * Konstruktori

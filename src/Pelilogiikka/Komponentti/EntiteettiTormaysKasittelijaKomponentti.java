@@ -97,6 +97,6 @@ public class EntiteettiTormaysKasittelijaKomponentti extends Komponentti {
 
         tormaysLaskuri = TORMAYS_HUOMIOIMATTA_JATTAMIS_AIKA;
         edellinenEntiteettiTormaysLaskuri = TORMAYS_JATA_EDELLINEN_ENTITEETTI_HUOMIOIMATTA;
-        lisaaViesti(new MuutaNopeusViesti(xSuunta, ySuunta));
+        viestit.lisaaViesti(new MuutaNopeusViesti(xSuunta, ySuunta));
     }
 }

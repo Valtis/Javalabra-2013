@@ -20,7 +20,7 @@ public class MailaNopeusKomponenttiTest {
 
     private MailaNopeusKomponentti komponentti;
     private int mailaNopeus;
-    private Queue<Viesti> viestiJono;
+    private ViestiJonoMockup viestiJono;
 
     public MailaNopeusKomponenttiTest() {
     }
@@ -38,7 +38,7 @@ public class MailaNopeusKomponenttiTest {
         Random random = new Random();
         mailaNopeus = Math.abs(random.nextInt()) % 10000;
         komponentti = new MailaNopeusKomponentti(mailaNopeus);
-        viestiJono = new LinkedList<Viesti>();
+        viestiJono = new ViestiJonoMockup();
         komponentti.lisaaViestijono(viestiJono);
     }
 
@@ -81,7 +81,7 @@ public class MailaNopeusKomponenttiTest {
         v.otaVastaanVierailija(komponentti);
 
         komponentti.paivita(1.0);
-        assertEquals("Viestiä ei generoitu", 1, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 1, viestiJono.jono.size());
     }
 
     @Test
@@ -90,7 +90,7 @@ public class MailaNopeusKomponenttiTest {
         v.otaVastaanVierailija(komponentti);
 
         komponentti.paivita(1.0);
-        MuutaPaikkaViesti muutaViesti = (MuutaPaikkaViesti) viestiJono.poll();
+        MuutaPaikkaViesti muutaViesti = (MuutaPaikkaViesti) viestiJono.jono.poll();
 
         assertEquals("X-akselin muutos väärä", komponentti.getXNopeus(), muutaViesti.getXMuutos());
         assertEquals("Y-akselin muutos väärä", komponentti.getYNopeus(), muutaViesti.getYMuutos());
@@ -102,7 +102,7 @@ public class MailaNopeusKomponenttiTest {
         v.otaVastaanVierailija(komponentti);
 
         komponentti.paivita(5.2);
-        MuutaPaikkaViesti muutaViesti = (MuutaPaikkaViesti) viestiJono.poll();
+        MuutaPaikkaViesti muutaViesti = (MuutaPaikkaViesti) viestiJono.jono.poll();
 
         assertEquals("X-akselin muutos väärä", (int)(5.2*komponentti.getXNopeus()), muutaViesti.getXMuutos());
         assertEquals("Y-akselin muutos väärä", (int)(5.2*komponentti.getYNopeus()), muutaViesti.getYMuutos());
@@ -117,7 +117,7 @@ public class MailaNopeusKomponenttiTest {
         nv.otaVastaanVierailija(komponentti);
 
         komponentti.paivita(1.0);
-        MuutaPaikkaViesti muutaPaikkaViesti = (MuutaPaikkaViesti) viestiJono.poll();
+        MuutaPaikkaViesti muutaPaikkaViesti = (MuutaPaikkaViesti) viestiJono.jono.poll();
 
         assertEquals("X-akselin muutos väärä", komponentti.getXNopeus(), muutaPaikkaViesti.getXMuutos());
         assertEquals("Y-akselin muutos väärä", komponentti.getYNopeus(), muutaPaikkaViesti.getYMuutos());
@@ -128,6 +128,6 @@ public class MailaNopeusKomponenttiTest {
         komponentti.asetaXNopeus(0);
         komponentti.asetaYNopeus(0);
         komponentti.paivita(1.0);
-        assertEquals("Viestiä ei generoitu", 0, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 0, viestiJono.jono.size());
     }
 }

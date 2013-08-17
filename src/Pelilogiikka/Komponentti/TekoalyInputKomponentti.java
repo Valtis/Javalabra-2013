@@ -40,10 +40,10 @@ public class TekoalyInputKomponentti extends Komponentti {
     @Override
     public void paivita(double ticks) {
        if (omaPaikka.getX() < pallonPaikka.getX() ) {
-           lisaaViesti(new LiikeViesti(Suunta.OIKEA, true));
+           viestit.lisaaViesti(new LiikeViesti(Suunta.OIKEA, true));
        }
        else {
-           lisaaViesti(new LiikeViesti(Suunta.VASEN, true));
+           viestit.lisaaViesti(new LiikeViesti(Suunta.VASEN, true));
        }
     }
 

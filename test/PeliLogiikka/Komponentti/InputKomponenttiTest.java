@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 public class InputKomponenttiTest {
 
     private InputKomponentti komponentti;
-    private Queue<Viesti> viestiJono;
+    private ViestiJonoMockup viestiJono;
 
     public InputKomponenttiTest() {
     }
@@ -32,7 +32,7 @@ public class InputKomponenttiTest {
 
     @Before
     public void setUp() {
-        viestiJono = new LinkedList<Viesti>();
+        viestiJono = new ViestiJonoMockup();
         komponentti = new InputKomponentti();
         komponentti.asetaNappain(KeyEvent.VK_LEFT, Suunta.VASEN);
         komponentti.asetaNappain(KeyEvent.VK_RIGHT, Suunta.OIKEA);
@@ -46,106 +46,106 @@ public class InputKomponenttiTest {
     @Test
     public void nappaimenJotaEiAsetettuPainallusEiGeneroiViestia() {
         komponentti.nappainPainettu(KeyEvent.VK_A);
-        assertEquals("Viesti generoitiin kun ei olisi pitänyt", 0, viestiJono.size());
+        assertEquals("Viesti generoitiin kun ei olisi pitänyt", 0, viestiJono.jono.size());
     }
 
     @Test
     public void nappaimenJotaEiAsetettuVapautusEiGeneroiViestia() {
         komponentti.nappainVapautettu(KeyEvent.VK_A);
-        assertEquals("Viesti generoitiin kun ei olisi pitänyt", 0, viestiJono.size());
+        assertEquals("Viesti generoitiin kun ei olisi pitänyt", 0, viestiJono.jono.size());
     }
 
     @Test
     public void vasemmanNappaimenPainallusGeneroiViestin() {
         komponentti.nappainPainettu(KeyEvent.VK_LEFT);
-        assertEquals("Viestiä ei generoitu", 1, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 1, viestiJono.jono.size());
     }
 
     @Test
     public void oikeanNappaimenPainallusGeneroiViestin() {
         komponentti.nappainPainettu(KeyEvent.VK_RIGHT);
-        assertEquals("Viestiä ei generoitu", 1, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 1, viestiJono.jono.size());
     }
 
     @Test
     public void vasemmanNappaimenVapautusGeneroiViestin() {
         komponentti.nappainVapautettu(KeyEvent.VK_LEFT);
-        assertEquals("Viestiä ei generoitu", 1, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 1, viestiJono.jono.size());
     }
 
     @Test
     public void oikeanNappaimenVapautusGeneroiViestin() {
         komponentti.nappainVapautettu(KeyEvent.VK_RIGHT);
-        assertEquals("Viestiä ei generoitu", 1, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 1, viestiJono.jono.size());
     }
 
     @Test
     public void vasemmanNappaimenPainallusGeneroiViestinJossaLiikeAloitettu() {
         komponentti.nappainPainettu(KeyEvent.VK_LEFT);
-        LiikeViesti viesti = (LiikeViesti) viestiJono.poll();
+        LiikeViesti viesti = (LiikeViesti) viestiJono.jono.poll();
         assertTrue("Liikettä ei aloitettu oikein", viesti.aloitaLiike());
     }
 
     @Test
     public void vasemmanNappaimenVapautusGeneroiViestinJossaLiikePysaytetty() {
         komponentti.nappainVapautettu(KeyEvent.VK_LEFT);
-        LiikeViesti viesti = (LiikeViesti) viestiJono.poll();
+        LiikeViesti viesti = (LiikeViesti) viestiJono.jono.poll();
         assertTrue("Liikettä ei aloitettu oikein", viesti.pysaytaLiike());
     }
 
     @Test
     public void vasemmanNappaimenPainallusGeneroiViestinJossaLiikeEiPysaytetty() {
         komponentti.nappainPainettu(KeyEvent.VK_LEFT);
-        LiikeViesti viesti = (LiikeViesti) viestiJono.poll();
+        LiikeViesti viesti = (LiikeViesti) viestiJono.jono.poll();
         assertFalse("Liikettä ei aloitettu oikein", viesti.pysaytaLiike());
     }
 
     @Test
     public void vasemmanNappaimenVapautusGeneroiViestinJossaLiikeEiAloitettu() {
         komponentti.nappainVapautettu(KeyEvent.VK_LEFT);
-        LiikeViesti viesti = (LiikeViesti) viestiJono.poll();
+        LiikeViesti viesti = (LiikeViesti) viestiJono.jono.poll();
         assertFalse("Liikettä ei aloitettu oikein", viesti.aloitaLiike());
     }
 
     @Test
     public void vasemmanNappaimenPainallusGeneroiViestinJonkaSuuntaOikea() {
         komponentti.nappainVapautettu(KeyEvent.VK_LEFT);
-        LiikeViesti viesti = (LiikeViesti) viestiJono.poll();
+        LiikeViesti viesti = (LiikeViesti) viestiJono.jono.poll();
         assertEquals("Liikkeen suunta väärä", Suunta.VASEN, viesti.getSuunta());
     }
 
     @Test
     public void oikeanNappaimenPainallusGeneroiViestinJossaLiikeAloitettu() {
         komponentti.nappainPainettu(KeyEvent.VK_RIGHT);
-        LiikeViesti viesti = (LiikeViesti) viestiJono.poll();
+        LiikeViesti viesti = (LiikeViesti) viestiJono.jono.poll();
         assertTrue("Liikettä ei aloitettu oikein", viesti.aloitaLiike());
     }
 
     @Test
     public void oikeanNappaimenVapautusGeneroiViestinJossaLiikePysaytetty() {
         komponentti.nappainVapautettu(KeyEvent.VK_RIGHT);
-        LiikeViesti viesti = (LiikeViesti) viestiJono.poll();
+        LiikeViesti viesti = (LiikeViesti) viestiJono.jono.poll();
         assertTrue("Liikettä ei aloitettu oikein", viesti.pysaytaLiike());
     }
 
     @Test
     public void oikeanNappaimenPainallusGeneroiViestinJossaLiikeEiPysaytetty() {
         komponentti.nappainPainettu(KeyEvent.VK_RIGHT);
-        LiikeViesti viesti = (LiikeViesti) viestiJono.poll();
+        LiikeViesti viesti = (LiikeViesti) viestiJono.jono.poll();
         assertFalse("Liikettä ei aloitettu oikein", viesti.pysaytaLiike());
     }
 
     @Test
     public void oikeanNappaimenVapautusGeneroiViestinJossaLiikeEiAloitettu() {
         komponentti.nappainVapautettu(KeyEvent.VK_RIGHT);
-        LiikeViesti viesti = (LiikeViesti) viestiJono.poll();
+        LiikeViesti viesti = (LiikeViesti) viestiJono.jono.poll();
         assertFalse("Liikettä ei aloitettu oikein", viesti.aloitaLiike());
     }
 
     @Test
     public void oikeanNappaimenPainallusGeneroiViestinJonkaSuuntaOikea() {
         komponentti.nappainPainettu(KeyEvent.VK_RIGHT);
-        LiikeViesti viesti = (LiikeViesti) viestiJono.poll();
+        LiikeViesti viesti = (LiikeViesti) viestiJono.jono.poll();
         assertEquals("Liikkeen suunta väärä", Suunta.OIKEA, viesti.getSuunta());
     }
 }

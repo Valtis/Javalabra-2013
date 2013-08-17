@@ -38,7 +38,7 @@ public class InputKomponentti extends Komponentti implements NappainKuuntelija {
     @Override
     public void nappainPainettu(int nappain) {
         if (nappaimet.containsKey(nappain)) {
-            lisaaViesti(new LiikeViesti(nappaimet.get(nappain), true));
+            viestit.lisaaViesti(new LiikeViesti(nappaimet.get(nappain), true));
         }
     }
 
@@ -50,7 +50,7 @@ public class InputKomponentti extends Komponentti implements NappainKuuntelija {
     public void nappainVapautettu(int nappain) {
   
         if (nappaimet.containsKey(nappain)) {
-           lisaaViesti(new LiikeViesti(nappaimet.get(nappain), false));
+           viestit.lisaaViesti(new LiikeViesti(nappaimet.get(nappain), false));
         }
     }
 

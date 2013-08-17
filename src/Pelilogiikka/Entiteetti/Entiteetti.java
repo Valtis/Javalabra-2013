@@ -13,7 +13,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Entiteettiluokka. Varastoi komponentit ja pitää yllä viestijonoa jonka avulla komponentit viestittävät toisilleen
  * 
  */
-public class Entiteetti {
+public class Entiteetti implements ViestiJonoInterface {
 
     private Map<KomponenttiTyyppi, Komponentti> komponentit;
     private Queue<Viesti> viestit;
@@ -38,7 +38,7 @@ public class Entiteetti {
      * @param k Komponentti joka lisätään
      */
     public void lisaaKomponentti(KomponenttiTyyppi tyyppi, Komponentti k) {
-        k.lisaaViestijono(viestit);
+        k.lisaaViestijono(this);
         komponentit.put(tyyppi, k);
     }
     /**

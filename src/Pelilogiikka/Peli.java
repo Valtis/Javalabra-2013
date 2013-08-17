@@ -14,7 +14,7 @@ import javax.swing.SwingUtilities;
  * käyttöliittymään
  *
  */
-public class Peli implements  PeliInterface {
+public class Peli implements PeliInterface {
 
     private final Object LUKKO;
     private KayttoLiittyma liittyma;
@@ -38,19 +38,21 @@ public class Peli implements  PeliInterface {
         tormaysManageri = new TormaysManageri();
         liittyma = new KayttoLiittyma();
         asetukset = new Asetukset();
-   
+
     }
-    
+
     /**
      * Palauttaa pelaajan 1 pisteet
+     *
      * @return pelaajan 1 pisteet
      */
     public int getPelaajan1Pisteet() {
         return pelaajan1Pisteet;
     }
-    
+
     /**
      * Palauttaa pelaajan 2 pisteet
+     *
      * @return pelaajan 2 pisteet
      */
     public int getPelaajan2Pisteet() {
@@ -68,7 +70,7 @@ public class Peli implements  PeliInterface {
     private void asetaNappaimistoKuuntelija(Entiteetti e) throws ClassCastException {
 
         InputKomponentti input = (InputKomponentti) e.getKomponentti(KomponenttiTyyppi.INPUT);
-        
+
         if (input == null) {
             return;
         }
@@ -87,7 +89,7 @@ public class Peli implements  PeliInterface {
      */
     @Override
     public void lisaaEntiteetti(Entiteetti e, boolean tarvitseeNappaimistoSyotteen) throws NullPointerException, ClassCastException {
-        
+
         liittyma.lisaaPiirrettava(e);
         tormaysManageri.lisaaTormaaja(e);
 
@@ -142,8 +144,10 @@ public class Peli implements  PeliInterface {
             }
         }
     }
+
     /**
      * Antaa pelaajille pisteitä riippuen mihin reunaan osuttiin
+     *
      * @param reuna Reuna johonka pallo osui
      */
     @Override
@@ -154,16 +158,18 @@ public class Peli implements  PeliInterface {
             ++pelaajan2Pisteet;
         }
     }
+
     /**
      * Alustaa tarvittavat arvot
      */
     private void alusta() {
         nykyinenAika = System.nanoTime();
         liittyma.alusta(asetukset);
-        
-        asetukset.haeAsetukset(this);
+
+
         SwingUtilities.invokeLater(liittyma);
 
         tormaysManageri.asetaAlueenKoko(liittyma.peliAlueenLeveys(), liittyma.peliAlueenKorkeus());
+        asetukset.haeAsetukset(this, liittyma.peliAlueenLeveys(), liittyma.peliAlueenKorkeus());
     }
 }

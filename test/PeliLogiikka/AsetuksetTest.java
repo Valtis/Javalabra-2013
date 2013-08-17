@@ -23,7 +23,8 @@ import static org.junit.Assert.*;
  */
 public class AsetuksetTest {
     private Asetukset asetukset;
-    PeliMockup peli;
+    private PeliMockup peli;
+    
     private class PeliMockup implements Pelilogiikka.PeliInterface {
         
         public List<Entiteetti> entiteetit = new ArrayList<Entiteetti>();
@@ -54,7 +55,7 @@ public class AsetuksetTest {
     public void setUp() {
         asetukset = new Asetukset();
         peli = new PeliMockup();
-        asetukset.haeAsetukset(peli);
+        asetukset.haeAsetukset(peli, 800, 600);
     }
     
     @After

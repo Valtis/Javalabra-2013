@@ -20,7 +20,7 @@ public class TekoAlyInputKomponenttiTest {
     private TekoalyInputKomponentti komponentti;
     private MailaPaikkaKomponentti paikkaKomponentti;
     private PaikkaKomponentti pallonPaikkaKomponentti;
-    Queue<Viesti> viestiJono;
+    private ViestiJonoMockup viestiJono;
 
     public TekoAlyInputKomponenttiTest() {
     }
@@ -35,7 +35,7 @@ public class TekoAlyInputKomponenttiTest {
 
     @Before
     public void setUp() {
-        viestiJono = new LinkedList<Viesti>();
+        viestiJono = new ViestiJonoMockup();
 
         paikkaKomponentti = new MailaPaikkaKomponentti(10, 20);
         pallonPaikkaKomponentti = new PaikkaKomponentti();
@@ -53,7 +53,7 @@ public class TekoAlyInputKomponenttiTest {
     @Test
     public void generoiViestinKunPaivitetaan() {
         komponentti.paivita(1.0);
-        assertEquals("Viestiä ei generoitu", 1, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 1, viestiJono.jono.size());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class TekoAlyInputKomponenttiTest {
         pallonPaikkaKomponentti.asetaPaikka(5, 20);
         komponentti.paivita(1.0);
 
-        LiikeViesti v = (LiikeViesti) viestiJono.poll();
+        LiikeViesti v = (LiikeViesti) viestiJono.jono.poll();
         assertEquals("Liikeen suunta väärä", Suunta.VASEN, v.getSuunta());
     }
 
@@ -70,7 +70,7 @@ public class TekoAlyInputKomponenttiTest {
         pallonPaikkaKomponentti.asetaPaikka(5, 20);
         komponentti.paivita(1.0);
 
-        LiikeViesti v = (LiikeViesti) viestiJono.poll();
+        LiikeViesti v = (LiikeViesti) viestiJono.jono.poll();
         assertTrue("Liikeen aloitus väärä", v.aloitaLiike());
     }
 
@@ -79,7 +79,7 @@ public class TekoAlyInputKomponenttiTest {
         pallonPaikkaKomponentti.asetaPaikka(5, 20);
         komponentti.paivita(1.0);
 
-        LiikeViesti v = (LiikeViesti) viestiJono.poll();
+        LiikeViesti v = (LiikeViesti) viestiJono.jono.poll();
         assertFalse("Liikeen lopetus väärä", v.pysaytaLiike());
     }
 
@@ -88,7 +88,7 @@ public class TekoAlyInputKomponenttiTest {
         pallonPaikkaKomponentti.asetaPaikka(40, 20);
         komponentti.paivita(1.0);
 
-        LiikeViesti v = (LiikeViesti) viestiJono.poll();
+        LiikeViesti v = (LiikeViesti) viestiJono.jono.poll();
         assertEquals("Liikeen suunta väärä", Suunta.OIKEA, v.getSuunta());
     }
 
@@ -97,7 +97,7 @@ public class TekoAlyInputKomponenttiTest {
         pallonPaikkaKomponentti.asetaPaikka(40, 20);
         komponentti.paivita(1.0);
 
-        LiikeViesti v = (LiikeViesti) viestiJono.poll();
+        LiikeViesti v = (LiikeViesti) viestiJono.jono.poll();
         assertTrue("Liikkeen aloitus väärä", v.aloitaLiike());
     }
 
@@ -106,7 +106,7 @@ public class TekoAlyInputKomponenttiTest {
         pallonPaikkaKomponentti.asetaPaikka(40, 20);
         komponentti.paivita(1.0);
 
-        LiikeViesti v = (LiikeViesti) viestiJono.poll();
+        LiikeViesti v = (LiikeViesti) viestiJono.jono.poll();
         assertFalse("Liikeen lopetus väärä", v.pysaytaLiike());
     }
 }

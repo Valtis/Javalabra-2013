@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 public class LiikkuvaObjektiNopeusKomponenttiTest {
 
     private LiikkuvaObjektiNopeusKomponentti komponentti;
-    private Queue<Viesti> viestiJono;
+    private ViestiJonoMockup viestiJono;
     private int maksimiNopeus;
 
     public LiikkuvaObjektiNopeusKomponenttiTest() {
@@ -39,7 +39,7 @@ public class LiikkuvaObjektiNopeusKomponenttiTest {
         Random random = new Random();
         maksimiNopeus = Math.abs(random.nextInt()) % 10000;
         komponentti = new LiikkuvaObjektiNopeusKomponentti(maksimiNopeus);
-        viestiJono = new LinkedList<Viesti>();
+        viestiJono = new ViestiJonoMockup();
         komponentti.lisaaViestijono(viestiJono);
     }
 
@@ -76,13 +76,13 @@ public class LiikkuvaObjektiNopeusKomponenttiTest {
     @Test
     public void lahettaaViestinKunNopeusEiNolla() {
         komponentti.paivita(1.0);
-        assertEquals("Viestiä ei generoitu", 1, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 1, viestiJono.jono.size());
     }
 
     @Test
     public void lahettaaViestinJonkaArvotOikeatKunNopeusEiNolla() {
         komponentti.paivita(1.0);
-        MuutaPaikkaViesti v = (MuutaPaikkaViesti) viestiJono.poll();
+        MuutaPaikkaViesti v = (MuutaPaikkaViesti) viestiJono.jono.poll();
 
         assertEquals("X-akselin muutos väärä", v.getXMuutos(), komponentti.getXNopeus());
         assertEquals("Y-akselin muutos väärä", v.getYMuutos(), komponentti.getYNopeus());
@@ -91,7 +91,7 @@ public class LiikkuvaObjektiNopeusKomponenttiTest {
     @Test
     public void lahettaaViestinJonkaArvotOikeatKunNopeusEiNollaJaPeliAskelVenahtanyt() {
         komponentti.paivita(3.5);
-        MuutaPaikkaViesti v = (MuutaPaikkaViesti) viestiJono.poll();
+        MuutaPaikkaViesti v = (MuutaPaikkaViesti) viestiJono.jono.poll();
 
         assertEquals("X-akselin muutos väärä", (int)(3.5*komponentti.getXNopeus()), v.getXMuutos());
         assertEquals("Y-akselin muutos väärä", (int)(3.5*komponentti.getYNopeus()), v.getYMuutos());
@@ -104,7 +104,7 @@ public class LiikkuvaObjektiNopeusKomponenttiTest {
         nv.otaVastaanVierailija(komponentti);
         
         komponentti.paivita(1.0);
-        MuutaPaikkaViesti v = (MuutaPaikkaViesti) viestiJono.poll();
+        MuutaPaikkaViesti v = (MuutaPaikkaViesti) viestiJono.jono.poll();
 
         assertEquals("X-akselin muutos väärä", komponentti.getXNopeus(), v.getXMuutos());
         assertEquals("Y-akselin muutos väärä", komponentti.getYNopeus(), v.getYMuutos());
@@ -117,7 +117,7 @@ public class LiikkuvaObjektiNopeusKomponenttiTest {
         komponentti.asetaXNopeus(0);
         komponentti.asetaYNopeus(0);
         komponentti.paivita(1.0);
-        assertEquals("Viestiä ei generoitu", 0, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 0, viestiJono.jono.size());
     }
     
 }

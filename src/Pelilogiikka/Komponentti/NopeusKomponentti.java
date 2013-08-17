@@ -28,7 +28,7 @@ public abstract class NopeusKomponentti extends Komponentti {
     @Override
     public void paivita(double ticks) {
         if (xNopeus != 0 || yNopeus != 0) {
-            lisaaViesti(new MuutaPaikkaViesti((int) (xNopeus * ticks), (int) (yNopeus * ticks)));
+            viestit.lisaaViesti(new MuutaPaikkaViesti((int) (xNopeus * ticks), (int) (yNopeus * ticks)));
         }
     }
 

@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class PaikkaKomponenttiTest {
     private PaikkaKomponentti komponentti;
-    private Queue<Viesti> viestiJono;
+    private ViestiJonoMockup viestiJono;
     
     public PaikkaKomponenttiTest() {
     }
@@ -32,7 +32,7 @@ public class PaikkaKomponenttiTest {
     @Before
     public void setUp() {
         komponentti = new PaikkaKomponentti(4, 10);
-        viestiJono = new LinkedList<Viesti>();
+        viestiJono = new ViestiJonoMockup();
         komponentti.lisaaViestijono(viestiJono);
     }
     
@@ -56,6 +56,6 @@ public class PaikkaKomponenttiTest {
     public void testaaPaikkaViestiEiGeneroiViestia() {
         MuutaPaikkaViesti v = new MuutaPaikkaViesti(1, 1);
         v.otaVastaanVierailija(komponentti);
-        assertEquals("Generoi viestin kun ei olisi pitänyt", 0, viestiJono.size());
+        assertEquals("Generoi viestin kun ei olisi pitänyt", 0, viestiJono.jono.size());
     }
 }

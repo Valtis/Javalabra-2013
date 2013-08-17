@@ -50,11 +50,11 @@ public class PalloSeinaTormaysKasittelijaKomponentti extends Komponentti {
         switch (viesti.getReuna()) {
             case YLA:
             case ALA:
-                lisaaViesti(new AlustaNopeusViesti());
+                viestit.kasitteleValittomastiViesti(new AlustaNopeusViesti());
                 break;
             case VASEN:
             case OIKEA:
-                lisaaViesti(new MuutaNopeusViesti(-1.0, 1));
+                viestit.lisaaViesti(new MuutaNopeusViesti(-1.0, 1));
         }
 
         tormaysLaskuri = TORMAYS_HUOMIOIMATTA_JATTAMIS_AIKA;

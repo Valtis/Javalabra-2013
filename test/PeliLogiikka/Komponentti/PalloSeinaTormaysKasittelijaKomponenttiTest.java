@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 
 public class PalloSeinaTormaysKasittelijaKomponenttiTest {
     PalloSeinaTormaysKasittelijaKomponentti komponentti;
-    Queue<Viesti> viestiJono;
+    ViestiJonoMockup viestiJono;
     
     private TormaysReunaanViesti ylaReuna;
     private TormaysReunaanViesti alaReuna;
@@ -39,7 +39,7 @@ public class PalloSeinaTormaysKasittelijaKomponenttiTest {
     @Before
     public void setUp() {
         komponentti = new PalloSeinaTormaysKasittelijaKomponentti();
-        viestiJono = new LinkedList<Viesti>();
+        viestiJono = new ViestiJonoMockup();
         komponentti.lisaaViestijono(viestiJono);
         
         ylaReuna = new TormaysReunaanViesti(Reuna.YLA);
@@ -55,39 +55,39 @@ public class PalloSeinaTormaysKasittelijaKomponenttiTest {
      @Test
     public void tormaysYlaReunaanGeneroiViestin() {
         ylaReuna.otaVastaanVierailija(komponentti);
-        assertEquals("Viestiä ei generoitu", 1, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 1, viestiJono.valittomastiKasiteltavat.size());
     }
 
     @Test
     public void tormaysYlaReunaanGeneroiViestinJonkaTyyppiOikea() {
         ylaReuna.otaVastaanVierailija(komponentti);
-        Viesti v =  viestiJono.poll();
+        Viesti v =  viestiJono.valittomastiKasiteltavat.poll();
         assertEquals("Viestin tyyppi on väärä", AlustaNopeusViesti.class, v.getClass());  
     }
 
     @Test
     public void tormaysAlaReunaanGeneroiViestin() {
         alaReuna.otaVastaanVierailija(komponentti);
-        assertEquals("Viestiä ei generoitu", 1, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 1, viestiJono.valittomastiKasiteltavat.size());
     }
 
     @Test
     public void tormaysAlaReunaanGeneroiViestinJonkaTyyppiOikea() {
         alaReuna.otaVastaanVierailija(komponentti);
-        Viesti v =  viestiJono.poll();
+        Viesti v =  viestiJono.valittomastiKasiteltavat.poll();
         assertEquals("Viestin tyyppi on väärä", AlustaNopeusViesti.class, v.getClass());
     }
 
     @Test
     public void tormaysVasempaanReunaanGeneroiViestin() {
         vasenReuna.otaVastaanVierailija(komponentti);
-        assertEquals("Viestiä ei generoitu", 1, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 1, viestiJono.jono.size());
     }
 
     @Test
     public void tormaysVasempaanReunaanGeneroiViestinJonkaSisaltoOikea() {
         vasenReuna.otaVastaanVierailija(komponentti);
-        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.poll();
+        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.jono.poll();
         assertEquals("Viestillä on väärä arvo", -1, v.getXNopeudenMuutos(), 0.00001);
         assertEquals("Viestillä on väärä arvo", 1, v.getYNopeudenMuutos(), 0.00001);
     }
@@ -95,13 +95,13 @@ public class PalloSeinaTormaysKasittelijaKomponenttiTest {
     @Test
     public void tormaysOikeaanReunaanGeneroiViestin() {
         oikeaReuna.otaVastaanVierailija(komponentti);
-        assertEquals("Viestiä ei generoitu", 1, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 1, viestiJono.jono.size());
     }
 
     @Test
     public void tormaysOikeaanReunaanGeneroiViestinJonkaSisaltoOikea() {
         oikeaReuna.otaVastaanVierailija(komponentti);
-        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.poll();
+        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.jono.poll();
         assertEquals("Viestillä on väärä arvo", -1, v.getXNopeudenMuutos(), 0.00001);
         assertEquals("Viestillä on väärä arvo", 1, v.getYNopeudenMuutos(), 0.00001);
     }
@@ -114,13 +114,13 @@ public class PalloSeinaTormaysKasittelijaKomponenttiTest {
         }
         
         ylaReuna.otaVastaanVierailija(komponentti);
-        assertEquals("Viestiä ei generoitu", 2, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 2, viestiJono.valittomastiKasiteltavat.size());
     }
 
     @Test
     public void eiGeneroiViestiaJosOnTormattyAskettainSamaan() {
         oikeaReuna.otaVastaanVierailija(komponentti);
         oikeaReuna.otaVastaanVierailija(komponentti);
-        assertEquals("Generoi viestin kun ei olisi pitänyt", 1, viestiJono.size());
+        assertEquals("Generoi viestin kun ei olisi pitänyt", 1, viestiJono.jono.size());
     }
 }

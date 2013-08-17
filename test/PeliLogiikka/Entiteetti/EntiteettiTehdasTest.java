@@ -1,4 +1,3 @@
-
 package PeliLogiikka.Entiteetti;
 
 import Pelilogiikka.Entiteetti.Entiteetti;
@@ -8,9 +7,11 @@ import Pelilogiikka.Enumit.KomponenttiTyyppi;
 import Pelilogiikka.Komponentti.EntiteettiTormaysKasittelijaKomponentti;
 import Pelilogiikka.Komponentti.InputKomponentti;
 import Pelilogiikka.Komponentti.KimpoaSeinastaTormaysKasittelijaKomponentti;
+import Pelilogiikka.Komponentti.Komponentti;
 import Pelilogiikka.Komponentti.LiikkuvaObjektiNopeusKomponentti;
 import Pelilogiikka.Komponentti.MailaNopeusKomponentti;
 import Pelilogiikka.Komponentti.MailaPaikkaKomponentti;
+import Pelilogiikka.Komponentti.NopeusKomponentti;
 import Pelilogiikka.Komponentti.PaikkaKomponentti;
 import Pelilogiikka.Komponentti.PalloPaikkaKomponentti;
 import Pelilogiikka.Komponentti.PalloPiirtoKomponentti;
@@ -24,7 +25,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 
 public class EntiteettiTehdasTest {
 
@@ -46,6 +46,7 @@ public class EntiteettiTehdasTest {
     @Before
     public void setUp() {
         tehdas = new EntiteettiTehdas();
+        EntiteettiTehdas.palautaOletusArvot();
     }
 
     @After
@@ -59,7 +60,6 @@ public class EntiteettiTehdasTest {
 
         assertNotNull("Staattiselta esteeltä puuttuu paikkakomponentti", este.getKomponentti(KomponenttiTyyppi.PAIKKA));
         assertEquals("Staattisen esteen paikkakomponentilla on väärä tyyppi", PaikkaKomponentti.class, este.getKomponentti(KomponenttiTyyppi.PAIKKA).getClass());
-        tarkistaPaikkaKomponentinArvot((PaikkaKomponentti) este.getKomponentti(KomponenttiTyyppi.PAIKKA));
 
         assertNull("Staattisella esteellä on virheellisesti nopeuskomponentti", este.getKomponentti(KomponenttiTyyppi.NOPEUS));
 
@@ -82,7 +82,6 @@ public class EntiteettiTehdasTest {
 
         assertNotNull("Kimpoilevalla esteeltä puuttuu paikkakomponentti", este.getKomponentti(KomponenttiTyyppi.PAIKKA));
         assertEquals("Kimpoilevalla esteen paikkakomponentilla on väärä tyyppi", PaikkaKomponentti.class, este.getKomponentti(KomponenttiTyyppi.PAIKKA).getClass());
-        tarkistaPaikkaKomponentinArvot((PaikkaKomponentti) este.getKomponentti(KomponenttiTyyppi.PAIKKA));
 
         assertNotNull("Kimpoilevalla esteeltä puuttuu nopeuskomponentti", este.getKomponentti(KomponenttiTyyppi.NOPEUS));
         assertEquals("Kimpoilevan esteen nopeuskomponentilla on väärä tyyppi", LiikkuvaObjektiNopeusKomponentti.class, este.getKomponentti(KomponenttiTyyppi.NOPEUS).getClass());
@@ -109,7 +108,6 @@ public class EntiteettiTehdasTest {
 
         assertNotNull("Pallolta puuttuu paikkakomponentti", pallo.getKomponentti(KomponenttiTyyppi.PAIKKA));
         assertEquals("Pallon paikkakomponentilla on väärä tyyppi", PalloPaikkaKomponentti.class, pallo.getKomponentti(KomponenttiTyyppi.PAIKKA).getClass());
-        tarkistaPaikkaKomponentinArvot((PaikkaKomponentti) pallo.getKomponentti(KomponenttiTyyppi.PAIKKA));
 
         assertNotNull("Pallolta puuttuu nopeuskomponentti", pallo.getKomponentti(KomponenttiTyyppi.NOPEUS));
         assertEquals("Pallon nopeuskomponentilla on väärä tyyppi", LiikkuvaObjektiNopeusKomponentti.class, pallo.getKomponentti(KomponenttiTyyppi.NOPEUS).getClass());
@@ -151,17 +149,10 @@ public class EntiteettiTehdasTest {
 
     }
 
-    private void tarkistaPaikkaKomponentinArvot(PaikkaKomponentti komponentti) {
-        assertEquals("X-koordinaatin arvo on väärä", komponentti.getX(), X_PAIKKA);
-        assertEquals("Y-koordinaatin arvo on väärä", komponentti.getY(), Y_PAIKKA);
-
-    }
-
     private void tarkistaMailanYhteisetKomponentit(Entiteetti maila) {
 
         assertNotNull("Mailalta puuttuu paikkakomponentti", maila.getKomponentti(KomponenttiTyyppi.PAIKKA));
         assertEquals("Mailan paikkakomponentilla on väärä tyyppi", MailaPaikkaKomponentti.class, maila.getKomponentti(KomponenttiTyyppi.PAIKKA).getClass());
-        tarkistaPaikkaKomponentinArvot((PaikkaKomponentti) maila.getKomponentti(KomponenttiTyyppi.PAIKKA));
 
         assertNotNull("Mailalta puuttuu nopeuskomponentti", maila.getKomponentti(KomponenttiTyyppi.NOPEUS));
         assertEquals("Mailan nopeuskomponentilla on väärä tyyppi", MailaNopeusKomponentti.class, maila.getKomponentti(KomponenttiTyyppi.NOPEUS).getClass());
@@ -175,6 +166,96 @@ public class EntiteettiTehdasTest {
         assertNull("Mailalta on virheellisesti seinätörmäyskäsittelijä", maila.getKomponentti(KomponenttiTyyppi.SEINA_TORMAYS_KASITTELIJA));
 
         assertNull("Mailalta on virheellisesti entiteettiörmäyskäsittelijä", maila.getKomponentti(KomponenttiTyyppi.ENTITEETTI_TORMAYS_KASITTELIJA));
+    }
 
+    @Test
+    public void pallollaOikeatOletusArvot() {
+        Entiteetti pallo = tehdas.luoEntiteetti(EntiteettiTyyppi.PALLO, X_PAIKKA, Y_PAIKKA);
+        tarkistaPaikkaKomponentinArvot((PaikkaKomponentti) pallo.getKomponentti(KomponenttiTyyppi.PAIKKA), X_PAIKKA, Y_PAIKKA);
+        tarkistaNopeusKomponentinArvot((NopeusKomponentti) pallo.getKomponentti(KomponenttiTyyppi.NOPEUS), 6);
+        assertEquals("Pallon piirtäjän halkaisija väärä", 20, ((PalloPiirtoKomponentti) pallo.getKomponentti(KomponenttiTyyppi.PIIRTO)).getHalkaisija());
+        tarkistaTormaysKomponentinArvot((TormaysAlueKomponentti) pallo.getKomponentti(KomponenttiTyyppi.TORMAYS_ALUE), 17, 17);
+    }
+
+    @Test
+    public void pallollaOikeatArvotKunMuutellaan() {
+        EntiteettiTehdas.asetaPallonHalkaisija(25);
+        EntiteettiTehdas.asetaPallonNopeus(25);
+        EntiteettiTehdas.asetaPallonTormaysKoko(303);
+
+        Entiteetti pallo = tehdas.luoEntiteetti(EntiteettiTyyppi.PALLO, 345, 11);
+        tarkistaPaikkaKomponentinArvot((PaikkaKomponentti) pallo.getKomponentti(KomponenttiTyyppi.PAIKKA), 345, 11);
+        tarkistaNopeusKomponentinArvot((NopeusKomponentti) pallo.getKomponentti(KomponenttiTyyppi.NOPEUS), 25);
+        assertEquals("Pallon piirtäjän halkaisija väärä", 25, ((PalloPiirtoKomponentti) pallo.getKomponentti(KomponenttiTyyppi.PIIRTO)).getHalkaisija());
+        tarkistaTormaysKomponentinArvot((TormaysAlueKomponentti) pallo.getKomponentti(KomponenttiTyyppi.TORMAYS_ALUE), 303, 303);
+    }
+
+    @Test
+    public void mailallaOikeatOletusArvot() {
+        Entiteetti maila = tehdas.luoEntiteetti(EntiteettiTyyppi.PELAAJA_MAILA, X_PAIKKA, Y_PAIKKA);
+        tarkistaPaikkaKomponentinArvot((PaikkaKomponentti) maila.getKomponentti(KomponenttiTyyppi.PAIKKA), X_PAIKKA, Y_PAIKKA);
+        tarkistaNopeusKomponentinArvot((NopeusKomponentti) maila.getKomponentti(KomponenttiTyyppi.NOPEUS), 4);
+        tarkistaPiirtoKomponentinArvot((SuoraKaidePiirtoKomponentti) maila.getKomponentti(KomponenttiTyyppi.PIIRTO), 150, 20);
+        tarkistaTormaysKomponentinArvot((TormaysAlueKomponentti) maila.getKomponentti(KomponenttiTyyppi.TORMAYS_ALUE), 150, 20);
+    }
+
+    @Test
+    public void mailallaOikeatArvotKunMuutellaan() {
+
+        EntiteettiTehdas.asetaMailanKoko(300, 400);
+        EntiteettiTehdas.asetaMailanNopeus(25);
+        EntiteettiTehdas.asetaMailanTormaysKoko(100, 40);
+
+        Entiteetti maila = tehdas.luoEntiteetti(EntiteettiTyyppi.PELAAJA_MAILA, X_PAIKKA, Y_PAIKKA);
+        tarkistaPaikkaKomponentinArvot((PaikkaKomponentti) maila.getKomponentti(KomponenttiTyyppi.PAIKKA), X_PAIKKA, Y_PAIKKA);
+        tarkistaNopeusKomponentinArvot((NopeusKomponentti) maila.getKomponentti(KomponenttiTyyppi.NOPEUS), 25);
+        tarkistaPiirtoKomponentinArvot((SuoraKaidePiirtoKomponentti) maila.getKomponentti(KomponenttiTyyppi.PIIRTO), 300, 400);
+        tarkistaTormaysKomponentinArvot((TormaysAlueKomponentti) maila.getKomponentti(KomponenttiTyyppi.TORMAYS_ALUE), 100, 40);
+    }
+
+    @Test
+    public void esteellaOikeatOletusArvot() {
+        Entiteetti este = tehdas.luoEntiteetti(EntiteettiTyyppi.KIMPOILEVA_ESTE, X_PAIKKA, Y_PAIKKA);
+        tarkistaPaikkaKomponentinArvot((PaikkaKomponentti) este.getKomponentti(KomponenttiTyyppi.PAIKKA), X_PAIKKA, Y_PAIKKA);
+        tarkistaNopeusKomponentinArvot((NopeusKomponentti) este.getKomponentti(KomponenttiTyyppi.NOPEUS), 6);
+        tarkistaPiirtoKomponentinArvot((SuoraKaidePiirtoKomponentti) este.getKomponentti(KomponenttiTyyppi.PIIRTO), 20, 20);
+        tarkistaTormaysKomponentinArvot((TormaysAlueKomponentti) este.getKomponentti(KomponenttiTyyppi.TORMAYS_ALUE), 20, 20);
+    }
+
+    @Test
+    public void esteellaOikeatArvotKunMuutellaan() {
+
+        EntiteettiTehdas.asetaEsteenKoko(23, 111);
+        EntiteettiTehdas.asetaEsteenNopeus(215);
+        EntiteettiTehdas.asetaEsteenTormaysKoko(13400, 123);
+
+        Entiteetti este = tehdas.luoEntiteetti(EntiteettiTyyppi.KIMPOILEVA_ESTE, X_PAIKKA, Y_PAIKKA);
+        tarkistaPaikkaKomponentinArvot((PaikkaKomponentti) este.getKomponentti(KomponenttiTyyppi.PAIKKA), X_PAIKKA, Y_PAIKKA);
+        tarkistaNopeusKomponentinArvot((NopeusKomponentti) este.getKomponentti(KomponenttiTyyppi.NOPEUS), 215);
+        tarkistaPiirtoKomponentinArvot((SuoraKaidePiirtoKomponentti) este.getKomponentti(KomponenttiTyyppi.PIIRTO), 23, 111);
+        tarkistaTormaysKomponentinArvot((TormaysAlueKomponentti) este.getKomponentti(KomponenttiTyyppi.TORMAYS_ALUE), 13400, 123);
+    }
+
+    private void tarkistaPaikkaKomponentinArvot(PaikkaKomponentti komponentti, int x, int y) {
+        assertEquals("X-koordinaatin arvo on väärä", komponentti.getX(), x);
+        assertEquals("Y-koordinaatin arvo on väärä", komponentti.getY(), y);
+    }
+
+    private void tarkistaNopeusKomponentinArvot(NopeusKomponentti komponentti, int nopeus) {
+        int xNopeus = Math.abs(komponentti.getXNopeus());
+        int yNopeus = Math.abs(komponentti.getYNopeus());
+        // nopeus tallennetaan integerinä, voi olla oikeasti pienempi kuin annettu nopeus
+        assertTrue("Nopeuden arvo väärä:", nopeus * nopeus >= (xNopeus * xNopeus + yNopeus * yNopeus));
+    }
+
+    
+    private void tarkistaTormaysKomponentinArvot(TormaysAlueKomponentti komponentti, int leveys, int korkeus) {
+        assertEquals("Leveys on väärä", komponentti.getLeveys(), leveys);
+        assertEquals("Korkeus on väärä", komponentti.getKorkeus(), korkeus);
+    }
+
+    private void tarkistaPiirtoKomponentinArvot(SuoraKaidePiirtoKomponentti komponentti, int leveys, int korkeus) {
+        assertEquals("Leveys on väärä", komponentti.getLeveys(), leveys);
+        assertEquals("Korkeus on väärä", komponentti.getKorkeus(), korkeus);
     }
 }

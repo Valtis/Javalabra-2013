@@ -59,5 +59,6 @@ public class LiikkuvaObjektiNopeusKomponentti extends NopeusKomponentti {
 
         asetaXNopeus(xEtumerkki * MAX_NOPEUS / 3 + Math.abs(random.nextInt()) % MAX_NOPEUS / 3);
         asetaYNopeus(yEtumerkki * (int) Math.sqrt(MAX_NOPEUS * MAX_NOPEUS - getXNopeus() * getXNopeus()));
+        
     }
 }

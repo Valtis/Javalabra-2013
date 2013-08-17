@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 public class EntiteettiTormaysKasittelijaKomponenttiTest {
 
     private EntiteettiTormaysKasittelijaKomponentti komponentti;
-    private Queue<Viesti> viestiJono;
+    private ViestiJonoMockup viestiJono;
     private TormaysEntiteettiinViesti entiteettiTormaysYlos;
     private TormaysEntiteettiinViesti entiteettiTormaysVasemmalle;
     private TormaysEntiteettiinViesti entiteettiTormaysOikealle;
@@ -40,7 +40,7 @@ public class EntiteettiTormaysKasittelijaKomponenttiTest {
     @Before
     public void setUp() {
         komponentti = new EntiteettiTormaysKasittelijaKomponentti();
-        viestiJono = new LinkedList<Viesti>();
+        viestiJono = new ViestiJonoMockup();
         entiteetti = new Entiteetti();
         entiteettiTormaysYlos = new TormaysEntiteettiinViesti(entiteetti, Reuna.YLA);
         entiteettiTormaysVasemmalle = new TormaysEntiteettiinViesti(entiteetti, Reuna.VASEN);
@@ -64,41 +64,41 @@ public class EntiteettiTormaysKasittelijaKomponenttiTest {
     @Test
     public void generoiViestinKunSaaTormaysViestin() {
         entiteettiTormaysYlos.otaVastaanVierailija(komponentti);
-        assertEquals("Viestiä ei generoitu", 1, viestiJono.size());
+        assertEquals("Viestiä ei generoitu", 1, viestiJono.jono.size());
     }
 
     @Test
     public void generoiOikeanViestinKunSaaTormaysViestinYlos() {
         entiteettiTormaysYlos.otaVastaanVierailija(komponentti);
-        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.poll();
+        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.jono.poll();
         assertNotNull("Viesti on null!", v);
     }
 
     @Test
     public void generoiOikeanViestinKunSaaTormaysViestinAlas() {
         entiteettiTormaysAlas.otaVastaanVierailija(komponentti);
-        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.poll();
+        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.jono.poll();
         assertNotNull("Viesti on null!", v);
     }
 
     @Test
     public void generoiOikeanViestinKunSaaTormaysViestinVasemmalle() {
         entiteettiTormaysVasemmalle.otaVastaanVierailija(komponentti);
-        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.poll();
+        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.jono.poll();
         assertNotNull("Viesti on null!", v);
     }
 
     @Test
     public void generoiOikeanViestinKunSaaTormaysViestinOikealle() {
         entiteettiTormaysOikealle.otaVastaanVierailija(komponentti);
-        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.poll();
+        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.jono.poll();
         assertNotNull("Viesti on null!", v);
     }
 
     @Test
     public void generoidullaViestillaOikeaParametriKunTormataanYlos() {
         entiteettiTormaysYlos.otaVastaanVierailija(komponentti);
-        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.poll();
+        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.jono.poll();
         assertEquals("Viestillä on väärä arvo", 1, v.getXNopeudenMuutos(), 0.001);
         assertEquals("Viestillä on väärä arvo", -1, v.getYNopeudenMuutos(), 0.001);
     }
@@ -106,7 +106,7 @@ public class EntiteettiTormaysKasittelijaKomponenttiTest {
     @Test
     public void generoidullaViestillaOikeaParametriKunTormataanAlas() {
         entiteettiTormaysAlas.otaVastaanVierailija(komponentti);
-        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.poll();
+        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.jono.poll();
         assertEquals("Viestillä on väärä arvo", 1, v.getXNopeudenMuutos(), 0.001);
         assertEquals("Viestillä on väärä arvo", -1, v.getYNopeudenMuutos(), 0.001);
     }
@@ -114,7 +114,7 @@ public class EntiteettiTormaysKasittelijaKomponenttiTest {
     @Test
     public void generoidullaViestillaOikeaParametriKunTormataanVasemmalle() {
         entiteettiTormaysVasemmalle.otaVastaanVierailija(komponentti);
-        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.poll();
+        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.jono.poll();
         assertEquals("Viestillä on väärä arvo", -1, v.getXNopeudenMuutos(), 0.001);
         assertEquals("Viestillä on väärä arvo", 1, v.getYNopeudenMuutos(), 0.001);
     }
@@ -122,7 +122,7 @@ public class EntiteettiTormaysKasittelijaKomponenttiTest {
     @Test
     public void generoidullaViestillaOikeaParametriKunTormataanOikealle() {
         entiteettiTormaysOikealle.otaVastaanVierailija(komponentti);
-        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.poll();
+        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.jono.poll();
         assertEquals("Viestillä on väärä arvo", -1, v.getXNopeudenMuutos(), 0.001);
         assertEquals("Viestillä on väärä arvo", 1, v.getYNopeudenMuutos(), 0.001);
     }
@@ -130,16 +130,16 @@ public class EntiteettiTormaysKasittelijaKomponenttiTest {
     @Test
     public void eiGeneroiViestiaJosOnTormannytHetkiSitten() {
         entiteettiTormaysOikealle.otaVastaanVierailija(komponentti);
-        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.poll();
+        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.jono.poll();
         entiteettiTormaysOikealle.otaVastaanVierailija(komponentti);
 
-        assertEquals("Generoi viestin kun ei olisi pitänyt!", 0, viestiJono.size());
+        assertEquals("Generoi viestin kun ei olisi pitänyt!", 0, viestiJono.jono.size());
     }
 
     @Test
     public void generoiViestinJosOnTormannytJaTormataanUudelleenSopivanAjanPaasta() {
         entiteettiTormaysOikealle.otaVastaanVierailija(komponentti);
-        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.poll();
+        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.jono.poll();
 
         for (int i = 0; i < komponentti.getTormaysHuomioimattaJattamisAika(); ++i) {
             komponentti.paivita(1.0);
@@ -147,13 +147,13 @@ public class EntiteettiTormaysKasittelijaKomponenttiTest {
         TormaysEntiteettiinViesti uusiTormays = new TormaysEntiteettiinViesti(new Entiteetti(), Reuna.VASEN);
         uusiTormays.otaVastaanVierailija(komponentti);
 
-        assertEquals("Ei generoinut viestiä kun olisi pitänyt", 1, viestiJono.size());
+        assertEquals("Ei generoinut viestiä kun olisi pitänyt", 1, viestiJono.jono.size());
     }
 
     @Test
     public void generoiViestinJosOnTormannytJaTormataanUudelleenSamaanObjektiinSopivanAjanPaasta() {
         entiteettiTormaysOikealle.otaVastaanVierailija(komponentti);
-        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.poll();
+        MuutaNopeusViesti v = (MuutaNopeusViesti) viestiJono.jono.poll();
 
         for (int i = 0; i < komponentti.getTormaysJataEdellinenEntiteettiHuomioimattaAika(); ++i) {
             komponentti.paivita(1.0);
@@ -161,6 +161,6 @@ public class EntiteettiTormaysKasittelijaKomponenttiTest {
 
         entiteettiTormaysOikealle.otaVastaanVierailija(komponentti);
 
-        assertEquals("Ei generoinut viestiä kun olisi pitänyt", 1, viestiJono.size());
+        assertEquals("Ei generoinut viestiä kun olisi pitänyt", 1, viestiJono.jono.size());
     }
 }
