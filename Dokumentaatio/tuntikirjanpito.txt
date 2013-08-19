@@ -63,3 +63,7 @@ Keskitytty tiran harjoitustyöhön; tämä työ omasta mielestäni lähinnä pientä hiom
 
 Yhteensä tänänän 2h
 Yhteensä projektin aikana 26h 51min
+
+19.8.2013
+
+10:30 - 11:00: Luotiin puuttuvat testit MailaSeinaTormaysKasittelijaKomponentille. Luotiin & korjattiin javadocit parille luokalle. Luotiin sekvenssikaavio entiteetin luonnille.

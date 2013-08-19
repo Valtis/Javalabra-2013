@@ -9,6 +9,7 @@ import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
  * Komponentti joka toteuttaa pallon törmäyksen käsittelyn seinään.
  *
  * @see KimpoaSeinastaTormaysKasittelijaKomponentti
+ * @see MailaSeinaTormaysKasittelijaKomponentti
  */
 public class PalloSeinaTormaysKasittelijaKomponentti extends Komponentti {
 
@@ -38,7 +39,7 @@ public class PalloSeinaTormaysKasittelijaKomponentti extends Komponentti {
 
     /**
      * Käsittelee TormaysReunaanViestin. <p> Jos törmätään vasempaan tai oikeaan
-     * seinään, kimmotaan. Jos törmätään Ylä-tai alareunaan, alustetaan nopeus.
+     * seinään, kimmotaan. Jos törmätään Ylä-tai alareunaan, alustetaan nopeus ja paikka.
      *
      * @param viesti TormaysReunaanViesti
      * @see TormaysReunaanViesti

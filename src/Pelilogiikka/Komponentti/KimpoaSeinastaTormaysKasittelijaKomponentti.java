@@ -8,6 +8,7 @@ import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
 /**
  * Törmäyskäsittelijä joka käsittelee seinään törmäämisen. Ilmoittaa että nopeuden on vaihduttava kun törmää seinään. 
  * @see PalloSeinaTormaysKasittelijaKomponentti
+ * @see MailaSeinaTormaysKasittelijaKomponentti
  */
 public class KimpoaSeinastaTormaysKasittelijaKomponentti extends Komponentti {
     

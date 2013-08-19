@@ -46,10 +46,10 @@ public class PalloPaikkaKomponentti extends PaikkaKomponentti {
     }
 
     /**
-     * Käsittelee TormaysReunaanViestin. Jos törmätään ylä- tai alareunaan,
-     * palautetaan alkupaikka
+     * Käsittelee AlustaPaikkaViestin. Jos törmätään ylä- tai alareunaan,
+     * palautetaan alkupaikka.
      *
-     * @param viesti TormaysReunaanViesti
+     * @param viesti AlustaPaikkaViesti
      * @see TormaysReunaanViesti
      */
     @Override

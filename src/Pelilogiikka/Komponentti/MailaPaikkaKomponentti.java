@@ -39,8 +39,8 @@ public class MailaPaikkaKomponentti extends PaikkaKomponentti {
         super.vieraile(viesti);
     }
     /**
-     * Jos törmättiin reunaan, palauttaa vanhan paikan
-     * @param viesti TormaysReunaanViesti
+     * Jos paikka pitää alustaa, palauttaa vanhan paikan.
+     * @param viesti AlustaPaikkaViesti
      * @see TormaysReunaanViesti
      */
     @Override
