@@ -8,7 +8,6 @@ import Pelilogiikka.Komponentti.Viestit.MuutaNopeusViesti;
 import Pelilogiikka.Komponentti.Viestit.MuutaPaikkaViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysEntiteettiinViesti;
 import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
-import Pelilogiikka.Komponentti.Viestit.Viesti;
 import Pelilogiikka.Komponentti.Viestit.ViestiVierailija;
 
 /**

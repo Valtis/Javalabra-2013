@@ -1,4 +1,3 @@
-
 package PeliLogiikka.Komponentti;
 
 import Pelilogiikka.Enumit.Reuna;
@@ -16,7 +15,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 
 public class PalloPaikkaKomponenttiTest {
 

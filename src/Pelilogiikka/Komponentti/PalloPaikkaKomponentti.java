@@ -61,6 +61,5 @@ public class PalloPaikkaKomponentti extends PaikkaKomponentti {
         
         asetaPaikka(aloitusX, aloitusY);
         kuuntelija.pisteyta(viesti.getReuna());
-
     }
 }

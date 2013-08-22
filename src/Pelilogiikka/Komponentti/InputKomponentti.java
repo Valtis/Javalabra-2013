@@ -4,8 +4,6 @@ package Pelilogiikka.Komponentti;
 import Kayttoliittyma.NappainKuuntelija;
 import Pelilogiikka.Enumit.Suunta;
 import Pelilogiikka.Komponentti.Viestit.LiikeViesti;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
 /**
