@@ -11,17 +11,15 @@ import javax.swing.WindowConstants;
  */
 public class PeliRuutu extends JFrame {
 
-    private int RUUDUN_LEVEYS = 800;
-    private int RUUDUN_KORKEUS = 600;
     private Piirtoalusta piirtoalusta;
     /**
      * Luo peliruudun annetulla nimellä ja 800x600-resoluutiolla
      * @param title Ikkunan nimi
      */
-    public PeliRuutu(String title) {
+    public PeliRuutu(String title, int leveys, int korkeus) {
         super(title);
 
-        setPreferredSize(new Dimension(RUUDUN_LEVEYS, RUUDUN_KORKEUS));
+        setPreferredSize(new Dimension(leveys, korkeus));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         luoPiistoAlusta(getContentPane());
         pack();

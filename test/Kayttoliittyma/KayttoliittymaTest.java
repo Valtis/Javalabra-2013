@@ -39,7 +39,7 @@ public class KayttoliittymaTest {
     public void setUp() {
         liittyma = new KayttoLiittyma();
         
-        liittyma.alusta(new Asetukset());
+        liittyma.alusta(new Asetukset(), 800, 600);
     }
     
     @After

@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
  * Käyttöliittymäluokka. <p> Luo asetus- ja peliruutuikkunat
  */
 public class KayttoLiittyma implements Runnable {
-
+    private final int ASETUSRUUDUN_ETAISYYS_YLAREUNASTA = 20;
     private AsetusRuutu asetusRuutu;
     private PeliRuutu peliRuutu;
     private NappainKontrolli nappainKontrolli;
@@ -31,10 +31,10 @@ public class KayttoLiittyma implements Runnable {
      * Alustaa käyttöliittymän
      * @param asetukset Asetusluokan ilmentymä; tämä kuuntelee asetusikkunaa
      */
-    public void alusta(Asetukset asetukset) {
+    public void alusta(Asetukset asetukset, int leveys, int korkeus) {
         asetusRuutu = new AsetusRuutu("Pong - asetukset", asetukset);
-        asetusRuutu.setLocation(800, 20);
-        peliRuutu = new PeliRuutu("Pong");
+        asetusRuutu.setLocation(leveys, ASETUSRUUDUN_ETAISYYS_YLAREUNASTA);
+        peliRuutu = new PeliRuutu("Pong", leveys, korkeus);
 
         nappainKontrolli = new NappainKontrolli();
         peliRuutu.addKeyListener(nappainKontrolli);

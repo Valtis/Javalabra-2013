@@ -16,7 +16,10 @@ import javax.swing.SwingUtilities;
  */
 public class Peli implements PeliInterface {
 
+    // synkronoidaan tietyt operaatiot; entiteetit-listaa voidaan muokata kahdesta säikeestä
     private final Object LUKKO;
+    private final int PELIRUUDUN_LEVEYS = 800;
+    private final int PELIRUUDUN_KORKEUS = 600;
     private KayttoLiittyma liittyma;
     private TormaysManageri tormaysManageri;
     private List<Entiteetti> entiteetit;
@@ -164,7 +167,7 @@ public class Peli implements PeliInterface {
      */
     private void alusta() {
         nykyinenAika = System.nanoTime();
-        liittyma.alusta(asetukset);
+        liittyma.alusta(asetukset, PELIRUUDUN_LEVEYS, PELIRUUDUN_KORKEUS);
 
 
         SwingUtilities.invokeLater(liittyma);
