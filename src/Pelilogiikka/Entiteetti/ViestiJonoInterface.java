@@ -1,17 +1,26 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Pelilogiikka.Entiteetti;
 
 import Pelilogiikka.Komponentti.Viestit.Viesti;
 
 /**
+ * Rajapinta viestijonolle joka annetaan komponenteille. Komponentti-luokka
+ * toteuttaa tämän
  *
- * @author Omistaja
  */
 public interface ViestiJonoInterface {
-    
-    public void lisaaViesti(Viesti v);  
+
+    /**
+     * Lisää annetun viestin viestijonoon. Viesti käsitellään seuraavalla
+     * framella.
+     *
+     * @param v Lisättävä viesti
+     */
+    public void lisaaViesti(Viesti v);
+
+    /**
+     * Käsittelee annetun viestin välittömästi eikä odota seuraavaa framea.
+     *
+     * @param v Käsiteltävä viesti
+     */
     public void kasitteleValittomastiViesti(Viesti v);
 }
