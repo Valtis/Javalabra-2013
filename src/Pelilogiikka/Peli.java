@@ -24,7 +24,7 @@ public class Peli implements PeliInterface {
     private TormaysManageri tormaysManageri;
     private List<Entiteetti> entiteetit;
     private Asetukset asetukset;
-    private final long TICK = 16 * 1000000; // 16 millisekuntia
+    private final long TICK = 8 * 1000000; // 8 millisekuntia
     private long nykyinenAika;
     private int pelaajan1Pisteet;
     private int pelaajan2Pisteet;

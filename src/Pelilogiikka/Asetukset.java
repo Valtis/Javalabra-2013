@@ -110,8 +110,8 @@ public class Asetukset implements NappulaKuuntelija {
      */
     private Entiteetti luoKimpoilevaEste() {
         Random random = new Random();
-        int x = Math.abs(random.nextInt()) % (kentanLeveys - kentanLeveys/10);
-        int y = Math.abs(random.nextInt()) % (kentanKorkeus - kentanKorkeus/10);
+        int x = arvoXPaikka(random);
+        int y = arvoYPaikka(random);
 
 
         EntiteettiTehdas tehdas = new EntiteettiTehdas();
@@ -127,8 +127,8 @@ public class Asetukset implements NappulaKuuntelija {
      */
     private Entiteetti luoStaattinenEste() {
         Random random = new Random();
-        int x = Math.abs(random.nextInt()) % (kentanLeveys - kentanLeveys/10);
-        int y = Math.abs(random.nextInt()) % (kentanKorkeus - kentanKorkeus/10);
+        int x = arvoXPaikka(random);
+        int y = arvoYPaikka(random);
         EntiteettiTehdas tehdas = new EntiteettiTehdas();
         Entiteetti e = tehdas.luoEntiteetti(EntiteettiTyyppi.STAATTINEN_ESTE, x, y);
 
@@ -195,5 +195,13 @@ public class Asetukset implements NappulaKuuntelija {
         pelaajan2PelaajaKontrolli = pelaaja2.getKomponentti(KomponenttiTyyppi.INPUT);
         pelaaja1OnAI = false;
         pelaaja2OnAI = false;
+    }
+
+    private int arvoXPaikka(Random random) {
+        return Math.abs(random.nextInt()) % (kentanLeveys - kentanLeveys/10);
+    }
+
+    private int arvoYPaikka(Random random) {
+        return Math.abs(random.nextInt()) % (kentanKorkeus - kentanKorkeus/10);
     }
 }

@@ -100,7 +100,4 @@ public class KayttoliittymaTest {
     public void heittaaNullPointerExeptioninJosYritetaanLisataVaaraKuuntelija() {
         liittyma.lisaaNappainKuuntelija(null);
     }
-    
-    
-  
 }

@@ -10,8 +10,8 @@ import Pelilogiikka.Komponentti.Viestit.TormaysReunaanViesti;
  */
 public class EntiteettiTormaysKasittelijaKomponentti extends Komponentti {
 
-    private final int TORMAYS_HUOMIOIMATTA_JATTAMIS_AIKA = 6;
-    private final int TORMAYS_JATA_EDELLINEN_ENTITEETTI_HUOMIOIMATTA = 24;
+    private final int TORMAYS_HUOMIOIMATTA_JATTAMIS_AIKA = 4;
+    private final int TORMAYS_JATA_EDELLINEN_ENTITEETTI_HUOMIOIMATTA = 30;
     private int tormaysLaskuri = 0;
     private int edellinenEntiteettiTormaysLaskuri = 0;
     private Object entiteettiJohonTormattyViimeksi = null;

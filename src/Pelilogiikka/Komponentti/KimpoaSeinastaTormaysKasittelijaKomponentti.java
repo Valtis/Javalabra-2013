@@ -14,7 +14,7 @@ public class KimpoaSeinastaTormaysKasittelijaKomponentti extends Komponentti {
     
     // törmäyslaskurilla estetään tilanne että entiteetti on liian syvällä reunassa kun törmäystarkistus tehdään
     // tällöin entiteetti ei välttämättä ehdi poistua reunalta ennen uutta törmäystarkistusta ja jää näin jumiin
-    private final int TORMAYS_HUOMIOIMATTA_JATTAMIS_AIKA = 20;
+    private final int TORMAYS_HUOMIOIMATTA_JATTAMIS_AIKA = 10;
     private Reuna viimeisinTormattyReuna;
     private int tormaysLaskuri = 0;
     

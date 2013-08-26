@@ -29,9 +29,9 @@ public class EntiteettiTehdas {
     private final static int KORKEUS_INDEKSI = 2;
     private final static int TORMAYS_LEVEYS_INDEKSI = 3;
     private final static int TORMAYS_KORKEUS_INDEKSI = 4;
-    private final static int[] PALLO_OLETUS_ARVOT = new int[]{6, 20, 20, 17, 17};
-    private final static int[] ESTE_OLETUS_ARVOT = new int[]{6, 20, 20, 20, 20};
-    private final static int[] MAILA_OLETUS_ARVOT = new int[]{4, 150, 20, 150, 20};
+    private final static int[] PALLO_OLETUS_ARVOT = new int[]{3, 20, 20, 17, 17};
+    private final static int[] ESTE_OLETUS_ARVOT = new int[]{3, 20, 20, 20, 20};
+    private final static int[] MAILA_OLETUS_ARVOT = new int[]{2, 150, 20, 150, 20};
     private static int[] pallonArvot = Arrays.copyOf(PALLO_OLETUS_ARVOT, PALLO_OLETUS_ARVOT.length);
     private static int[] esteenArvot = Arrays.copyOf(ESTE_OLETUS_ARVOT, ESTE_OLETUS_ARVOT.length);
     private static int[] mailanArvot = Arrays.copyOf(MAILA_OLETUS_ARVOT, MAILA_OLETUS_ARVOT.length);

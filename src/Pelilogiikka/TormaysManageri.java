@@ -149,7 +149,7 @@ public class TormaysManageri {
      * @return Reuna johonka törmättiin
      */
     private Reuna maaritaTormaysReuna(Rectangle tormaajanSuorakulmio, Rectangle tormattavanSuorakulmio) {
-        int toleranssi = 6;
+        int toleranssi = 3;
         
         int tormaajanKeskiPisteX = tormaajanSuorakulmio.x + tormaajanSuorakulmio.width / 2;
         int tormaajanKeskiPisteY = tormaajanSuorakulmio.y + tormaajanSuorakulmio.height / 2;
