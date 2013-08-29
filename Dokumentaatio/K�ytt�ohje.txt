@@ -4,3 +4,5 @@ Pelaaja 2: A > Vasemmalle, D > oikealle.
 Jos pallo osuu alareunaan, saa pelaaja 2 pisteen. Jos pallo osuu yläreunaan, saa pelaaja 1 pisteen.
 
 Asetuspaneelista voi vaihtaa pelaajat tekoälyn kontrolliin tai lisätä kentälle staattisia\kimpoilevia esteitä.
+
+Jar-tiedosto dist-kansiossa.

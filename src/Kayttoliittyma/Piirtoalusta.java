@@ -62,7 +62,7 @@ public class Piirtoalusta extends JPanel {
     }
 
     /**
-     *
+     * Piirtaa entiteetin ruudulle
      * @param graphics
      * @param e
      */
